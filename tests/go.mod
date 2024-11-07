@@ -1,4 +1,4 @@
-module github.com/terraform-ibm-modules/terraform-ibm-module-template
+module github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai
 
 go 1.22.0
 
