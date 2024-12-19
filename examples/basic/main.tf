@@ -1,6 +1,6 @@
-########################################################################################################################
-# Resource group
-########################################################################################################################
+##############################################################################
+# Resource Group
+##############################################################################
 
 module "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
@@ -10,15 +10,28 @@ module "resource_group" {
   existing_resource_group_name = var.resource_group
 }
 
+module "cos" {
+  source            = "terraform-ibm-modules/cos/ibm//modules/fscloud"
+  version           = "8.15.1"
+  resource_group_id = module.resource_group.resource_group_id
+  cos_instance_name = "${var.prefix}-cos"
+  cos_plan          = "standard"
+}
+
 ########################################################################################################################
-# COS instance
+# Example to create watsonx.ai project
 ########################################################################################################################
 
-resource "ibm_resource_instance" "cos_instance" {
-  name              = "${var.prefix}-cos"
-  resource_group_id = module.resource_group.resource_group_id
-  service           = "cloud-object-storage"
-  plan              = "standard"
-  location          = "global"
-  tags              = var.resource_tags
+data "ibm_iam_auth_token" "restapi" {}
+
+
+module "watsonx_saas" {
+  source                    = "../.."
+  ibmcloud_api_key          = var.ibmcloud_api_key
+  prefix                    = var.prefix
+  region                    = var.region
+  resource_group_id         = module.resource_group.resource_group_id
+  watsonx_project_name      = "${var.prefix}-project-basic"
+  enable_cos_kms_encryption = false
+  cos_instance_crn          = module.cos.cos_instance_crn
 }
