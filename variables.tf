@@ -52,7 +52,7 @@ variable "existing_watson_studio_instance_crn" {
 }
 
 variable "watson_studio_plan" {
-  default     = "free-v1"
+  default     = "professional-v1"
   description = "The plan that is used to provision the Watson Studio instance. The plan you choose for Watson Studio affects the features and capabilities that you can use."
   type        = string
   validation {
