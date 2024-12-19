@@ -38,6 +38,13 @@ variable "region" {
   }
 }
 
+
+variable "resource_tags" {
+  description = "Optional list of tags to describe the service instances created by the module."
+  type        = list(string)
+  default     = []
+}
+
 # Watson Studio
 variable "existing_watson_studio_instance_crn" {
   default     = null

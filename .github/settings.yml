@@ -22,7 +22,7 @@ repository:
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  # description: ""
+  description: "Terraform module to create and configure watsonx.ai Project"
 
   # Use a comma-separated list of topics to set on the repo (ensure not to use any caps in the topic string).
   topics: terraform, ibm-cloud, terraform-module, core-team, watsonx, watson-studio, machine-learning, watsonx-ai

@@ -29,6 +29,7 @@ resource "ibm_resource_instance" "watson_studio_instance" {
   plan              = var.watson_studio_plan
   location          = var.region
   resource_group_id = var.resource_group_id
+  tags              = var.resource_tags
 
   timeouts {
     create = "15m"
@@ -61,6 +62,7 @@ resource "ibm_resource_instance" "watson_machine_learning_instance" {
   plan              = var.watson_machine_learning_plan
   location          = var.region
   resource_group_id = var.resource_group_id
+  tags              = var.resource_tags
 
   parameters = {
     service-endpoints = var.watson_machine_learning_service_endpoints
