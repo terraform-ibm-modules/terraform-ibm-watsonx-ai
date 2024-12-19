@@ -71,9 +71,10 @@ unless real values don't help users know what to change.
 
 You need the following permissions to run this module:
 
-- Service
-    <!-- - **Resource group only**
-        - `Viewer` access on the specific resource group -->
+- Account Management
+    - **Resource group**
+        - `Viewer` access on the specific resource group
+- IAM services
     - **Watson Machine Learning** service
         - `Editor` platform access
     - **Watson Studio** service

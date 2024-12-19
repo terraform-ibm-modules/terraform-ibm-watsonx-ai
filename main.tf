@@ -100,7 +100,7 @@ module "storage_delegation" {
   source                        = "./modules/storage_delegation"
   count                         = var.enable_cos_kms_encryption ? 1 : 0
   cos_kms_key_crn               = var.cos_kms_key_crn
-  cos_instance_guid             = module.cos_crn_parser[0].service_instance
+  cos_instance_guid             = module.cos_crn_parser.service_instance
   skip_iam_authorization_policy = var.skip_iam_authorization_policy
 }
 
