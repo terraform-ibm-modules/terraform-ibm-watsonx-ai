@@ -2,11 +2,6 @@
 # Outputs
 ########################################################################################################################
 
-output "cos_instance_crn" {
-  description = "CRN of the Cloud Object Storage instance"
-  value       = module.cos.cos_instance_crn
-}
-
 output "watson_machine_learning_crn" {
   description = "CRN of the Watson Machine Learning instance"
   value       = module.watsonx_saas.watson_machine_learning_crn
@@ -65,4 +60,9 @@ output "watsonx_project_id" {
 output "watsonx_project_url" {
   value       = module.watsonx_saas.watsonx_project_url
   description = "URL of the created project"
+}
+
+output "cos_kms_key_crn" {
+  description = "CRN of the KMS Key"
+  value       = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
 }
