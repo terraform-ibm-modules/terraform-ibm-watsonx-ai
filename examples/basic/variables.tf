@@ -33,5 +33,5 @@ variable "region" {
 variable "resource_group" {
   type        = string
   description = "The name of a new or an existing resource group where the resources are created."
-  default     = "Default"
+  default     = null
 }

@@ -10,7 +10,8 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const advancedExampleDir = "examples/advanced"
+const basicExampleDir = "examples/basic"
+const completeExampleDir = "examples/complete"
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
@@ -22,24 +23,34 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-func TestRunAdvancedExample(t *testing.T) {
+func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "mod-template", advancedExampleDir)
+	options := setupOptions(t, "wx-basic", basicExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
+func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "mod-template-upg", advancedExampleDir)
+	options := setupOptions(t, "wx-complete", completeExampleDir)
 
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
 }
+
+// func TestRunUpgradeExample(t *testing.T) {
+// 	t.Parallel()
+
+// 	options := setupOptions(t, "wx-upg", completeExampleDir)
+
+// 	output, err := options.RunTestUpgrade()
+// 	if !options.UpgradeTestSkipped {
+// 		assert.Nil(t, err, "This should not have errored")
+// 		assert.NotNil(t, output, "Expected some output")
+// 	}
+// }

@@ -28,8 +28,8 @@ IBM watsonx.ai provides an enterprise-grade studio of integrated tools for devel
 * [terraform-ibm-watsonx-ai](#terraform-ibm-watsonx-ai)
 * [Submodules](./modules)
 * [Examples](./examples)
-    * [Advanced example](./examples/complete)
     * [Basic example](./examples/basic)
+    * [Complete example](./examples/complete)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -48,11 +48,11 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 
 This module supports the following:
 
-* Provision the following services:
-    * Watson Studio
-    * Watson Machine Learning
-    * Cloud Object Storage
-* Configuring the IBM watsonx profile and creating a starter IBM watsonx project. for an IBM Cloud user, who becomes the admin of the IBM watsonx project.
+* Provisions the following services:
+    * watsonx Studio
+    * watsonx Runtime
+* Configure the IBM watsonx profile
+* Create a IBM watsonx project for an IBM Cloud user, who becomes the admin of the IBM watsonx project.
 
 ### Usage
 

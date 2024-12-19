@@ -33,9 +33,9 @@ locals {
 }
 
 module "key_protect_all_inclusive" {
-  source            = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version           = "4.18.1"
-  resource_group_id = module.resource_group.resource_group_id
+  source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
+  version                   = "4.18.1"
+  resource_group_id         = module.resource_group.resource_group_id
   region                    = var.region
   key_protect_instance_name = "${var.prefix}-kp"
   resource_tags             = var.resource_tags
@@ -53,7 +53,7 @@ module "key_protect_all_inclusive" {
 }
 
 ########################################################################################################################
-# Create watsonx.ai project
+# Create watsonx.ai project with KMS encryption
 ########################################################################################################################
 
 data "ibm_iam_auth_token" "restapi" {
@@ -61,13 +61,13 @@ data "ibm_iam_auth_token" "restapi" {
 
 
 module "watsonx_saas" {
-  source                      = "../.."
-  ibmcloud_api_key            = var.ibmcloud_api_key
-  prefix = var.prefix
+  source                    = "../.."
+  ibmcloud_api_key          = var.ibmcloud_api_key
+  prefix                    = var.prefix
   region                    = var.region
   resource_group_id         = module.resource_group.resource_group_id
-  watsonx_project_name        = "${var.prefix}-project-complete"
-  enable_cos_kms_encryption   = true
-  cos_instance_crn = module.cos.cos_instance_crn
-  cos_kms_key_crn = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
+  watsonx_project_name      = "${var.prefix}-project-complete"
+  enable_cos_kms_encryption = true
+  cos_instance_crn          = module.cos.cos_instance_crn
+  cos_kms_key_crn           = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
 }

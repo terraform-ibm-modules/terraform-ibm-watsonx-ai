@@ -1,4 +1,11 @@
-# Advanced example
+# Complete example
 
-<!-- There is a pre-commit hook that will take the title of each example add include it in the repos main README.md  -->
-<!-- Add text below should describe exactly what resources are provisioned / configured by the example  -->
+An end-to-end complete example that will provision the following:
+- A new resource group if one is not passed in.
+- A Cloud Object Storage instance.
+- A KMS (Key Protect) instance.
+- A new key-ring and key in the KMS instance.
+- A watsonx Studio instance.
+- A watsonx Runtime instance.
+- Configure the watsonx profile for IBM Cloud user.
+- Create a COS-KMS encryption enabled IBM watsonx project.
