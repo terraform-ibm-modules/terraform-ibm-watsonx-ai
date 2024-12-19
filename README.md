@@ -141,7 +141,7 @@ statement instead the previous block.
 | <a name="input_watsonx_mark_as_sensitive"></a> [watsonx\_mark\_as\_sensitive](#input\_watsonx\_mark\_as\_sensitive) | Set to true to allow the Watsonx.ai project to be created with 'Mark as sensitive' flag. | `bool` | `false` | no |
 | <a name="input_watsonx_project_description"></a> [watsonx\_project\_description](#input\_watsonx\_project\_description) | A description of the Watsonx.ai project that is created. | `string` | `"Watsonx project created by the watsonx.ai module."` | no |
 | <a name="input_watsonx_project_name"></a> [watsonx\_project\_name](#input\_watsonx\_project\_name) | The name of the Watsonx.ai project. | `string` | `"demo"` | no |
-| <a name="input_watsonx_project_tags"></a> [watsonx\_project\_tags](#input\_watsonx\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | `[]` | no |
+| <a name="input_watsonx_project_tags"></a> [watsonx\_project\_tags](#input\_watsonx\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |
 
 ### Outputs
 

@@ -38,7 +38,6 @@ variable "region" {
   }
 }
 
-
 variable "resource_tags" {
   description = "Optional list of tags to describe the service instances created by the module."
   type        = list(string)
@@ -144,7 +143,7 @@ variable "watsonx_project_description" {
 variable "watsonx_project_tags" {
   description = "A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
   type        = list(string)
-  default     = []
+  default     = ["watsonx-ai"]
 }
 
 variable "watsonx_mark_as_sensitive" {

@@ -64,6 +64,7 @@ module "watsonx_saas" {
   source                    = "../.."
   prefix                    = var.prefix
   region                    = var.region
+  resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
   watsonx_project_name      = "${var.prefix}-project-complete"
   enable_cos_kms_encryption = true
