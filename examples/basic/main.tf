@@ -27,7 +27,6 @@ data "ibm_iam_auth_token" "restapi" {}
 
 module "watsonx_saas" {
   source                    = "../.."
-  ibmcloud_api_key          = var.ibmcloud_api_key
   prefix                    = var.prefix
   region                    = var.region
   resource_group_id         = module.resource_group.resource_group_id

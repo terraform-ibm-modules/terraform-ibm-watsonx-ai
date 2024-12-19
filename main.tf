@@ -71,21 +71,13 @@ resource "ibm_resource_instance" "watson_machine_learning_instance" {
     update = "15m"
     delete = "15m"
   }
-
-  # lifecycle {
-  #   precondition {
-  #     condition     = contains(["lite"], var.watson_machine_learning_plan) ? var.watson_machine_learning_service_endpoints == "public" : true
-  #     error_message = "The lite plan only supports public endpoints."
-  #   }
-  # }
 }
 
 # Configure user
 module "configure_user" {
-  source                = "./modules/configure_user"
-  watsonx_admin_api_key = var.watsonx_admin_api_key == null ? var.ibmcloud_api_key : var.watsonx_admin_api_key
-  resource_group_id     = var.resource_group_id
-  region                = var.region
+  source            = "./modules/configure_user"
+  resource_group_id = var.resource_group_id
+  region            = var.region
 }
 
 # Configure project

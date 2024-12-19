@@ -2,19 +2,6 @@
 # Input Variables
 ########################################################################################################################
 
-variable "ibmcloud_api_key" {
-  description = "The API key that's used with the IBM Cloud Terraform IBM provider."
-  sensitive   = true
-  type        = string
-}
-
-variable "watsonx_admin_api_key" {
-  description = "The API key of the IBM watsonx administrator in the target account. The API key is used to configure the user and the project."
-  sensitive   = true
-  type        = string
-  default     = null
-}
-
 variable "resource_group_id" {
   description = "The resource group ID where the watsonx services will be provisioned. Required when creating a new instance."
   type        = string
@@ -96,10 +83,10 @@ variable "watson_machine_learning_service_endpoints" {
     error_message = "The specified service endpoint is not valid. Supported options are public, public-and-private, or private."
   }
 
-  # validation {
-  #   condition     = contains(["lite"], var.watson_machine_learning_plan) && !contains(["public"], var.watson_machine_learning_service_endpoints)
-  #   error_message = "The lite plan only supports public endpoints."
-  # }
+  validation {
+    condition     = contains(["lite"], var.watson_machine_learning_plan) ? contains(["public"], var.watson_machine_learning_service_endpoints) : true
+    error_message = "The lite plan of watson machine learning only supports public endpoints."
+  }
 }
 
 # COS-KMS
