@@ -60,7 +60,7 @@ data "ibm_iam_auth_token" "restapi" {
 }
 
 
-module "watsonx_saas" {
+module "watsonx_ai" {
   source                    = "../.."
   prefix                    = var.prefix
   region                    = var.region

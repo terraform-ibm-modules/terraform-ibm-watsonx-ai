@@ -33,7 +33,7 @@ variable "region" {
   type        = string
 
   validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
+    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok", "au-syd"], var.region)
     error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
   }
 }
@@ -71,7 +71,7 @@ variable "existing_machine_learning_instance_crn" {
 variable "watson_machine_learning_plan" {
   description = "The plan that is used to provision the Watson Machine Learning instance."
   type        = string
-  default     = "lite"
+  default     = "v2-professional"
 
   validation {
     condition     = contains(["lite", "v2-professional", "v2-standard"], var.watson_machine_learning_plan)
@@ -95,8 +95,7 @@ variable "watson_machine_learning_service_endpoints" {
   }
 }
 
-# COS-KMS
-
+# COS & KMS
 variable "enable_cos_kms_encryption" {
   description = "Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`."
   type        = bool
@@ -121,7 +120,6 @@ variable "skip_iam_authorization_policy" {
 }
 
 # Watsonx Project
-
 variable "enable_configure_project" {
   description = "Whether to configure project."
   type        = bool

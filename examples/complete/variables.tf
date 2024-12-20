@@ -23,11 +23,6 @@ variable "region" {
   type        = string
   description = "Region to provision all resources created by this example."
   default     = "us-south"
-
-  validation {
-    condition     = contains(["eu-de", "eu-gb", "jp-tok", "us-south"], var.region)
-    error_message = "The IBM Cloud region to use must be one of: eu-de, eu-gb, jp-tok or us-south."
-  }
 }
 
 variable "resource_group" {

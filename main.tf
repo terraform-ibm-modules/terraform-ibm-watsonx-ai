@@ -2,7 +2,8 @@
 # Watsonx.ai Module
 #
 # It provisions Watsonx.ai Studio and Watsonx.ai Runtime, which are required for Watsonx.ai Project.
-# Next, it configures the project using the provided Cloud Object Storage and KMS key for encryption.
+# Next, it configures watsonx user and the project using the provided Cloud Object Storage and
+# KMS key for encryption.
 # *****************************************************************************************************
 
 # **********************
@@ -75,14 +76,19 @@ resource "ibm_resource_instance" "watson_machine_learning_instance" {
   }
 }
 
+# ****************************
 # Configure user
+# ****************************
+
 module "configure_user" {
   source            = "./modules/configure_user"
   resource_group_id = var.resource_group_id
   region            = var.region
 }
 
-# Configure project
+# ****************************
+# Configure watsonx project
+# ****************************
 
 locals {
   is_storage_delegated = var.enable_cos_kms_encryption ? true : false
