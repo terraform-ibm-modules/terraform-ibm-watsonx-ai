@@ -57,6 +57,11 @@ output "watsonx_project_id" {
   description = "ID of the created project"
 }
 
+output "watsonx_project_region" {
+  value       = module.watsonx_ai.watsonx_project_region
+  description = "Region of the created project"
+}
+
 output "watsonx_project_url" {
   value       = module.watsonx_ai.watsonx_project_url
   description = "URL of the created project"

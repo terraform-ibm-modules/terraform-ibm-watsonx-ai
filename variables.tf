@@ -18,13 +18,8 @@ variable "resource_group_id" {
 }
 
 variable "prefix" {
-  description = "The name to be used on all Watson resources as a prefix."
+  description = "Prefix to add to all watsonx.ai resources created by this module."
   type        = string
-
-  validation {
-    condition     = var.prefix != "" && length(var.prefix) <= 25
-    error_message = "You must provide a value for the resource_prefix variable and the resource_prefix length can't exceed 25 characters."
-  }
 }
 
 variable "region" {
@@ -33,7 +28,7 @@ variable "region" {
   type        = string
 
   validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok", "au-syd"], var.region)
+    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
     error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
   }
 }
@@ -44,7 +39,7 @@ variable "resource_tags" {
   default     = []
 }
 
-# Watson Studio
+# watsonx.ai Studio
 variable "existing_watson_studio_instance_crn" {
   default     = null
   description = "The CRN of an existing Watson Studio instance. If not provided, a new instance will be provisioned."
@@ -52,30 +47,42 @@ variable "existing_watson_studio_instance_crn" {
 }
 
 variable "watson_studio_plan" {
-  default     = "professional-v1"
-  description = "The plan that is used to provision the Watson Studio instance. The plan you choose for Watson Studio affects the features and capabilities that you can use."
+  default     = "free-v1"
+  description = "The plan that is used to provision the Watson Studio instance. Allowed values are 'free-v1' and 'professional-v1'."
   type        = string
   validation {
     condition     = contains(["free-v1", "professional-v1"], var.watson_studio_plan)
-    error_message = "You must use a free-v1 or professional-v1 plan. Learn more."
+    error_message = "You must use a free-v1 or professional-v1 plan for watsonx.ai Studio."
   }
 }
 
-# Watson Machine Learning
+variable "watsonx_studio_instance_name" {
+  type        = string
+  description = "The name of the Watson Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
+  default     = "watsonx-studio"
+}
+
+# watsonx.ai Runtime (Watson Machine Learning)
 variable "existing_machine_learning_instance_crn" {
   default     = null
   description = "The CRN of an existing Watson Machine Learning instance. If not provided, a new instance will be provisioned."
   type        = string
 }
 
-variable "watson_machine_learning_plan" {
-  description = "The plan that is used to provision the Watson Machine Learning instance."
+variable "watsonx_machine_learning_instance_name" {
   type        = string
-  default     = "v2-professional"
+  description = "The name of the Watson Machine Learning instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
+  default     = "watsonx-ml"
+}
+
+variable "watson_machine_learning_plan" {
+  description = "The plan that is used to provision the Watson Machine Learning instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'."
+  type        = string
+  default     = "lite"
 
   validation {
     condition     = contains(["lite", "v2-professional", "v2-standard"], var.watson_machine_learning_plan)
-    error_message = "The plan must be lite, v2-professional, or v2-standard. Learn more."
+    error_message = "The plan must be lite, v2-professional, or v2-standard for watsonx.ai Runtime."
   }
 }
 
@@ -100,6 +107,11 @@ variable "enable_cos_kms_encryption" {
   description = "Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`."
   type        = bool
   default     = false
+
+  validation {
+    condition     = var.enable_cos_kms_encryption == true ? var.cos_kms_key_crn != null : true
+    error_message = "A value must be passed for 'cos_kms_key_crn' when 'enable_cos_kms_encryption' is set to true."
+  }
 }
 
 variable "cos_instance_crn" {
@@ -119,7 +131,7 @@ variable "skip_iam_authorization_policy" {
   default     = false
 }
 
-# Watsonx Project
+# watsonx.ai Project
 variable "enable_configure_project" {
   description = "Whether to configure project."
   type        = bool

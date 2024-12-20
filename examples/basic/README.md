@@ -3,7 +3,7 @@
 An example that will provision the following:
 - A new resource group if one is not passed in.
 - A Cloud Object Storage instance.
-- A watsonx Studio instance.
-- A watsonx Runtime instance.
+- A watsonx.ai Studio instance.
+- A watsonx.ai Runtime instance.
 - Configure the watsonx profile for IBM Cloud user.
-- Create a IBM watsonx project without KMS encryption.
+- Create a IBM watsonx.ai project without KMS encryption.

@@ -26,12 +26,14 @@ data "ibm_iam_auth_token" "restapi" {}
 
 
 module "watsonx_ai" {
-  source                    = "../.."
-  prefix                    = var.prefix
-  region                    = var.region
-  resource_tags             = var.resource_tags
-  resource_group_id         = module.resource_group.resource_group_id
-  watsonx_project_name      = "${var.prefix}-project-basic"
-  enable_cos_kms_encryption = false
-  cos_instance_crn          = module.cos.cos_instance_crn
+  source                       = "../.."
+  prefix                       = var.prefix
+  region                       = var.region
+  resource_tags                = var.resource_tags
+  resource_group_id            = module.resource_group.resource_group_id
+  watson_studio_plan           = "professional-v1"
+  watson_machine_learning_plan = "v2-professional"
+  watsonx_project_name         = "${var.prefix}-project-basic"
+  enable_cos_kms_encryption    = false
+  cos_instance_crn             = module.cos.cos_instance_crn
 }

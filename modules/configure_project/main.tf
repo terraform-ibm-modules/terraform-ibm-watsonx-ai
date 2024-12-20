@@ -10,7 +10,7 @@ resource "restapi_object" "configure_project" {
   data           = <<-EOT
                   {
                     "name": "${var.watsonx_project_name}",
-                    "generator": "watsonx-saas-da",
+                    "generator": "terraform-ibm-watsonx-ai",
                     "type": "wx",
                     "storage": {
                       "type": "bmcos_object_storage",

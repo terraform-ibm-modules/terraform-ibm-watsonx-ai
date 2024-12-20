@@ -1,13 +1,9 @@
 # ****************************************************************************************************
-# Watsonx.ai Module
-#
-# It provisions Watsonx.ai Studio and Watsonx.ai Runtime, which are required for Watsonx.ai Project.
-# Next, it configures watsonx user and the project using the provided Cloud Object Storage and
-# KMS key for encryption.
+# watsonx.ai Module
 # *****************************************************************************************************
 
 # **********************
-# Watsonx.ai Studio
+# watsonx.ai Studio
 # **********************
 
 data "ibm_resource_instance" "existing_watson_studio_instance" {
@@ -25,7 +21,7 @@ locals {
 
 resource "ibm_resource_instance" "watson_studio_instance" {
   count             = var.existing_watson_studio_instance_crn != null ? 0 : 1
-  name              = "${var.prefix}-watson-studio"
+  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_studio_instance_name}" : var.watsonx_studio_instance_name
   service           = "data-science-experience"
   plan              = var.watson_studio_plan
   location          = var.region
@@ -40,7 +36,7 @@ resource "ibm_resource_instance" "watson_studio_instance" {
 }
 
 # ****************************
-# Watsonx.ai Runtime
+# watsonx.ai Runtime
 # ****************************
 
 locals {
@@ -58,7 +54,7 @@ data "ibm_resource_instance" "existing_watson_machine_learning_instance" {
 
 resource "ibm_resource_instance" "watson_machine_learning_instance" {
   count             = var.existing_machine_learning_instance_crn != null ? 0 : 1
-  name              = "${var.prefix}-watson-machine-learning"
+  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_machine_learning_instance_name}" : var.watsonx_machine_learning_instance_name
   service           = "pm-20"
   plan              = var.watson_machine_learning_plan
   location          = var.region
@@ -87,13 +83,11 @@ module "configure_user" {
 }
 
 # ****************************
-# Configure watsonx project
+# Configure watsonx.ai project
 # ****************************
 
 locals {
   is_storage_delegated = var.enable_cos_kms_encryption ? true : false
-  # tflint-ignore: terraform_unused_declarations
-  validate_encryption_inputs = var.enable_cos_kms_encryption && (var.cos_kms_key_crn == null) ? tobool("A value must be passed for 'cos_kms_key_crn' when 'enable_cos_kms_encryption' is set to true") : true
 }
 
 module "cos_crn_parser" {
