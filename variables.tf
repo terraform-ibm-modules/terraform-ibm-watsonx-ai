@@ -8,12 +8,12 @@ variable "resource_group_id" {
   default     = null
   validation {
     condition     = var.existing_watson_studio_instance_crn == null ? length(var.resource_group_id) > 0 : true
-    error_message = "You must specify a value for 'resource_group_id', required to create watson studio instance."
+    error_message = "You must specify a value for 'resource_group_id', if 'existing_watson_studio_instance_crn' is null."
   }
 
   validation {
     condition     = var.existing_machine_learning_instance_crn == null ? length(var.resource_group_id) > 0 : true
-    error_message = "You must specify a value for 'resource_group_id', required to create watson machine learning instance."
+    error_message = "You must specify a value for 'resource_group_id', if 'existing_machine_learning_instance_crn' is null."
   }
 }
 
@@ -132,32 +132,39 @@ variable "skip_iam_authorization_policy" {
 }
 
 # watsonx.ai Project
-variable "enable_configure_project" {
-  description = "Whether to configure project."
+variable "create_watsonx_ai_project" {
+  description = "Whether to create and configure a starter watsonx.ai project."
   type        = bool
   default     = true
 }
 
 variable "watsonx_project_name" {
-  description = "The name of the Watsonx.ai project."
+  description = "The name of the watsonx.ai project."
   type        = string
   default     = "demo"
 }
 
 variable "watsonx_project_description" {
-  description = "A description of the Watsonx.ai project that is created."
+  description = "A description of the watsonx.ai project that is created."
   type        = string
   default     = "Watsonx project created by the watsonx.ai module."
 }
 
 variable "watsonx_project_tags" {
-  description = "A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
+  description = "A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
   type        = list(string)
   default     = ["watsonx-ai"]
+
+  validation {
+    condition = alltrue([
+      for tag in var.watsonx_project_tags : can(regex("^[@a-z#A-Z_0-9- ]{1,255}$", tag))
+    ])
+    error_message = "watsonx_project_tags should be upto 255 characters and can include spaces, letters, numbers, _, -, # and @."
+  }
 }
 
 variable "watsonx_mark_as_sensitive" {
-  description = "Set to true to allow the Watsonx.ai project to be created with 'Mark as sensitive' flag."
+  description = "Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. "
   type        = bool
   default     = false
 }

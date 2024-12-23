@@ -107,7 +107,7 @@ module "storage_delegation" {
 module "configure_project" {
   source                      = "./modules/configure_project"
   depends_on                  = [module.storage_delegation]
-  count                       = var.enable_configure_project ? 1 : 0
+  count                       = var.create_watsonx_ai_project ? 1 : 0
   watsonx_project_name        = "${var.prefix}-${var.watsonx_project_name}"
   watsonx_project_description = var.watsonx_project_description
   watsonx_project_tags        = var.watsonx_project_tags

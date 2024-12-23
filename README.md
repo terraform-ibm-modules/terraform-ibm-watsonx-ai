@@ -1,5 +1,5 @@
 <!-- Update this title with a descriptive name. Use sentence case. -->
-# Watsonx.ai module
+# IBM watsonx.ai module
 
 <!--
 Update status and "latest release" badges:
@@ -27,6 +27,9 @@ IBM watsonx.ai provides an enterprise-grade studio of integrated tools for devel
 ## Overview
 * [terraform-ibm-watsonx-ai](#terraform-ibm-watsonx-ai)
 * [Submodules](./modules)
+    * [configure_project](./modules/configure_project)
+    * [configure_user](./modules/configure_user)
+    * [storage_delegation](./modules/storage_delegation)
 * [Examples](./examples)
     * [Basic example](./examples/basic)
     * [Complete example](./examples/complete)
@@ -51,17 +54,11 @@ This module supports the following:
 * Provisions the following services:
     * watsonx.ai Studio (formerly known as Watson Studio)
     * watsonx.ai Runtime (formerly known as Watson Machine Learning)
-* Configure the IBM watsonx profile
-* Creates `watsonx.ai` project for an IBM Cloud user, granting them administrative privileges of the IBM watsonx project.
+* Configures the IBM watsonx user profile for an existing IBM Cloud user. This user is also referred as IBM watsonx admin.
+* Enables storage delegation for the Cloud Object Storage instance when KMS encryption is enabled.
+* Creates a starter `watsonx.ai` project.
 
 ### Usage
-
-<!--
-Add an example of the use of the module in the following code block.
-
-Use real values instead of "var.<var_name>" or other placeholder values
-unless real values don't help users know what to change.
--->
 
 ```hcl
 
@@ -140,7 +137,7 @@ statement instead the previous block.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cos_instance_crn"></a> [cos\_instance\_crn](#input\_cos\_instance\_crn) | The CRN of the Cloud Object Storage instance. | `string` | n/a | yes |
 | <a name="input_cos_kms_key_crn"></a> [cos\_kms\_key\_crn](#input\_cos\_kms\_key\_crn) | The CRN of a KMS key. It is used to encrypt the COS buckets used by the watsonx projects. | `string` | `null` | no |
-| <a name="input_enable_configure_project"></a> [enable\_configure\_project](#input\_enable\_configure\_project) | Whether to configure project. | `bool` | `true` | no |
+| <a name="input_create_watsonx_ai_project"></a> [create\_watsonx\_ai\_project](#input\_create\_watsonx\_ai\_project) | Whether to create and configure a starter watsonx.ai project. | `bool` | `true` | no |
 | <a name="input_enable_cos_kms_encryption"></a> [enable\_cos\_kms\_encryption](#input\_enable\_cos\_kms\_encryption) | Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`. | `bool` | `false` | no |
 | <a name="input_existing_machine_learning_instance_crn"></a> [existing\_machine\_learning\_instance\_crn](#input\_existing\_machine\_learning\_instance\_crn) | The CRN of an existing Watson Machine Learning instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_existing_watson_studio_instance_crn"></a> [existing\_watson\_studio\_instance\_crn](#input\_existing\_watson\_studio\_instance\_crn) | The CRN of an existing Watson Studio instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
@@ -153,10 +150,10 @@ statement instead the previous block.
 | <a name="input_watson_machine_learning_service_endpoints"></a> [watson\_machine\_learning\_service\_endpoints](#input\_watson\_machine\_learning\_service\_endpoints) | The type of service endpoints. Possible values: 'public', 'private', 'public-and-private'. | `string` | `"public"` | no |
 | <a name="input_watson_studio_plan"></a> [watson\_studio\_plan](#input\_watson\_studio\_plan) | The plan that is used to provision the Watson Studio instance. Allowed values are 'free-v1' and 'professional-v1'. | `string` | `"free-v1"` | no |
 | <a name="input_watsonx_machine_learning_instance_name"></a> [watsonx\_machine\_learning\_instance\_name](#input\_watsonx\_machine\_learning\_instance\_name) | The name of the Watson Machine Learning instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format. | `string` | `"watsonx-ml"` | no |
-| <a name="input_watsonx_mark_as_sensitive"></a> [watsonx\_mark\_as\_sensitive](#input\_watsonx\_mark\_as\_sensitive) | Set to true to allow the Watsonx.ai project to be created with 'Mark as sensitive' flag. | `bool` | `false` | no |
-| <a name="input_watsonx_project_description"></a> [watsonx\_project\_description](#input\_watsonx\_project\_description) | A description of the Watsonx.ai project that is created. | `string` | `"Watsonx project created by the watsonx.ai module."` | no |
-| <a name="input_watsonx_project_name"></a> [watsonx\_project\_name](#input\_watsonx\_project\_name) | The name of the Watsonx.ai project. | `string` | `"demo"` | no |
-| <a name="input_watsonx_project_tags"></a> [watsonx\_project\_tags](#input\_watsonx\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |
+| <a name="input_watsonx_mark_as_sensitive"></a> [watsonx\_mark\_as\_sensitive](#input\_watsonx\_mark\_as\_sensitive) | Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. | `bool` | `false` | no |
+| <a name="input_watsonx_project_description"></a> [watsonx\_project\_description](#input\_watsonx\_project\_description) | A description of the watsonx.ai project that is created. | `string` | `"Watsonx project created by the watsonx.ai module."` | no |
+| <a name="input_watsonx_project_name"></a> [watsonx\_project\_name](#input\_watsonx\_project\_name) | The name of the watsonx.ai project. | `string` | `"demo"` | no |
+| <a name="input_watsonx_project_tags"></a> [watsonx\_project\_tags](#input\_watsonx\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |
 | <a name="input_watsonx_studio_instance_name"></a> [watsonx\_studio\_instance\_name](#input\_watsonx\_studio\_instance\_name) | The name of the Watson Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format. | `string` | `"watsonx-studio"` | no |
 
 ### Outputs
@@ -174,9 +171,9 @@ statement instead the previous block.
 | <a name="output_watson_studio_name"></a> [watson\_studio\_name](#output\_watson\_studio\_name) | The name of the Watson Studio instance. |
 | <a name="output_watson_studio_plan_id"></a> [watson\_studio\_plan\_id](#output\_watson\_studio\_plan\_id) | The plan ID of the Watson Studio instance. |
 | <a name="output_watsonx_machine_learning_account_id"></a> [watsonx\_machine\_learning\_account\_id](#output\_watsonx\_machine\_learning\_account\_id) | The account id of the Watson Machine Learning instance. |
-| <a name="output_watsonx_project_bucket_name"></a> [watsonx\_project\_bucket\_name](#output\_watsonx\_project\_bucket\_name) | The name of the COS bucket created by the watsonx project. |
-| <a name="output_watsonx_project_id"></a> [watsonx\_project\_id](#output\_watsonx\_project\_id) | The ID watsonx project that's created. |
-| <a name="output_watsonx_project_region"></a> [watsonx\_project\_region](#output\_watsonx\_project\_region) | The region of watsonx project that's created. |
+| <a name="output_watsonx_project_bucket_name"></a> [watsonx\_project\_bucket\_name](#output\_watsonx\_project\_bucket\_name) | The name of the COS bucket created for the watsonx project. |
+| <a name="output_watsonx_project_id"></a> [watsonx\_project\_id](#output\_watsonx\_project\_id) | The ID of the watsonx project that's created. |
+| <a name="output_watsonx_project_region"></a> [watsonx\_project\_region](#output\_watsonx\_project\_region) | The region of the watsonx project that's created. |
 | <a name="output_watsonx_project_url"></a> [watsonx\_project\_url](#output\_watsonx\_project\_url) | The URL of the watsonx project that's created. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

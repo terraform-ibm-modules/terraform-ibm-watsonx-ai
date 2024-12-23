@@ -28,7 +28,7 @@ output "watson_machine_learning_dashboard_url" {
 }
 
 output "watsonx_machine_learning_account_id" {
-  value       = var.enable_configure_project ? module.configure_project[0].watsonx_machine_learning_account_id : null
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_machine_learning_account_id : null
   description = "The account id of the Watson Machine Learning instance."
 }
 
@@ -58,21 +58,21 @@ output "watson_studio_dashboard_url" {
 }
 
 output "watsonx_project_id" {
-  value       = var.enable_configure_project ? module.configure_project[0].watsonx_project_id : null
-  description = "The ID watsonx project that's created."
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_id : null
+  description = "The ID of the watsonx project that's created."
 }
 
 output "watsonx_project_region" {
-  value       = var.enable_configure_project ? module.configure_project[0].watsonx_project_region : null
-  description = "The region of watsonx project that's created."
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_region : null
+  description = "The region of the watsonx project that's created."
 }
 
 output "watsonx_project_bucket_name" {
-  value       = var.enable_configure_project ? module.configure_project[0].watsonx_project_bucket_name : null
-  description = "The name of the COS bucket created by the watsonx project."
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_bucket_name : null
+  description = "The name of the COS bucket created for the watsonx project."
 }
 
 output "watsonx_project_url" {
-  value       = var.enable_configure_project ? module.configure_project[0].watsonx_project_url : null
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_url : null
   description = "The URL of the watsonx project that's created."
 }

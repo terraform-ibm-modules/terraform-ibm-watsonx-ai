@@ -1,11 +1,11 @@
 output "watsonx_project_id" {
   value       = local.watsonx_project_id
-  description = "The ID watsonx project that's created."
+  description = "The ID of the watsonx project that's created."
 }
 
 output "watsonx_project_region" {
   value       = resource.restapi_object.configure_project.id
-  description = "The region of watsonx project that's created."
+  description = "The region of the watsonx project that's created."
 }
 
 output "watsonx_project_bucket_name" {
