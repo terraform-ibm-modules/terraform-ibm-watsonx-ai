@@ -7,54 +7,54 @@ output "cos_instance_crn" {
   value       = module.cos.cos_instance_crn
 }
 
-output "watson_machine_learning_crn" {
+output "watsonx_ai_runtime_crn" {
   description = "CRN of the Watson Machine Learning instance"
-  value       = module.watsonx_ai.watson_machine_learning_crn
+  value       = module.watsonx_ai.watsonx_ai_runtime_crn
 }
 
-output "watson_machine_learning_guid" {
+output "watsonx_ai_runtime_guid" {
   description = "GUID of the Watson Machine Learning instance"
-  value       = module.watsonx_ai.watson_machine_learning_guid
+  value       = module.watsonx_ai.watsonx_ai_runtime_guid
 }
 
-output "watson_machine_learning_name" {
+output "watsonx_ai_runtime_name" {
   description = "Name of the Watson Machine Learning instance"
-  value       = module.watsonx_ai.watson_machine_learning_name
+  value       = module.watsonx_ai.watsonx_ai_runtime_name
 }
 
-output "watson_machine_learning_plan_id" {
+output "watsonx_ai_runtime_plan_id" {
   description = "Plan ID of the Watson Machine Learning instance"
-  value       = module.watsonx_ai.watson_machine_learning_plan_id
+  value       = module.watsonx_ai.watsonx_ai_runtime_plan_id
 }
 
-output "watson_machine_learning_dashboard_url" {
+output "watsonx_ai_runtime_dashboard_url" {
   description = "Dashboard URL of the Watson Machine Learning instance"
-  value       = module.watsonx_ai.watson_machine_learning_dashboard_url
+  value       = module.watsonx_ai.watsonx_ai_runtime_dashboard_url
 }
 
-output "watson_studio_crn" {
+output "watsonx_ai_studio_crn" {
   description = "CRN of the Watson Studio instance"
-  value       = module.watsonx_ai.watson_studio_crn
+  value       = module.watsonx_ai.watsonx_ai_studio_crn
 }
 
-output "watson_studio_guid" {
+output "watsonx_ai_studio_guid" {
   description = "GUID of the Watson Studio instance"
-  value       = module.watsonx_ai.watson_studio_guid
+  value       = module.watsonx_ai.watsonx_ai_studio_guid
 }
 
-output "watson_studio_name" {
+output "watsonx_ai_studio_name" {
   description = "Name of the Watson Studio instance"
-  value       = module.watsonx_ai.watson_studio_name
+  value       = module.watsonx_ai.watsonx_ai_studio_name
 }
 
-output "watson_studio_plan_id" {
+output "watsonx_ai_studio_plan_id" {
   description = "Plan ID of the Watson Studio instance"
-  value       = module.watsonx_ai.watson_studio_plan_id
+  value       = module.watsonx_ai.watsonx_ai_studio_plan_id
 }
 
-output "watson_studio_dashboard_url" {
+output "watsonx_ai_studio_dashboard_url" {
   description = "Dashboard URL of the Watson Studio instance"
-  value       = module.watsonx_ai.watson_studio_dashboard_url
+  value       = module.watsonx_ai.watsonx_ai_studio_dashboard_url
 }
 
 output "watsonx_project_id" {

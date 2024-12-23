@@ -18,7 +18,7 @@ output "watsonx_project_url" {
   description = "The URL of the watsonx project that's created."
 }
 
-output "watsonx_machine_learning_account_id" {
+output "watsonx_ai_runtime_account_id" {
   value       = local.account_id
   description = "The account id of the Watson Machine Learning instance."
 }

@@ -6,24 +6,24 @@
 # watsonx.ai Studio
 # **********************
 
-data "ibm_resource_instance" "existing_watson_studio_instance" {
-  count      = var.existing_watson_studio_instance_crn != null ? 1 : 0
-  identifier = var.existing_watson_studio_instance_crn
+data "ibm_resource_instance" "existing_watsonx_ai_studio_instance" {
+  count      = var.existing_watsonx_ai_studio_instance_crn != null ? 1 : 0
+  identifier = var.existing_watsonx_ai_studio_instance_crn
 }
 
 locals {
-  watson_studio_crn           = var.existing_watson_studio_instance_crn != null ? data.ibm_resource_instance.existing_watson_studio_instance[0].crn : resource.ibm_resource_instance.watson_studio_instance[0].crn
-  watson_studio_guid          = var.existing_watson_studio_instance_crn != null ? data.ibm_resource_instance.existing_watson_studio_instance[0].guid : resource.ibm_resource_instance.watson_studio_instance[0].guid
-  watson_studio_name          = var.existing_watson_studio_instance_crn != null ? data.ibm_resource_instance.existing_watson_studio_instance[0].resource_name : resource.ibm_resource_instance.watson_studio_instance[0].resource_name
-  watson_studio_plan_id       = var.existing_watson_studio_instance_crn != null ? null : resource.ibm_resource_instance.watson_studio_instance[0].resource_plan_id
-  watson_studio_dashboard_url = var.existing_watson_studio_instance_crn != null ? null : resource.ibm_resource_instance.watson_studio_instance[0].dashboard_url
+  watsonx_ai_studio_crn           = var.existing_watsonx_ai_studio_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_studio_instance[0].crn : resource.ibm_resource_instance.watsonx_ai_studio_instance[0].crn
+  watsonx_ai_studio_guid          = var.existing_watsonx_ai_studio_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_studio_instance[0].guid : resource.ibm_resource_instance.watsonx_ai_studio_instance[0].guid
+  watsonx_ai_studio_name          = var.existing_watsonx_ai_studio_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_studio_instance[0].resource_name : resource.ibm_resource_instance.watsonx_ai_studio_instance[0].resource_name
+  watsonx_ai_studio_plan_id       = var.existing_watsonx_ai_studio_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_studio_instance[0].resource_plan_id
+  watsonx_ai_studio_dashboard_url = var.existing_watsonx_ai_studio_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_studio_instance[0].dashboard_url
 }
 
-resource "ibm_resource_instance" "watson_studio_instance" {
-  count             = var.existing_watson_studio_instance_crn != null ? 0 : 1
-  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_studio_instance_name}" : var.watsonx_studio_instance_name
+resource "ibm_resource_instance" "watsonx_ai_studio_instance" {
+  count             = var.existing_watsonx_ai_studio_instance_crn != null ? 0 : 1
+  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_ai_studio_instance_name}" : var.watsonx_ai_studio_instance_name
   service           = "data-science-experience"
-  plan              = var.watson_studio_plan
+  plan              = var.watsonx_ai_studio_plan
   location          = var.region
   resource_group_id = var.resource_group_id
   tags              = var.resource_tags
@@ -40,29 +40,29 @@ resource "ibm_resource_instance" "watson_studio_instance" {
 # ****************************
 
 locals {
-  watson_machine_learning_crn           = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watson_machine_learning_instance[0].crn : resource.ibm_resource_instance.watson_machine_learning_instance[0].crn
-  watson_machine_learning_guid          = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watson_machine_learning_instance[0].guid : resource.ibm_resource_instance.watson_machine_learning_instance[0].guid
-  watson_machine_learning_name          = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watson_machine_learning_instance[0].resource_name : resource.ibm_resource_instance.watson_machine_learning_instance[0].resource_name
-  watson_machine_learning_plan_id       = var.existing_machine_learning_instance_crn != null ? null : resource.ibm_resource_instance.watson_machine_learning_instance[0].resource_plan_id
-  watson_machine_learning_dashboard_url = var.existing_machine_learning_instance_crn != null ? null : resource.ibm_resource_instance.watson_machine_learning_instance[0].dashboard_url
+  watsonx_ai_runtime_crn           = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].crn : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].crn
+  watsonx_ai_runtime_guid          = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].guid : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].guid
+  watsonx_ai_runtime_name          = var.existing_machine_learning_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].resource_name : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_name
+  watsonx_ai_runtime_plan_id       = var.existing_machine_learning_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_plan_id
+  watsonx_ai_runtime_dashboard_url = var.existing_machine_learning_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].dashboard_url
 }
 
-data "ibm_resource_instance" "existing_watson_machine_learning_instance" {
+data "ibm_resource_instance" "existing_watsonx_ai_runtime_instance" {
   count      = var.existing_machine_learning_instance_crn != null ? 1 : 0
   identifier = var.existing_machine_learning_instance_crn
 }
 
-resource "ibm_resource_instance" "watson_machine_learning_instance" {
+resource "ibm_resource_instance" "watsonx_ai_runtime_instance" {
   count             = var.existing_machine_learning_instance_crn != null ? 0 : 1
-  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_machine_learning_instance_name}" : var.watsonx_machine_learning_instance_name
+  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_ai_runtime_instance_name}" : var.watsonx_ai_runtime_instance_name
   service           = "pm-20"
-  plan              = var.watson_machine_learning_plan
+  plan              = var.watsonx_ai_runtime_plan
   location          = var.region
   resource_group_id = var.resource_group_id
   tags              = var.resource_tags
 
   parameters = {
-    service-endpoints = var.watson_machine_learning_service_endpoints
+    service-endpoints = var.watsonx_ai_runtime_service_endpoints
   }
 
   timeouts {
@@ -112,9 +112,9 @@ module "configure_project" {
   watsonx_project_description = var.watsonx_project_description
   watsonx_project_tags        = var.watsonx_project_tags
   watsonx_mark_as_sensitive   = var.watsonx_mark_as_sensitive
-  machine_learning_guid       = local.watson_machine_learning_guid
-  machine_learning_crn        = local.watson_machine_learning_crn
-  machine_learning_name       = local.watson_machine_learning_name
+  machine_learning_guid       = local.watsonx_ai_runtime_guid
+  machine_learning_crn        = local.watsonx_ai_runtime_crn
+  machine_learning_name       = local.watsonx_ai_runtime_name
   cos_guid                    = module.cos_crn_parser.service_instance
   cos_crn                     = var.cos_instance_crn
   watsonx_project_delegated   = local.is_storage_delegated

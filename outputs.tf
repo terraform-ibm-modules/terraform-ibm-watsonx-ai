@@ -2,59 +2,59 @@
 # Outputs
 ########################################################################################################################
 
-output "watson_machine_learning_crn" {
+output "watsonx_ai_runtime_crn" {
   description = "The CRN of the Watson Machine Learning instance."
-  value       = local.watson_machine_learning_crn
+  value       = local.watsonx_ai_runtime_crn
 }
 
-output "watson_machine_learning_guid" {
+output "watsonx_ai_runtime_guid" {
   description = "The GUID of the Watson Machine Learning instance."
-  value       = local.watson_machine_learning_guid
+  value       = local.watsonx_ai_runtime_guid
 }
 
-output "watson_machine_learning_name" {
+output "watsonx_ai_runtime_name" {
   description = "The name of the Watson Machine Learning instance."
-  value       = local.watson_machine_learning_name
+  value       = local.watsonx_ai_runtime_name
 }
 
-output "watson_machine_learning_plan_id" {
+output "watsonx_ai_runtime_plan_id" {
   description = "The plan ID of the Watson Machine Learning instance."
-  value       = local.watson_machine_learning_plan_id
+  value       = local.watsonx_ai_runtime_plan_id
 }
 
-output "watson_machine_learning_dashboard_url" {
+output "watsonx_ai_runtime_dashboard_url" {
   description = "The dashboard URL of the Watson Machine Learning instance."
-  value       = local.watson_machine_learning_dashboard_url
+  value       = local.watsonx_ai_runtime_dashboard_url
 }
 
-output "watsonx_machine_learning_account_id" {
-  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_machine_learning_account_id : null
+output "watsonx_ai_runtime_account_id" {
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_runtime_account_id : null
   description = "The account id of the Watson Machine Learning instance."
 }
 
-output "watson_studio_crn" {
+output "watsonx_ai_studio_crn" {
   description = "The CRN of the Watson Studio instance."
-  value       = local.watson_studio_crn
+  value       = local.watsonx_ai_studio_crn
 }
 
-output "watson_studio_guid" {
+output "watsonx_ai_studio_guid" {
   description = "The GUID of the Watson Studio instance."
-  value       = local.watson_studio_guid
+  value       = local.watsonx_ai_studio_guid
 }
 
-output "watson_studio_name" {
+output "watsonx_ai_studio_name" {
   description = "The name of the Watson Studio instance."
-  value       = local.watson_studio_name
+  value       = local.watsonx_ai_studio_name
 }
 
-output "watson_studio_plan_id" {
+output "watsonx_ai_studio_plan_id" {
   description = "The plan ID of the Watson Studio instance."
-  value       = local.watson_studio_plan_id
+  value       = local.watsonx_ai_studio_plan_id
 }
 
-output "watson_studio_dashboard_url" {
+output "watsonx_ai_studio_dashboard_url" {
   description = "The dashboard URL of the Watson Studio instance."
-  value       = local.watson_studio_dashboard_url
+  value       = local.watsonx_ai_studio_dashboard_url
 }
 
 output "watsonx_project_id" {
