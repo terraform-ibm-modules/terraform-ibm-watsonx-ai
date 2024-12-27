@@ -144,6 +144,7 @@ statement instead the previous block.
 | <a name="input_mark_as_sensitive"></a> [mark\_as\_sensitive](#input\_mark\_as\_sensitive) | Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. | `bool` | `false` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix to add to all watsonx.ai resources created by this module. | `string` | n/a | yes |
 | <a name="input_project_description"></a> [project\_description](#input\_project\_description) | A description of the watsonx.ai project that is created. | `string` | `"Watsonx project created by the watsonx.ai module."` | no |
+| <a name="input_project_tags"></a> [project\_tags](#input\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where the watsonx resources will be provisioned. | `string` | `"us-south"` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | The resource group ID where the watsonx services will be provisioned. Required when creating a new instance. | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to describe the service instances created by the module. | `list(string)` | `[]` | no |
@@ -154,7 +155,6 @@ statement instead the previous block.
 | <a name="input_watsonx_ai_studio_instance_name"></a> [watsonx\_ai\_studio\_instance\_name](#input\_watsonx\_ai\_studio\_instance\_name) | The name of the watsonx.ai Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format. | `string` | `"watsonx-studio"` | no |
 | <a name="input_watsonx_ai_studio_plan"></a> [watsonx\_ai\_studio\_plan](#input\_watsonx\_ai\_studio\_plan) | The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'. | `string` | `"free-v1"` | no |
 | <a name="input_watsonx_project_name"></a> [watsonx\_project\_name](#input\_watsonx\_project\_name) | The name of the watsonx.ai project. | `string` | `"demo"` | no |
-| <a name="input_watsonx_project_tags"></a> [watsonx\_project\_tags](#input\_watsonx\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |
 
 ### Outputs
 

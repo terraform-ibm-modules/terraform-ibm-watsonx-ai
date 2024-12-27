@@ -110,7 +110,7 @@ module "configure_project" {
   count                     = var.create_watsonx_ai_project ? 1 : 0
   watsonx_project_name      = "${var.prefix}-${var.watsonx_project_name}"
   project_description       = var.project_description
-  watsonx_project_tags      = var.watsonx_project_tags
+  project_tags              = var.project_tags
   mark_as_sensitive         = var.mark_as_sensitive
   watsonx_ai_runtime_guid   = local.watsonx_ai_runtime_guid
   watsonx_ai_runtime_crn    = local.watsonx_ai_runtime_crn

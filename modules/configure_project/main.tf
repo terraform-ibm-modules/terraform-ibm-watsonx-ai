@@ -20,7 +20,7 @@ resource "restapi_object" "configure_project" {
                     },
                     "description": "${var.project_description}",
                     "public": true,
-                    "tags": ${jsonencode(var.watsonx_project_tags)},
+                    "tags": ${jsonencode(var.project_tags)},
                     "compute": [
                       {
                         "name": "${var.watsonx_ai_runtime_name}",

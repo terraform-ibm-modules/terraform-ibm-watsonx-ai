@@ -150,16 +150,16 @@ variable "project_description" {
   default     = "Watsonx project created by the watsonx.ai module."
 }
 
-variable "watsonx_project_tags" {
+variable "project_tags" {
   description = "A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
   type        = list(string)
   default     = ["watsonx-ai"]
 
   validation {
     condition = alltrue([
-      for tag in var.watsonx_project_tags : can(regex("^[@a-z#A-Z_0-9- ]{1,255}$", tag))
+      for tag in var.project_tags : can(regex("^[@a-z#A-Z_0-9- ]{1,255}$", tag))
     ])
-    error_message = "watsonx_project_tags should be upto 255 characters and can include spaces, letters, numbers, _, -, # and @."
+    error_message = "project_tags should be upto 255 characters and can include spaces, letters, numbers, _, -, # and @."
   }
 }
 
