@@ -7,7 +7,7 @@ variable "watsonx_project_name" {
   type        = string
 }
 
-variable "watsonx_project_description" {
+variable "project_description" {
   description = "This provides a short summary of the watsonx project, explaining its purpose or goals briefly."
   type        = string
 }
@@ -28,7 +28,7 @@ variable "region" {
   type        = string
 }
 
-variable "watsonx_mark_as_sensitive" {
+variable "mark_as_sensitive" {
   description = "Set to true to allow the WatsonX project to be created with 'Mark as sensitive' flag."
   type        = bool
   default     = false
@@ -52,17 +52,17 @@ variable "cos_crn" {
 # Machine Learning variables
 ############################################################
 
-variable "machine_learning_guid" {
-  description = "This GUID is the globally unique identifier for the machine learning instance."
+variable "watsonx_ai_runtime_guid" {
+  description = "This GUID is the globally unique identifier for the watsonx.ai Runtime instance."
   type        = string
 }
 
-variable "machine_learning_crn" {
-  description = "This is used to identify the unique machine learning instance CRN."
+variable "watsonx_ai_runtime_crn" {
+  description = "This is used to identify the unique watsonx.ai Runtime instance CRN."
   type        = string
 }
 
-variable "machine_learning_name" {
-  description = "The name of the machine learning instance, which is a unique identifier for the instance."
+variable "watsonx_ai_runtime_name" {
+  description = "The name of the watsonx.ai Runtime instance, which is a unique identifier for the instance."
   type        = string
 }

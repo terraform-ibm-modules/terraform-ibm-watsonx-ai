@@ -8,52 +8,52 @@ output "cos_instance_crn" {
 }
 
 output "watsonx_ai_runtime_crn" {
-  description = "CRN of the Watson Machine Learning instance"
+  description = "CRN of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_crn
 }
 
 output "watsonx_ai_runtime_guid" {
-  description = "GUID of the Watson Machine Learning instance"
+  description = "GUID of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_guid
 }
 
 output "watsonx_ai_runtime_name" {
-  description = "Name of the Watson Machine Learning instance"
+  description = "Name of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_name
 }
 
 output "watsonx_ai_runtime_plan_id" {
-  description = "Plan ID of the Watson Machine Learning instance"
+  description = "Plan ID of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_plan_id
 }
 
 output "watsonx_ai_runtime_dashboard_url" {
-  description = "Dashboard URL of the Watson Machine Learning instance"
+  description = "Dashboard URL of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_dashboard_url
 }
 
 output "watsonx_ai_studio_crn" {
-  description = "CRN of the Watson Studio instance"
+  description = "CRN of the watsonx.ai Studio instance"
   value       = module.watsonx_ai.watsonx_ai_studio_crn
 }
 
 output "watsonx_ai_studio_guid" {
-  description = "GUID of the Watson Studio instance"
+  description = "GUID of the watsonx.ai Studio instance"
   value       = module.watsonx_ai.watsonx_ai_studio_guid
 }
 
 output "watsonx_ai_studio_name" {
-  description = "Name of the Watson Studio instance"
+  description = "Name of the watsonx.ai Studio instance"
   value       = module.watsonx_ai.watsonx_ai_studio_name
 }
 
 output "watsonx_ai_studio_plan_id" {
-  description = "Plan ID of the Watson Studio instance"
+  description = "Plan ID of the watsonx.ai Studio instance"
   value       = module.watsonx_ai.watsonx_ai_studio_plan_id
 }
 
 output "watsonx_ai_studio_dashboard_url" {
-  description = "Dashboard URL of the Watson Studio instance"
+  description = "Dashboard URL of the watsonx.ai Studio instance"
   value       = module.watsonx_ai.watsonx_ai_studio_dashboard_url
 }
 

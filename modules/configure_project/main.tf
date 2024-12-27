@@ -18,20 +18,20 @@ resource "restapi_object" "configure_project" {
                       "resource_crn": "${var.cos_crn}",
                       "delegated": ${var.watsonx_project_delegated}
                     },
-                    "description": "${var.watsonx_project_description}",
+                    "description": "${var.project_description}",
                     "public": true,
                     "tags": ${jsonencode(var.watsonx_project_tags)},
                     "compute": [
                       {
-                        "name": "${var.machine_learning_name}",
-                        "guid": "${var.machine_learning_guid}",
+                        "name": "${var.watsonx_ai_runtime_name}",
+                        "guid": "${var.watsonx_ai_runtime_guid}",
                         "type": "machine_learning",
-                        "crn": "${var.machine_learning_crn}"
+                        "crn": "${var.watsonx_ai_runtime_crn}"
                       }
                     ],
                     "settings": {
                       "access_restrictions": {
-                        "data": ${var.watsonx_mark_as_sensitive}
+                        "data": ${var.mark_as_sensitive}
                       }
                     }
                   }
@@ -42,14 +42,14 @@ resource "restapi_object" "configure_project" {
                   {
                     "name": "${var.watsonx_project_name}",
                     "type": "wx",
-                    "description": "${var.watsonx_project_description}",
+                    "description": "${var.project_description}",
                     "public": true,
                     "compute": [
                       {
-                        "name": "${var.machine_learning_name}",
-                        "guid": "${var.machine_learning_guid}",
+                        "name": "${var.watsonx_ai_runtime_name}",
+                        "guid": "${var.watsonx_ai_runtime_guid}",
                         "type": "machine_learning",
-                        "crn": "${var.machine_learning_crn}",
+                        "crn": "${var.watsonx_ai_runtime_crn}",
                         "credentials": {}
                       }
                     ]
@@ -92,11 +92,11 @@ locals {
   dataplatform_ui = local.dataplatform_ui_mapping[var.region]
 
   #following are required for output
-  account_id = module.machine_learning_crn_parser.account_id
+  account_id = module.watsonx_ai_runtime_crn_parser.account_id
 }
 
-module "machine_learning_crn_parser" {
+module "watsonx_ai_runtime_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
   version = "1.1.0"
-  crn     = var.machine_learning_crn
+  crn     = var.watsonx_ai_runtime_crn
 }

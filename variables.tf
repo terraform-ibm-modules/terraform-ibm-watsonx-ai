@@ -12,8 +12,8 @@ variable "resource_group_id" {
   }
 
   validation {
-    condition     = var.existing_machine_learning_instance_crn == null ? length(var.resource_group_id) > 0 : true
-    error_message = "You must specify a value for 'resource_group_id', if 'existing_machine_learning_instance_crn' is null."
+    condition     = var.existing_ai_runtime_instance_crn == null ? length(var.resource_group_id) > 0 : true
+    error_message = "You must specify a value for 'resource_group_id', if 'existing_ai_runtime_instance_crn' is null."
   }
 }
 
@@ -42,13 +42,13 @@ variable "resource_tags" {
 # watsonx.ai Studio
 variable "existing_watsonx_ai_studio_instance_crn" {
   default     = null
-  description = "The CRN of an existing Watson Studio instance. If not provided, a new instance will be provisioned."
+  description = "The CRN of an existing watsonx.ai Studio instance. If not provided, a new instance will be provisioned."
   type        = string
 }
 
 variable "watsonx_ai_studio_plan" {
   default     = "free-v1"
-  description = "The plan that is used to provision the Watson Studio instance. Allowed values are 'free-v1' and 'professional-v1'."
+  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'."
   type        = string
   validation {
     condition     = contains(["free-v1", "professional-v1"], var.watsonx_ai_studio_plan)
@@ -58,25 +58,25 @@ variable "watsonx_ai_studio_plan" {
 
 variable "watsonx_ai_studio_instance_name" {
   type        = string
-  description = "The name of the Watson Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
+  description = "The name of the watsonx.ai Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
   default     = "watsonx-studio"
 }
 
 # watsonx.ai Runtime (Watson Machine Learning)
-variable "existing_machine_learning_instance_crn" {
+variable "existing_ai_runtime_instance_crn" {
   default     = null
-  description = "The CRN of an existing Watson Machine Learning instance. If not provided, a new instance will be provisioned."
+  description = "The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned."
   type        = string
 }
 
 variable "watsonx_ai_runtime_instance_name" {
   type        = string
-  description = "The name of the Watson Machine Learning instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
+  description = "The name of the watsonx.ai Runtime instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
   default     = "watsonx-ml"
 }
 
 variable "watsonx_ai_runtime_plan" {
-  description = "The plan that is used to provision the Watson Machine Learning instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'."
+  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'."
   type        = string
   default     = "lite"
 
@@ -88,7 +88,7 @@ variable "watsonx_ai_runtime_plan" {
 
 variable "watsonx_ai_runtime_service_endpoints" {
   type        = string
-  description = "The type of service endpoints. Possible values: 'public', 'private', 'public-and-private'."
+  description = "The type of service endpoints for watsonx.ai Runtime. Possible values: 'public', 'private', 'public-and-private'."
   default     = "public"
 
   validation {
@@ -98,7 +98,7 @@ variable "watsonx_ai_runtime_service_endpoints" {
 
   validation {
     condition     = contains(["lite"], var.watsonx_ai_runtime_plan) ? contains(["public"], var.watsonx_ai_runtime_service_endpoints) : true
-    error_message = "The lite plan of watson machine learning only supports public endpoints."
+    error_message = "The lite plan of watsonx.ai Runtime only supports public endpoints."
   }
 }
 
@@ -144,7 +144,7 @@ variable "watsonx_project_name" {
   default     = "demo"
 }
 
-variable "watsonx_project_description" {
+variable "project_description" {
   description = "A description of the watsonx.ai project that is created."
   type        = string
   default     = "Watsonx project created by the watsonx.ai module."
@@ -163,7 +163,7 @@ variable "watsonx_project_tags" {
   }
 }
 
-variable "watsonx_mark_as_sensitive" {
+variable "mark_as_sensitive" {
   description = "Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. "
   type        = bool
   default     = false
