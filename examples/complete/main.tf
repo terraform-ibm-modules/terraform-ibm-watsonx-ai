@@ -68,7 +68,7 @@ module "watsonx_ai" {
   resource_group_id         = module.resource_group.resource_group_id
   watsonx_ai_studio_plan    = "professional-v1"
   watsonx_ai_runtime_plan   = "v2-professional"
-  watsonx_project_name      = "${var.prefix}-project-complete"
+  project_name              = "${var.prefix}-project-complete"
   enable_cos_kms_encryption = true
   cos_instance_crn          = module.cos.cos_instance_crn
   cos_kms_key_crn           = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn

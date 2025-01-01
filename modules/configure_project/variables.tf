@@ -1,19 +1,19 @@
 ############################################################
-# Watson variables
+# watsonx.ai variables
 ############################################################
 
-variable "watsonx_project_name" {
-  description = "The name of the watsonx project, which serves as a unique identifier for the project."
+variable "project_name" {
+  description = "The name of the watsonx.ai project, which serves as a unique identifier for the project."
   type        = string
 }
 
 variable "project_description" {
-  description = "This provides a short summary of the watsonx project, explaining its purpose or goals briefly."
+  description = "This provides a short summary of the watsonx.ai project, explaining its purpose or goals briefly."
   type        = string
 }
 
 variable "project_tags" {
-  description = "A list of tags associated with the watsonx project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
+  description = "A list of tags associated with the watsonx.ai project. Each tag consists of a single string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @."
   type        = list(string)
 }
 
@@ -24,12 +24,12 @@ variable "watsonx_project_delegated" {
 }
 
 variable "region" {
-  description = "The location that's used with the IBM Cloud Terraform IBM provider. It's also used during resource creation."
+  description = "The location that is used with the IBM Cloud Terraform IBM provider. It is also used during resource creation."
   type        = string
 }
 
 variable "mark_as_sensitive" {
-  description = "Set to true to allow the WatsonX project to be created with 'Mark as sensitive' flag."
+  description = "Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag."
   type        = bool
   default     = false
 }
@@ -49,7 +49,7 @@ variable "cos_crn" {
 }
 
 ############################################################
-# Machine Learning variables
+# watsonx.ai Runtime variables
 ############################################################
 
 variable "watsonx_ai_runtime_guid" {

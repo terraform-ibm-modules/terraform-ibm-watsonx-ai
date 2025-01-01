@@ -62,7 +62,6 @@ variable "watsonx_ai_studio_instance_name" {
   default     = "watsonx-studio"
 }
 
-# watsonx.ai Runtime (Watson Machine Learning)
 variable "existing_ai_runtime_instance_crn" {
   default     = null
   description = "The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned."
@@ -138,7 +137,7 @@ variable "create_watsonx_ai_project" {
   default     = true
 }
 
-variable "watsonx_project_name" {
+variable "project_name" {
   description = "The name of the watsonx.ai project."
   type        = string
   default     = "demo"

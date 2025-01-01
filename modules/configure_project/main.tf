@@ -9,7 +9,7 @@ resource "restapi_object" "configure_project" {
   destroy_path   = "${local.dataplatform_api}/transactional{id}"
   data           = <<-EOT
                   {
-                    "name": "${var.watsonx_project_name}",
+                    "name": "${var.project_name}",
                     "generator": "terraform-ibm-watsonx-ai",
                     "type": "wx",
                     "storage": {
@@ -40,7 +40,7 @@ resource "restapi_object" "configure_project" {
   update_path    = "${local.dataplatform_api}{id}"
   update_data    = <<-EOT
                   {
-                    "name": "${var.watsonx_project_name}",
+                    "name": "${var.project_name}",
                     "type": "wx",
                     "description": "${var.project_description}",
                     "public": true,

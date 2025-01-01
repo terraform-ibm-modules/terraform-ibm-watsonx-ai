@@ -15,7 +15,7 @@ output "watsonx_project_bucket_name" {
 
 output "watsonx_project_url" {
   value       = "${local.dataplatform_ui}/projects/${local.watsonx_project_id}?context=wx&sync_account_id=${local.account_id}"
-  description = "The URL of the watsonx project that is created."
+  description = "The URL of the watsonx.ai project that is created."
 }
 
 output "watsonx_ai_runtime_account_id" {
