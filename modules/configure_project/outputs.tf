@@ -1,11 +1,11 @@
 output "watsonx_project_id" {
   value       = local.watsonx_project_id
-  description = "The ID of the watsonx project that's created."
+  description = "The ID of the watsonx project that is created."
 }
 
 output "watsonx_project_region" {
   value       = resource.restapi_object.configure_project.id
-  description = "The region of the watsonx project that's created."
+  description = "The region of the watsonx project that is created."
 }
 
 output "watsonx_project_bucket_name" {
@@ -15,10 +15,10 @@ output "watsonx_project_bucket_name" {
 
 output "watsonx_project_url" {
   value       = "${local.dataplatform_ui}/projects/${local.watsonx_project_id}?context=wx&sync_account_id=${local.account_id}"
-  description = "The URL of the watsonx project that's created."
+  description = "The URL of the watsonx.ai project that is created."
 }
 
-output "watsonx_machine_learning_account_id" {
+output "watsonx_ai_runtime_account_id" {
   value       = local.account_id
-  description = "The account id of the Watson Machine Learning instance."
+  description = "The account id of the watsonx.ai Runtime instance."
 }

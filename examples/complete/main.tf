@@ -61,15 +61,15 @@ data "ibm_iam_auth_token" "restapi" {
 
 
 module "watsonx_ai" {
-  source                       = "../.."
-  prefix                       = var.prefix
-  region                       = var.region
-  resource_tags                = var.resource_tags
-  resource_group_id            = module.resource_group.resource_group_id
-  watson_studio_plan           = "professional-v1"
-  watson_machine_learning_plan = "v2-professional"
-  watsonx_project_name         = "${var.prefix}-project-complete"
-  enable_cos_kms_encryption    = true
-  cos_instance_crn             = module.cos.cos_instance_crn
-  cos_kms_key_crn              = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
+  source                    = "../.."
+  prefix                    = var.prefix
+  region                    = var.region
+  resource_tags             = var.resource_tags
+  resource_group_id         = module.resource_group.resource_group_id
+  watsonx_ai_studio_plan    = "professional-v1"
+  watsonx_ai_runtime_plan   = "v2-professional"
+  project_name              = "${var.prefix}-project-complete"
+  enable_cos_kms_encryption = true
+  cos_instance_crn          = module.cos.cos_instance_crn
+  cos_kms_key_crn           = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
 }

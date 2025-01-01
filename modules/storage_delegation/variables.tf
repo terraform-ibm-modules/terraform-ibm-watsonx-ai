@@ -13,7 +13,7 @@ variable "cos_instance_guid" {
 ############################################################
 
 variable "cos_kms_key_crn" {
-  description = "Key Protect key CRN used to encrypt the COS buckets used by the watsonx projects."
+  description = "Key Protect key CRN used to encrypt the COS buckets used by the watsonx.ai projects."
   type        = string
   default     = null
 }

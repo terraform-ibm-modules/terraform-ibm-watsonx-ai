@@ -14,7 +14,7 @@ const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 
-// Current supported regions for watsonx Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
+// Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
 	"us-south",
 	"eu-de",
@@ -52,7 +52,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "wx-basic", basicExampleDir)
+	options := setupOptions(t, "wx-ai-basic", basicExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -62,7 +62,7 @@ func TestRunBasicExample(t *testing.T) {
 func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "wx-complete", completeExampleDir)
+	options := setupOptions(t, "wx-ai-complete", completeExampleDir)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
