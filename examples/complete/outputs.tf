@@ -2,11 +2,6 @@
 # Outputs
 ########################################################################################################################
 
-output "cos_instance_crn" {
-  description = "CRN of the Cloud Object Storage instance"
-  value       = module.cos.cos_instance_crn
-}
-
 output "watsonx_ai_runtime_crn" {
   description = "CRN of the watsonx.ai Runtime instance"
   value       = module.watsonx_ai.watsonx_ai_runtime_crn
@@ -62,7 +57,17 @@ output "watsonx_project_id" {
   description = "ID of the created project"
 }
 
+output "watsonx_project_region" {
+  value       = module.watsonx_ai.watsonx_project_region
+  description = "Region of the created project"
+}
+
 output "watsonx_project_url" {
   value       = module.watsonx_ai.watsonx_project_url
   description = "URL of the created project"
+}
+
+output "cos_kms_key_crn" {
+  description = "CRN of the KMS Key"
+  value       = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
 }
