@@ -75,7 +75,7 @@ variable "watsonx_ai_runtime_instance_name" {
 }
 
 variable "watsonx_ai_runtime_plan" {
-  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'."
+  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
   type        = string
   default     = "lite"
 
@@ -93,11 +93,6 @@ variable "watsonx_ai_runtime_service_endpoints" {
   validation {
     condition     = contains(["public", "public-and-private", "private"], var.watsonx_ai_runtime_service_endpoints)
     error_message = "The specified service endpoint is not valid. Supported options are public, public-and-private, or private."
-  }
-
-  validation {
-    condition     = contains(["lite"], var.watsonx_ai_runtime_plan) ? contains(["public"], var.watsonx_ai_runtime_service_endpoints) : true
-    error_message = "The lite plan of watsonx.ai Runtime only supports public endpoints."
   }
 }
 
