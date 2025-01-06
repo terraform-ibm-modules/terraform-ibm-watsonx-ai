@@ -14,13 +14,13 @@ token_decoded="$(jwt_decode "$token")"
 bss_account_id="$(echo "$token_decoded" | jq -r .account.bss)"
 
 # shellcheck disable=SC2154
-if [ "$location" == "us-south" ]; then
+if [ "$region" == "us-south" ]; then
     dataplatform_api="https://api.dataplatform.cloud.ibm.com"
-elif [ "$location" == "eu-gb" ]; then
-    dataplatform_api="https://api.eu-uk.dataplatform.cloud.ibm.com"
-elif [ "$location" == "eu-de" ]; then
+elif [ "$region" == "eu-gb" ]; then
+    dataplatform_api="https://api.eu-gb.dataplatform.cloud.ibm.com"
+elif [ "$region" == "eu-de" ]; then
     dataplatform_api="https://api.eu-de.dataplatform.cloud.ibm.com"
-elif [ "$location" == "jp-tok" ]; then
+elif [ "$region" == "jp-tok" ]; then
     dataplatform_api="https://api.jp-tok.dataplatform.cloud.ibm.com"
 else
     echo "Unknown region" && exit 1

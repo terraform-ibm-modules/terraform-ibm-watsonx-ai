@@ -2,6 +2,7 @@
 # Outputs
 ########################################################################################################################
 
+# watsonx.ai Runtime
 output "watsonx_ai_runtime_crn" {
   description = "The CRN of the watsonx.ai Runtime instance."
   value       = local.watsonx_ai_runtime_crn
@@ -32,6 +33,7 @@ output "watsonx_ai_runtime_account_id" {
   description = "The account id of the watsonx.ai Runtime instance."
 }
 
+# watsonx.ai Studio
 output "watsonx_ai_studio_crn" {
   description = "The CRN of the watsonx.ai Studio instance."
   value       = local.watsonx_ai_studio_crn
@@ -57,22 +59,18 @@ output "watsonx_ai_studio_dashboard_url" {
   value       = local.watsonx_ai_studio_dashboard_url
 }
 
-output "watsonx_project_id" {
-  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_id : null
+# watsonx.ai Project
+output "watsonx_ai_project_id" {
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_project_id : null
   description = "The ID of the watsonx.ai project that is created."
 }
 
-output "watsonx_project_region" {
-  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_region : null
-  description = "The region of the watsonx.ai project that is created."
-}
-
-output "watsonx_project_bucket_name" {
-  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_bucket_name : null
+output "watsonx_ai_project_bucket_name" {
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_project_bucket_name : null
   description = "The name of the COS bucket created for the watsonx.ai project."
 }
 
-output "watsonx_project_url" {
-  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_project_url : null
+output "watsonx_ai_project_url" {
+  value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_project_url : null
   description = "The URL of the watsonx.ai project that is created."
 }

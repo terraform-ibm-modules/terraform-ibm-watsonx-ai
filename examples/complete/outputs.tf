@@ -52,19 +52,19 @@ output "watsonx_ai_studio_dashboard_url" {
   value       = module.watsonx_ai.watsonx_ai_studio_dashboard_url
 }
 
-output "watsonx_project_id" {
-  value       = module.watsonx_ai.watsonx_project_id
-  description = "ID of the created project"
+output "watsonx_ai_project_id" {
+  value       = module.watsonx_ai.watsonx_ai_project_id
+  description = "ID of the created watsonx.ai project"
 }
 
-output "watsonx_project_region" {
-  value       = module.watsonx_ai.watsonx_project_region
-  description = "Region of the created project"
+output "watsonx_ai_project_url" {
+  value       = module.watsonx_ai.watsonx_ai_project_url
+  description = "URL of the created watsonx.ai project"
 }
 
-output "watsonx_project_url" {
-  value       = module.watsonx_ai.watsonx_project_url
-  description = "URL of the created project"
+output "watsonx_ai_project_bucket_name" {
+  value       = module.watsonx_ai.watsonx_ai_project_bucket_name
+  description = "The name of the COS bucket created for the watsonx.ai project."
 }
 
 output "cos_kms_key_crn" {

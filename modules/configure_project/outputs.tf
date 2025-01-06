@@ -1,19 +1,14 @@
-output "watsonx_project_id" {
+output "watsonx_ai_project_id" {
   value       = local.watsonx_project_id
   description = "The ID of the watsonx project that is created."
 }
 
-output "watsonx_project_region" {
-  value       = resource.restapi_object.configure_project.id
-  description = "The region of the watsonx project that is created."
-}
-
-output "watsonx_project_bucket_name" {
+output "watsonx_ai_project_bucket_name" {
   value       = local.watsonx_project_data.entity.storage.properties.bucket_name
-  description = "The name of the COS bucket created by the watsonx project."
+  description = "The name of the COS bucket created by the watsonx.ai project."
 }
 
-output "watsonx_project_url" {
+output "watsonx_ai_project_url" {
   value       = "${local.dataplatform_ui}/projects/${local.watsonx_project_id}?context=wx&sync_account_id=${local.account_id}"
   description = "The URL of the watsonx.ai project that is created."
 }

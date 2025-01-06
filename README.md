@@ -160,6 +160,9 @@ statement instead the previous block.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_watsonx_ai_project_bucket_name"></a> [watsonx\_ai\_project\_bucket\_name](#output\_watsonx\_ai\_project\_bucket\_name) | The name of the COS bucket created for the watsonx.ai project. |
+| <a name="output_watsonx_ai_project_id"></a> [watsonx\_ai\_project\_id](#output\_watsonx\_ai\_project\_id) | The ID of the watsonx.ai project that is created. |
+| <a name="output_watsonx_ai_project_url"></a> [watsonx\_ai\_project\_url](#output\_watsonx\_ai\_project\_url) | The URL of the watsonx.ai project that is created. |
 | <a name="output_watsonx_ai_runtime_account_id"></a> [watsonx\_ai\_runtime\_account\_id](#output\_watsonx\_ai\_runtime\_account\_id) | The account id of the watsonx.ai Runtime instance. |
 | <a name="output_watsonx_ai_runtime_crn"></a> [watsonx\_ai\_runtime\_crn](#output\_watsonx\_ai\_runtime\_crn) | The CRN of the watsonx.ai Runtime instance. |
 | <a name="output_watsonx_ai_runtime_dashboard_url"></a> [watsonx\_ai\_runtime\_dashboard\_url](#output\_watsonx\_ai\_runtime\_dashboard\_url) | The dashboard URL of the watsonx.ai Runtime instance. |
@@ -171,10 +174,6 @@ statement instead the previous block.
 | <a name="output_watsonx_ai_studio_guid"></a> [watsonx\_ai\_studio\_guid](#output\_watsonx\_ai\_studio\_guid) | The GUID of the watsonx.ai Studio instance. |
 | <a name="output_watsonx_ai_studio_name"></a> [watsonx\_ai\_studio\_name](#output\_watsonx\_ai\_studio\_name) | The name of the watsonx.ai Studio instance. |
 | <a name="output_watsonx_ai_studio_plan_id"></a> [watsonx\_ai\_studio\_plan\_id](#output\_watsonx\_ai\_studio\_plan\_id) | The plan ID of the watsonx.ai Studio instance. |
-| <a name="output_watsonx_project_bucket_name"></a> [watsonx\_project\_bucket\_name](#output\_watsonx\_project\_bucket\_name) | The name of the COS bucket created for the watsonx.ai project. |
-| <a name="output_watsonx_project_id"></a> [watsonx\_project\_id](#output\_watsonx\_project\_id) | The ID of the watsonx.ai project that is created. |
-| <a name="output_watsonx_project_region"></a> [watsonx\_project\_region](#output\_watsonx\_project\_region) | The region of the watsonx.ai project that is created. |
-| <a name="output_watsonx_project_url"></a> [watsonx\_project\_url](#output\_watsonx\_project\_url) | The URL of the watsonx.ai project that is created. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set-up steps for contributors to follow -->
