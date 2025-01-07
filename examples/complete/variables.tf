@@ -32,7 +32,7 @@ variable "resource_group" {
 }
 
 variable "resource_tags" {
-  description = "Optional list of tags to describe the service instances created by the module."
   type        = list(string)
+  description = "Optional list of tags to be added to created resources"
   default     = []
 }
