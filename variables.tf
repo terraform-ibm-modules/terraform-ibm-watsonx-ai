@@ -12,7 +12,7 @@ variable "resource_group_id" {
   }
 
   validation {
-    condition     = var.existing_ai_runtime_instance_crn == null ? length(var.resource_group_id) > 0 : true
+    condition     = var.existing_watsonx_ai_runtime_instance_crn == null ? length(var.resource_group_id) > 0 : true
     error_message = "You must specify a value for 'resource_group_id', if 'existing_ai_runtime_instance_crn' is null."
   }
 }
@@ -62,7 +62,7 @@ variable "watsonx_ai_studio_instance_name" {
   default     = "watsonx-studio"
 }
 
-variable "existing_ai_runtime_instance_crn" {
+variable "existing_watsonx_ai_runtime_instance_crn" {
   default     = null
   description = "The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned."
   type        = string
@@ -98,7 +98,7 @@ variable "watsonx_ai_runtime_service_endpoints" {
 
 # COS & KMS
 variable "enable_cos_kms_encryption" {
-  description = "Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`."
+  description = "Flag to enable COS KMS encryption. If set to true, a value must be passed for `cos_kms_key_crn`."
   type        = bool
   default     = false
 
@@ -114,7 +114,7 @@ variable "cos_instance_crn" {
 }
 
 variable "cos_kms_key_crn" {
-  description = "The CRN of a KMS key. It is used to encrypt the COS buckets used by the watsonx projects."
+  description = "The CRN of a KMS (Key Protect) key. It is used to encrypt the COS buckets used by the watsonx projects."
   type        = string
   default     = null
 }

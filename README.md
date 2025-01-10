@@ -136,10 +136,10 @@ statement instead the previous block.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cos_instance_crn"></a> [cos\_instance\_crn](#input\_cos\_instance\_crn) | The CRN of the Cloud Object Storage instance. | `string` | n/a | yes |
-| <a name="input_cos_kms_key_crn"></a> [cos\_kms\_key\_crn](#input\_cos\_kms\_key\_crn) | The CRN of a KMS key. It is used to encrypt the COS buckets used by the watsonx projects. | `string` | `null` | no |
+| <a name="input_cos_kms_key_crn"></a> [cos\_kms\_key\_crn](#input\_cos\_kms\_key\_crn) | The CRN of a KMS (Key Protect) key. It is used to encrypt the COS buckets used by the watsonx projects. | `string` | `null` | no |
 | <a name="input_create_watsonx_ai_project"></a> [create\_watsonx\_ai\_project](#input\_create\_watsonx\_ai\_project) | Whether to create and configure a starter watsonx.ai project. | `bool` | `true` | no |
-| <a name="input_enable_cos_kms_encryption"></a> [enable\_cos\_kms\_encryption](#input\_enable\_cos\_kms\_encryption) | Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`. | `bool` | `false` | no |
-| <a name="input_existing_ai_runtime_instance_crn"></a> [existing\_ai\_runtime\_instance\_crn](#input\_existing\_ai\_runtime\_instance\_crn) | The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
+| <a name="input_enable_cos_kms_encryption"></a> [enable\_cos\_kms\_encryption](#input\_enable\_cos\_kms\_encryption) | Flag to enable COS KMS encryption. If set to true, a value must be passed for `cos_kms_key_crn`. | `bool` | `false` | no |
+| <a name="input_existing_watsonx_ai_runtime_instance_crn"></a> [existing\_watsonx\_ai\_runtime\_instance\_crn](#input\_existing\_watsonx\_ai\_runtime\_instance\_crn) | The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_existing_watsonx_ai_studio_instance_crn"></a> [existing\_watsonx\_ai\_studio\_instance\_crn](#input\_existing\_watsonx\_ai\_studio\_instance\_crn) | The CRN of an existing watsonx.ai Studio instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_mark_as_sensitive"></a> [mark\_as\_sensitive](#input\_mark\_as\_sensitive) | Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. | `bool` | `false` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix to add to all watsonx.ai resources created by this module. | `string` | n/a | yes |

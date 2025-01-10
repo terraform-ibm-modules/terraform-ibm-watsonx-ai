@@ -2,10 +2,18 @@
 package test
 
 import (
+	"fmt"
 	"math/rand"
+	"os"
+	"strings"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/files"
+	"github.com/gruntwork-io/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/random"
+	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -13,6 +21,12 @@ import (
 const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
+const standardSolutionTerraformDir = "solutions/standard"
+
+// const subModuleConfigureProjectTerraformDir = "modules/configure_project"
+// const subModuleConfigureUserTerraformDir = "modules/configure_user"
+// const subModuleConfigureUserScriptsDir = "modules/configure_user/scripts"
+// const subModuleStorageDelegationTerraformDir = "modules/storage_delegation"
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
@@ -80,3 +94,168 @@ func TestRunUpgradeExample(t *testing.T) {
 		assert.NotNil(t, output, "Expected some output")
 	}
 }
+
+// Test the DA
+func TestRunStandardSolution(t *testing.T) {
+	t.Parallel()
+
+	// ---------------------------------------------------------
+	// Provision KMS - Key Protect
+	// ---------------------------------------------------------
+
+	var region = validRegions[rand.Intn(len(validRegions))]
+
+	prefix := "wx-da"
+	realTerraformDir := "./resources/kp-instance"
+	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
+
+	// Verify ibmcloud_api_key variable is set
+	checkVariable := "TF_VAR_ibmcloud_api_key"
+	val, present := os.LookupEnv(checkVariable)
+	require.True(t, present, checkVariable+" environment variable not set")
+	require.NotEqual(t, "", val, checkVariable+" environment variable is empty")
+
+	logger.Log(t, "Tempdir: ", tempTerraformDir)
+	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: tempTerraformDir,
+		Vars: map[string]interface{}{
+			"prefix": prefix,
+			"region": region,
+		},
+		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
+		// This is the same as setting the -upgrade=true flag with terraform.
+		Upgrade: true,
+	})
+
+	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
+	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
+
+	if existErr != nil {
+		assert.True(t, existErr == nil, "Init and Apply of temp resources (KP Instance and Key creation) failed")
+	} else {
+		// ------------------------------------------------------------------------------------
+		// Deploy watsonx.ai DA using existing KP details
+		// ------------------------------------------------------------------------------------
+
+		options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+			Testing:      t,
+			TerraformDir: standardSolutionTerraformDir,
+			Prefix:       "wx-da",
+			IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
+				List: []string{
+					"module.watsonx_ai.module.configure_user.null_resource.configure_user",
+					"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
+				},
+			},
+			IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+				List: []string{
+					"module.watsonx_ai.module.configure_user.null_resource.configure_user",
+					"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
+				},
+			},
+			TerraformVars: map[string]interface{}{
+				"region":                      validRegions[rand.Intn(len(validRegions))],
+				"use_existing_resource_group": true,
+				"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
+				"provider_visibility":         "public",
+				"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+			},
+		})
+
+		output, err := options.RunTestConsistency()
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+
+	envVal, _ := os.LookupEnv("DO_NOT_DESTROY_ON_FAILURE")
+	// Destroy the temporary resources created
+	if t.Failed() && strings.ToLower(envVal) == "true" {
+		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
+	} else {
+		logger.Log(t, "START: Destroy (existing resources)")
+		terraform.Destroy(t, existingTerraformOptions)
+		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
+		logger.Log(t, "END: Destroy (existing resources)")
+	}
+}
+
+// Test the DA in Schematics
+// func TestRunStandardSolutionInSchematics(t *testing.T) {
+// 	t.Parallel()
+
+// 	// ---------------------------------------------------------
+// 	// Provision KMS - Key Protect
+// 	// ---------------------------------------------------------
+
+// 	var region = validRegions[rand.Intn(len(validRegions))]
+
+// 	prefix := fmt.Sprintf("wx-kp-%s", strings.ToLower(random.UniqueId()))
+// 	realTerraformDir := "./resources/kp-instance"
+// 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
+
+// 	// Verify ibmcloud_api_key variable is set
+// 	checkVariable := "TF_VAR_ibmcloud_api_key"
+// 	val, present := os.LookupEnv(checkVariable)
+// 	require.True(t, present, checkVariable+" environment variable not set")
+// 	require.NotEqual(t, "", val, checkVariable+" environment variable is empty")
+
+// 	logger.Log(t, "Tempdir: ", tempTerraformDir)
+// 	existingTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+// 		TerraformDir: tempTerraformDir,
+// 		Vars: map[string]interface{}{
+// 			"prefix": prefix,
+// 			"region": region,
+// 		},
+// 		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
+// 		// This is the same as setting the -upgrade=true flag with terraform.
+// 		Upgrade: true,
+// 	})
+
+// 	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
+// 	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
+
+// 	if existErr != nil {
+// 		assert.True(t, existErr == nil, "Init and Apply of temp resources (KP Instance and Key creation) failed")
+// 	} else {
+// 		options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+// 			Testing: t,
+// 			Prefix:  "wx-ai-da",
+// 			TarIncludePatterns: []string{
+// 				standardSolutionTerraformDir + "/*.tf",
+// 				"*.tf",
+// 				subModuleConfigureProjectTerraformDir + "/*.*",
+// 				subModuleConfigureUserTerraformDir + "/*.*",
+// 				subModuleConfigureUserScriptsDir + "*.*",
+// 				subModuleStorageDelegationTerraformDir + "/*.*",
+// 			},
+// 			ResourceGroup:          resourceGroup,
+// 			TemplateFolder:         standardSolutionTerraformDir,
+// 			Tags:                   []string{"test-schematic"},
+// 			DeleteWorkspaceOnFail:  false,
+// 			WaitJobCompleteMinutes: 60,
+// 			Region:                 region,
+// 		})
+
+// 		options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+// 			{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+// 			{Name: "use_existing_resource_group", Value: true, DataType: "string"},
+// 			{Name: "resource_group_name", Value: options.ResourceGroup, DataType: "string"},
+// 			{Name: "existing_cos_kms_key_crn", Value: terraform.Output(t, existingTerraformOptions, "kms_key_crn"), DataType: "string"},
+// 			{Name: "prefix", Value: options.Prefix, DataType: "string"},
+// 		}
+
+// 		err := options.RunSchematicTest()
+// 		assert.Nil(t, err, "This should not have errored")
+// 	}
+
+// 	envVal, _ := os.LookupEnv("DO_NOT_DESTROY_ON_FAILURE")
+// 	// Destroy the temporary resources created
+// 	if t.Failed() && strings.ToLower(envVal) == "true" {
+// 		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
+// 	} else {
+// 		logger.Log(t, "START: Destroy (existing resources)")
+// 		terraform.Destroy(t, existingTerraformOptions)
+// 		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
+// 		logger.Log(t, "END: Destroy (existing resources)")
+// 	}
+// }

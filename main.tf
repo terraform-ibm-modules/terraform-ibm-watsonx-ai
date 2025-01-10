@@ -40,20 +40,20 @@ resource "ibm_resource_instance" "watsonx_ai_studio_instance" {
 # ****************************
 
 locals {
-  watsonx_ai_runtime_crn           = var.existing_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].crn : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].crn
-  watsonx_ai_runtime_guid          = var.existing_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].guid : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].guid
-  watsonx_ai_runtime_name          = var.existing_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].resource_name : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_name
-  watsonx_ai_runtime_plan_id       = var.existing_ai_runtime_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_plan_id
-  watsonx_ai_runtime_dashboard_url = var.existing_ai_runtime_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].dashboard_url
+  watsonx_ai_runtime_crn           = var.existing_watsonx_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].crn : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].crn
+  watsonx_ai_runtime_guid          = var.existing_watsonx_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].guid : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].guid
+  watsonx_ai_runtime_name          = var.existing_watsonx_ai_runtime_instance_crn != null ? data.ibm_resource_instance.existing_watsonx_ai_runtime_instance[0].resource_name : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_name
+  watsonx_ai_runtime_plan_id       = var.existing_watsonx_ai_runtime_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].resource_plan_id
+  watsonx_ai_runtime_dashboard_url = var.existing_watsonx_ai_runtime_instance_crn != null ? null : resource.ibm_resource_instance.watsonx_ai_runtime_instance[0].dashboard_url
 }
 
 data "ibm_resource_instance" "existing_watsonx_ai_runtime_instance" {
-  count      = var.existing_ai_runtime_instance_crn != null ? 1 : 0
-  identifier = var.existing_ai_runtime_instance_crn
+  count      = var.existing_watsonx_ai_runtime_instance_crn != null ? 1 : 0
+  identifier = var.existing_watsonx_ai_runtime_instance_crn
 }
 
 resource "ibm_resource_instance" "watsonx_ai_runtime_instance" {
-  count             = var.existing_ai_runtime_instance_crn != null ? 0 : 1
+  count             = var.existing_watsonx_ai_runtime_instance_crn != null ? 0 : 1
   name              = var.prefix != null ? "${var.prefix}-${var.watsonx_ai_runtime_instance_name}" : var.watsonx_ai_runtime_instance_name
   service           = "pm-20"
   plan              = var.watsonx_ai_runtime_plan
@@ -108,7 +108,7 @@ module "configure_project" {
   source                    = "./modules/configure_project"
   depends_on                = [module.storage_delegation]
   count                     = var.create_watsonx_ai_project ? 1 : 0
-  project_name              = "${var.prefix}-${var.project_name}"
+  project_name              = var.prefix != null ? "${var.prefix}-${var.project_name}" : var.project_name
   project_description       = var.project_description
   project_tags              = var.project_tags
   mark_as_sensitive         = var.mark_as_sensitive
