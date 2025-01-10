@@ -4,7 +4,7 @@ offerings:
   - name: deploy-arch-ibm-watsonx-ai
     kind: solution
     catalog_id: 7df1e4ca-d54c-4fd0-82ce-3d13247308cd
-    offering_id:
+    offering_id: 85b7c3d8-c947-408c-896c-52b375ceb1c0
     variations:
       - name: standard
         mark_ready: true

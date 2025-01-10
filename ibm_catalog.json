@@ -21,8 +21,8 @@
           "solution",
           "ai"
         ],
-        "short_description": "Creates and configures IBM watsonx.ai Project.",
-        "long_description": "This architecture supports creating and configuring an instance of watsonx Assistant.",
+        "short_description": "Creates and configures IBM watsonx.ai Project",
+        "long_description": "This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project.",
         "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
         "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai-da.svg",
         "provider_name": "IBM",
@@ -69,27 +69,40 @@
                 "role_crns": [
                   "crn:v1:bluemix:public:iam::::role:Editor"
                 ],
-                "service_name": "studio"
+                "service_name": "data-science-experience"
               },
               {
                 "role_crns": [
                   "crn:v1:bluemix:public:iam::::role:Editor"
                 ],
-                "service_name": "runtime"
+                "service_name": "pm-20"
               },
               {
                 "role_crns": [
+                  "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                   "crn:v1:bluemix:public:iam::::role:Editor"
                 ],
-                "service_name": "cos"
+                "service_name": "cloud-object-storage"
               }
             ],
             "architecture": {
-              "descriptions": "This architecture creates an instance of IBM watsonx Assistant.",
+              "descriptions": "This architecture creates and configures an IBM watsonx.ai Project.",
               "features": [
                 {
-                  "title": " Creates an instance of watsonx Assistant",
-                  "description": "This architecture creates an instance of IBM watsonx Assistant. It accepts or creates a resource group."
+                    "title": "Creates an instance of IBM watsonx.ai Studio",
+                    "description": "Creates and configures an IBM watsonx.ai Studio instance."
+                },
+                {
+                    "title": "Creates an instance of IBM watsonx.ai Runtime",
+                    "description": "Creates and configures an IBM watsonx.ai Runtime instance."
+                },
+                {
+                    "title": "Configures the watsonx profile for IBM Cloud user",
+                    "description": "Configures the watsonx profile for IBM Cloud user."
+                },
+                {
+                    "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
+                    "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
                 }
               ],
               "diagrams": [
@@ -99,7 +112,7 @@
                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-assistant/main/reference-architecture/deployable-architecture-watsonx-ai.svg",
                     "type": "image/svg+xml"
                   },
-                  "description": "This architecture supports creating and configuring an instance of watsonx Assistant."
+                  "description": "This architecture creates and configures an IBM watsonx.ai Project."
                 }
               ]
             },
