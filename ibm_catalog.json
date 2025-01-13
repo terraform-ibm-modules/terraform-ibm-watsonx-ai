@@ -109,7 +109,7 @@
                 {
                   "diagram": {
                     "caption": "watsonx.ai on IBM Cloud",
-                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-assistant/main/reference-architecture/deployable-architecture-watsonx-ai.svg",
+                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                     "type": "image/svg+xml"
                   },
                   "description": "This architecture creates and configures an IBM watsonx.ai Project."
