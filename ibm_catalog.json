@@ -118,7 +118,26 @@
             },
             "configuration": [
                 {
-                  "key": "ibmcloud_api_key"
+                  "key": "ibmcloud_api_key",
+                  "required": true,
+                  "type": "password"
+                },
+                {
+                    "key": "provider_visibility",
+                    "options": [
+                      {
+                        "displayname": "private",
+                        "value": "private"
+                      },
+                      {
+                        "displayname": "public",
+                        "value": "public"
+                      },
+                      {
+                        "displayname": "public-and-private",
+                        "value": "public-and-private"
+                      }
+                    ]
                 },
                 {
                   "key": "use_existing_resource_group"
@@ -138,23 +157,12 @@
                     {
                       "displayname": "Dallas (us-south)",
                       "value": "us-south"
-                    },
-                    {
-                      "displayname": "Frankfurt (eu-de)",
-                      "value": "eu-de"
-                    },
-                    {
-                      "displayname": "London (eu-gb)",
-                      "value": "eu-gb"
-                    },
-                    {
-                      "displayname": "Tokyo (jp-tok)",
-                      "value": "jp-tok"
                     }
                   ]
                 },
                 {
-                    "key": "existing_kms_instance_crn"
+                    "key": "existing_kms_instance_crn",
+                    "required": true
                 },
                 {
                     "key": "existing_cos_kms_key_crn"
@@ -168,7 +176,7 @@
                       "value": "free-v1"
                     },
                     {
-                      "displayname": "professional-v1",
+                      "displayname": "Professional",
                       "value": "professional-v1"
                     }
                   ]
@@ -184,22 +192,22 @@
                     "default_value": "v2-professional",
                     "options": [
                       {
-                        "displayname": "lite",
+                        "displayname": "Lite",
                         "value": "lite"
                       },
                       {
-                        "displayname": "v2-professional",
+                        "displayname": "Essentials",
                         "value": "v2-professional"
                       },
                       {
-                        "displayname": "v2-standard",
+                        "displayname": "Standard",
                         "value": "v2-standard"
                       }
                     ]
                 },
                 {
                   "key": "watsonx_ai_runtime_service_endpoints",
-                  "default_value": "private",
+                  "default_value": "public-and-private",
                   "options": [
                     {
                       "displayname": "Public Network",

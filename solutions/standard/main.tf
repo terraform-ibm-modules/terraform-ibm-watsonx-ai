@@ -66,16 +66,15 @@ module "kms" {
 #######################################################################################################################
 
 module "cos_instance" {
-  count                    = var.existing_cos_instance_crn == null ? 1 : 0 # no need to call COS module if consumer is using existing COS instance
-  source                   = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version                  = "8.16.4"
-  resource_group_id        = module.resource_group.resource_group_id
-  create_cos_instance      = true
-  cos_instance_name        = try("${local.prefix}-${var.cos_instance_name}", var.cos_instance_name)
-  cos_tags                 = var.cos_instance_tags
-  existing_cos_instance_id = var.existing_cos_instance_crn
-  access_tags              = var.cos_instance_access_tags
-  cos_plan                 = var.cos_plan
+  count               = var.existing_cos_instance_crn == null ? 1 : 0 # no need to call COS module if consumer is using existing COS instance
+  source              = "terraform-ibm-modules/cos/ibm//modules/fscloud"
+  version             = "8.16.4"
+  resource_group_id   = module.resource_group.resource_group_id
+  create_cos_instance = true
+  cos_instance_name   = try("${local.prefix}-${var.cos_instance_name}", var.cos_instance_name)
+  cos_tags            = var.cos_instance_tags
+  access_tags         = var.cos_instance_access_tags
+  cos_plan            = var.cos_plan
 }
 
 
@@ -84,14 +83,13 @@ module "cos_instance" {
 ########################################################################################################################
 
 locals {
-  cos_instance_crn = var.existing_cos_instance_crn == null ? (length(module.cos_instance) != 0 ? module.cos_instance[0].cos_instance_crn : null) : var.existing_cos_instance_crn
+  cos_instance_crn = var.existing_cos_instance_crn == null ? module.cos_instance[0].cos_instance_crn : var.existing_cos_instance_crn
   cos_kms_key_crn  = var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn
 }
 
 
 data "ibm_iam_auth_token" "restapi" {
 }
-
 
 module "watsonx_ai" {
   source            = "../.."

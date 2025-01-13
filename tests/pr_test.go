@@ -31,9 +31,9 @@ const standardSolutionTerraformDir = "solutions/standard"
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
 	"us-south",
-	"eu-de",
-	"eu-gb",
-	"jp-tok",
+	// "eu-de",
+	// "eu-gb",
+	// "jp-tok",
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
@@ -158,6 +158,7 @@ func TestRunStandardSolution(t *testing.T) {
 				"use_existing_resource_group": true,
 				"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
 				"provider_visibility":         "public",
+				"watsonx_ai_project_name":     "wx-da-prj",
 				"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 			},
 		})
@@ -174,7 +175,6 @@ func TestRunStandardSolution(t *testing.T) {
 	} else {
 		logger.Log(t, "START: Destroy (existing resources)")
 		terraform.Destroy(t, existingTerraformOptions)
-		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
 }

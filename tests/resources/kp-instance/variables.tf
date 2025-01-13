@@ -26,7 +26,7 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "allowed_network" {
+variable "key_protect_allowed_network" {
   type        = string
   description = "Types of the allowed networks to be set for the Key Protect instance. Possible values are 'private-only' or 'public-and-private'"
   default     = "public-and-private"

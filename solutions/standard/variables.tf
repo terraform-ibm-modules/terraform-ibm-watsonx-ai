@@ -11,7 +11,7 @@ variable "ibmcloud_api_key" {
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
   type        = string
-  default     = "public"
+  default     = "private"
 
   validation {
     condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
@@ -38,7 +38,7 @@ variable "prefix" {
 
 variable "region" {
   default     = "us-south"
-  description = "Region where the watsonx resources will be provisioned."
+  description = "Region where the watsonx.ai resources will be provisioned."
   type        = string
 
   validation {
