@@ -29,6 +29,7 @@ const standardSolutionTerraformDir = "solutions/standard"
 // const subModuleStorageDelegationTerraformDir = "modules/storage_delegation"
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
+// Currently testing in us-south only because of https://github.ibm.com/GoldenEye/issues/issues/11932
 var validRegions = []string{
 	"us-south",
 	// "eu-de",

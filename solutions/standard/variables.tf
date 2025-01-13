@@ -41,9 +41,10 @@ variable "region" {
   description = "Region where the watsonx.ai resources will be provisioned."
   type        = string
 
+  # Currently supporting only in us-south because of issue https://github.ibm.com/GoldenEye/issues/issues/11932
   validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
-    error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
+    condition     = contains(["us-south"], var.region)
+    error_message = "You must specify `us-south` as the IBM Cloud region."
   }
 }
 
