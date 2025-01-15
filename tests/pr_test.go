@@ -24,12 +24,11 @@ const completeExampleDir = "examples/complete"
 const standardSolutionTerraformDir = "solutions/standard"
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
-// Currently testing in us-south only because of https://github.ibm.com/GoldenEye/issues/issues/11932
 var validRegions = []string{
 	"us-south",
-	// "eu-de",
-	// "eu-gb",
-	// "jp-tok",
+	"eu-de",
+	"eu-gb",
+	"jp-tok",
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
@@ -150,7 +149,7 @@ func TestRunStandardSolution(t *testing.T) {
 				},
 			},
 			TerraformVars: map[string]interface{}{
-				"region":                      validRegions[rand.Intn(len(validRegions))],
+				"region":                      region,
 				"use_existing_resource_group": true,
 				"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
 				"provider_visibility":         "public",
