@@ -23,11 +23,6 @@ const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 const standardSolutionTerraformDir = "solutions/standard"
 
-// const subModuleConfigureProjectTerraformDir = "modules/configure_project"
-// const subModuleConfigureUserTerraformDir = "modules/configure_user"
-// const subModuleConfigureUserScriptsDir = "modules/configure_user/scripts"
-// const subModuleStorageDelegationTerraformDir = "modules/storage_delegation"
-
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 // Currently testing in us-south only because of https://github.ibm.com/GoldenEye/issues/issues/11932
 var validRegions = []string{
