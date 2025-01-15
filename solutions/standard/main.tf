@@ -84,7 +84,7 @@ module "cos_instance" {
 
 locals {
   cos_instance_crn = var.existing_cos_instance_crn == null ? module.cos_instance[0].cos_instance_crn : var.existing_cos_instance_crn
-  cos_kms_key_crn  = var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn
+  cos_kms_key_crn  = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
 }
 
 
