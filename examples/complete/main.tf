@@ -41,10 +41,10 @@ module "key_protect_all_inclusive" {
   resource_tags             = var.resource_tags
   keys = [
     {
-      key_ring_name = "${var.prefix}-keyring"
+      key_ring_name = local.key_ring_name
       keys = [
         {
-          key_name     = "${var.prefix}-key"
+          key_name     = local.key_name
           force_delete = true
         }
       ]
