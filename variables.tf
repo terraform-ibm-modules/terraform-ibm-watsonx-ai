@@ -31,6 +31,11 @@ variable "region" {
     condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
     error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
   }
+
+  validation {
+    condition     = var.cos_kms_key_crn != null ? local.kms_region == var.region : true
+    error_message = "KMS instance need to be in the same region as of watsonx.ai"
+  }
 }
 
 variable "resource_tags" {

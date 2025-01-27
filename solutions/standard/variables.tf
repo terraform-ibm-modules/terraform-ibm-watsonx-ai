@@ -11,7 +11,7 @@ variable "ibmcloud_api_key" {
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. [Learn more](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/guides/custom-service-endpoints)."
   type        = string
-  default     = "private"
+  default     = "public"
 
   validation {
     condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
@@ -44,6 +44,11 @@ variable "region" {
   validation {
     condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
     error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
+  }
+
+  validation {
+    condition     = (var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn == null) ? local.kms_region == var.region : true
+    error_message = "KMS instance need to be in the same region as of watsonx.ai"
   }
 }
 

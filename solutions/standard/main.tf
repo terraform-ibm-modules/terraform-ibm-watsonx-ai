@@ -83,10 +83,8 @@ module "cos_instance" {
 ########################################################################################################################
 
 locals {
-  # tflint-ignore: terraform_unused_declarations
-  validate_kms_and_watsonx_ai_region = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn == null ? (local.kms_region == var.region ? true : tobool("KMS instance need to be in the same region as of watsonx.ai")) : true) : true
-  cos_instance_crn                   = var.existing_cos_instance_crn == null ? module.cos_instance[0].cos_instance_crn : var.existing_cos_instance_crn
-  cos_kms_key_crn                    = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
+  cos_instance_crn = var.existing_cos_instance_crn == null ? module.cos_instance[0].cos_instance_crn : var.existing_cos_instance_crn
+  cos_kms_key_crn  = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
 }
 
 
