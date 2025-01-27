@@ -88,12 +88,23 @@ module "configure_user" {
 
 locals {
   is_storage_delegated = var.enable_cos_kms_encryption ? true : false
+  # fetch KMS region from existing_cos_kms_key_crn
+  kms_region = var.cos_kms_key_crn != null ? module.cos_kms_key_crn_parser[0].region : null
+  # tflint-ignore: terraform_unused_declarations
+  validate_kms_key_and_watsonx_ai_region = var.cos_kms_key_crn != null ? (local.kms_region == var.region ? true : tobool("KMS instance need to be in the same region as of watsonx.ai")) : true
 }
 
 module "cos_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
   version = "1.1.0"
   crn     = var.cos_instance_crn
+}
+
+module "cos_kms_key_crn_parser" {
+  count   = var.enable_cos_kms_encryption ? 1 : 0
+  source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
+  version = "1.1.0"
+  crn     = var.cos_kms_key_crn
 }
 
 module "storage_delegation" {
