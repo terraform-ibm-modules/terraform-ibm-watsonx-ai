@@ -53,11 +53,11 @@ variable "existing_watsonx_ai_studio_instance_crn" {
 
 variable "watsonx_ai_studio_plan" {
   default     = "free-v1"
-  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'."
+  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'. 'free-v1' refers to 'Lite' and 'professional-v1' refers to 'Professional' plan on IBM Cloud dashboard."
   type        = string
   validation {
     condition     = contains(["free-v1", "professional-v1"], var.watsonx_ai_studio_plan)
-    error_message = "You must use a free-v1 or professional-v1 plan for watsonx.ai Studio."
+    error_message = "You must use a free-v1 or professional-v1 plan for watsonx.ai Studio. [Learn more](https://cloud.ibm.com/catalog/services/watsonxai-studio)."
   }
 }
 
@@ -76,17 +76,17 @@ variable "existing_watsonx_ai_runtime_instance_crn" {
 variable "watsonx_ai_runtime_instance_name" {
   type        = string
   description = "The name of the watsonx.ai Runtime instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
-  default     = "watsonx-ml"
+  default     = "watsonx-runtime"
 }
 
 variable "watsonx_ai_runtime_plan" {
-  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
+  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. 'lite' refers to 'Lite', 'v2-professional' refers to 'Standard' and 'v2-standard' refers to 'Essentials' plan on IBM Cloud dashboard. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
   type        = string
   default     = "lite"
 
   validation {
     condition     = contains(["lite", "v2-professional", "v2-standard"], var.watsonx_ai_runtime_plan)
-    error_message = "The plan must be lite, v2-professional, or v2-standard for watsonx.ai Runtime."
+    error_message = "The plan must be lite, v2-professional, or v2-standard for watsonx.ai Runtime. [Learn more](https://cloud.ibm.com/catalog/services/watsonxai-runtime)."
   }
 }
 
