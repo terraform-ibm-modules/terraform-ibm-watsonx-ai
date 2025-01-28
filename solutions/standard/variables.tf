@@ -70,7 +70,7 @@ variable "existing_watsonx_ai_studio_instance_crn" {
 
 variable "watsonx_ai_studio_plan" {
   default     = "professional-v1"
-  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'. 'free-v1' refers to 'Lite' and 'professional-v1' refers to 'Professional' plan on IBM Cloud dashboard."
+  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'. 'free-v1' corresponds to 'Lite' and 'professional-v1' refers to 'Professional' plan on IBM Cloud dashboard."
   type        = string
   validation {
     condition     = contains(["free-v1", "professional-v1"], var.watsonx_ai_studio_plan)
@@ -101,7 +101,7 @@ variable "watsonx_ai_runtime_instance_name" {
 }
 
 variable "watsonx_ai_runtime_plan" {
-  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. 'lite' refers to 'Lite', 'v2-professional' refers to 'Standard' and 'v2-standard' refers to 'Essentials' plan on IBM Cloud dashboard. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
+  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. 'lite' refers to 'Lite', 'v2-professional' corresponds to 'Standard' and 'v2-standard' refers to 'Essentials' plan on IBM Cloud dashboard. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
   type        = string
   default     = "v2-standard"
 
