@@ -32,7 +32,7 @@ variable "resource_group_name" {
 
 variable "prefix" {
   type        = string
-  description = "Prefix to add to all the resources created by this solution."
+  description = "Prefix to add to all the resources created by this solution. To not use any prefix value, you can set this value to `null` or an empty string."
   default     = "watsonx-ai"
 }
 
@@ -44,6 +44,11 @@ variable "region" {
   validation {
     condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
     error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
+  }
+
+  validation {
+    condition     = (var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn == null) ? local.kms_region == var.region : true
+    error_message = "KMS instance need to be in the same region as of watsonx.ai"
   }
 }
 
@@ -65,11 +70,11 @@ variable "existing_watsonx_ai_studio_instance_crn" {
 
 variable "watsonx_ai_studio_plan" {
   default     = "professional-v1"
-  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'."
+  description = "The plan that is used to provision the watsonx.ai Studio instance. Allowed values are 'free-v1' and 'professional-v1'. 'free-v1' corresponds to 'Lite' and 'professional-v1' refers to 'Professional' plan on IBM Cloud dashboard."
   type        = string
   validation {
     condition     = contains(["free-v1", "professional-v1"], var.watsonx_ai_studio_plan)
-    error_message = "You must use a free-v1 or professional-v1 plan for watsonx.ai Studio."
+    error_message = "You must use a free-v1 or professional-v1 plan for watsonx.ai Studio. [Learn more](https://cloud.ibm.com/catalog/services/watsonxai-studio)."
   }
 }
 
@@ -96,13 +101,13 @@ variable "watsonx_ai_runtime_instance_name" {
 }
 
 variable "watsonx_ai_runtime_plan" {
-  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
+  description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. 'lite' refers to 'Lite', 'v2-professional' corresponds to 'Standard' and 'v2-standard' refers to 'Essentials' plan on IBM Cloud dashboard. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
   type        = string
-  default     = "v2-professional"
+  default     = "v2-standard"
 
   validation {
     condition     = contains(["lite", "v2-professional", "v2-standard"], var.watsonx_ai_runtime_plan)
-    error_message = "The plan must be lite, v2-professional, or v2-standard for watsonx.ai Runtime."
+    error_message = "The plan must be lite, v2-professional, or v2-standard for watsonx.ai Runtime. [Learn more](https://cloud.ibm.com/catalog/services/watsonxai-runtime)."
   }
 }
 
