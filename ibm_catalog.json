@@ -162,11 +162,50 @@
                   ]
                 },
                 {
-                    "key": "existing_kms_instance_crn",
-                    "required": true
+                  "key": "skip_cos_kms_authorization_policy"
                 },
                 {
-                    "key": "existing_cos_kms_key_crn"
+                  "key": "cos_instance_access_tags"
+                },
+                {
+                  "key": "cos_instance_name"
+                },
+                {
+                  "key": "cos_instance_tags"
+                },
+                {
+                  "key": "cos_plan"
+                },
+                {
+                  "key": "enable_cos_kms_encryption"
+                },
+                {
+                  "key": "kms_endpoint_type"
+                },
+                {
+                  "key": "kms_key_name"
+                },
+                {
+                  "key": "kms_key_ring_name"
+                },
+                {
+                  "key": "existing_kms_instance_crn",
+                  "required": true
+                },
+                {
+                "key": "existing_cos_instance_crn"
+                },
+                {
+                "key": "existing_cos_kms_key_crn"
+                },
+                {
+                  "key": "existing_watsonx_ai_runtime_instance_crn"
+                },
+                {
+                  "key": "existing_watsonx_ai_studio_instance_crn"
+                },
+                {
+                  "key": "watsonx_ai_studio_instance_name"
                 },
                 {
                   "key": "watsonx_ai_studio_plan",
@@ -181,9 +220,6 @@
                       "value": "professional-v1"
                     }
                   ]
-                },
-                {
-                  "key": "watsonx_ai_studio_instance_name"
                 },
                 {
                   "key": "watsonx_ai_runtime_instance_name"
@@ -225,37 +261,7 @@
                   ]
                 },
                 {
-                  "key": "cos_instance_access_tags"
-                },
-                {
-                  "key": "cos_instance_name"
-                },
-                {
-                  "key": "cos_instance_tags"
-                },
-                {
-                  "key": "cos_plan"
-                },
-                {
-                  "key": "enable_cos_kms_encryption"
-                },
-                {
-                  "key": "existing_cos_instance_crn"
-                },
-                {
-                  "key": "existing_watsonx_ai_runtime_instance_crn"
-                },
-                {
-                  "key": "existing_watsonx_ai_studio_instance_crn"
-                },
-                {
-                  "key": "kms_endpoint_type"
-                },
-                {
-                  "key": "kms_key_name"
-                },
-                {
-                  "key": "kms_key_ring_name"
+                  "key": "watsonx_ai_project_name"
                 },
                 {
                   "key": "mark_as_sensitive"
@@ -268,12 +274,6 @@
                 },
                 {
                   "key": "resource_tags"
-                },
-                {
-                  "key": "skip_cos_kms_authorization_policy"
-                },
-                {
-                  "key": "watsonx_ai_project_name"
                 }
               ]
           }
