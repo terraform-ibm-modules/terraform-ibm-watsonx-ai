@@ -98,7 +98,7 @@ variable "watsonx_ai_runtime_instance_name" {
 variable "watsonx_ai_runtime_plan" {
   description = "The plan that is used to provision the watsonx.ai Runtime instance. Allowed values are 'lite', 'v2-professional' and 'v2-standard'. For 'lite' plan, the `watsonx_ai_runtime_service_endpoints` value is ignored and the default service configuration is applied."
   type        = string
-  default     = "v2-professional"
+  default     = "v2-standard"
 
   validation {
     condition     = contains(["lite", "v2-professional", "v2-standard"], var.watsonx_ai_runtime_plan)
