@@ -123,7 +123,7 @@
                   "type": "password"
                 },
                 {
-                    "key": "provider_visibility",
+                  "key": "provider_visibility",
                     "options": [
                       {
                         "displayname": "private",
@@ -153,7 +153,6 @@
                 {
                   "key": "region",
                   "required": true,
-                  "default_value": "us-south",
                   "options": [
                     {
                       "displayname": "Dallas (us-south)",
@@ -162,36 +161,33 @@
                   ]
                 },
                 {
+                  "key": "enable_cos_kms_encryption"
+                },
+                {
                   "key": "existing_cos_instance_crn"
-                  },
-                  {
-                    "key": "cos_instance_name"
-                  },
-                  {
-                    "key": "cos_plan"
-                  },
-                  {
-                    "key": "cos_instance_tags"
-                  },
+                },
+                {
+                  "key": "cos_instance_name"
+                },
+                {
+                  "key": "cos_plan"
+                },
+                {
+                  "key": "cos_instance_tags"
+                },
                 {
                   "key": "cos_instance_access_tags"
                 },
-
                 {
                   "key": "skip_cos_kms_authorization_policy"
                 },
                 {
-                  "key": "enable_cos_kms_encryption"
+                  "key": "existing_cos_kms_key_crn"
                 },
                 {
                   "key": "existing_kms_instance_crn",
                   "required": true
                 },
-
-                {
-                "key": "existing_cos_kms_key_crn"
-                },
-
                 {
                   "key": "kms_endpoint_type"
                 },
@@ -224,7 +220,6 @@
                 },
                 {
                   "key": "watsonx_ai_studio_plan",
-                  "default_value": "professional-v1",
                   "options": [
                     {
                       "displayname": "Lite",
@@ -243,8 +238,7 @@
                   "key": "watsonx_ai_runtime_instance_name"
                 },
                 {
-                    "key": "watsonx_ai_runtime_plan",
-                    "default_value": "v2-standard",
+                  "key": "watsonx_ai_runtime_plan",
                     "options": [
                       {
                         "displayname": "Lite",
@@ -262,7 +256,6 @@
                 },
                 {
                   "key": "watsonx_ai_runtime_service_endpoints",
-                  "default_value": "public-and-private",
                   "options": [
                     {
                       "displayname": "Public Network",
