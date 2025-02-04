@@ -162,23 +162,36 @@
                   ]
                 },
                 {
-                  "key": "skip_cos_kms_authorization_policy"
-                },
+                  "key": "existing_cos_instance_crn"
+                  },
+                  {
+                    "key": "cos_instance_name"
+                  },
+                  {
+                    "key": "cos_plan"
+                  },
+                  {
+                    "key": "cos_instance_tags"
+                  },
                 {
                   "key": "cos_instance_access_tags"
                 },
+
                 {
-                  "key": "cos_instance_name"
-                },
-                {
-                  "key": "cos_instance_tags"
-                },
-                {
-                  "key": "cos_plan"
+                  "key": "skip_cos_kms_authorization_policy"
                 },
                 {
                   "key": "enable_cos_kms_encryption"
                 },
+                {
+                  "key": "existing_kms_instance_crn",
+                  "required": true
+                },
+
+                {
+                "key": "existing_cos_kms_key_crn"
+                },
+
                 {
                   "key": "kms_endpoint_type"
                 },
@@ -189,17 +202,19 @@
                   "key": "kms_key_ring_name"
                 },
                 {
-                  "key": "existing_kms_instance_crn",
-                  "required": true
+                  "key": "watsonx_ai_project_name"
                 },
                 {
-                "key": "existing_cos_instance_crn"
+                  "key": "mark_as_sensitive"
                 },
                 {
-                "key": "existing_cos_kms_key_crn"
+                  "key": "project_description"
                 },
                 {
-                  "key": "existing_watsonx_ai_runtime_instance_crn"
+                  "key": "project_tags"
+                },
+                {
+                  "key": "resource_tags"
                 },
                 {
                   "key": "existing_watsonx_ai_studio_instance_crn"
@@ -220,6 +235,9 @@
                       "value": "professional-v1"
                     }
                   ]
+                },
+                {
+                  "key": "existing_watsonx_ai_runtime_instance_crn"
                 },
                 {
                   "key": "watsonx_ai_runtime_instance_name"
@@ -259,21 +277,6 @@
                       "value": "public-and-private"
                     }
                   ]
-                },
-                {
-                  "key": "watsonx_ai_project_name"
-                },
-                {
-                  "key": "mark_as_sensitive"
-                },
-                {
-                  "key": "project_description"
-                },
-                {
-                  "key": "project_tags"
-                },
-                {
-                  "key": "resource_tags"
                 }
               ]
           }
