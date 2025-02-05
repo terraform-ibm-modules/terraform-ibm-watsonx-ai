@@ -1,232 +1,279 @@
 {
-    "products": [
-      {
-        "name": "deploy-arch-ibm-watsonx-ai",
-        "label": "Cloud automation for watsonx.ai",
-        "product_kind": "solution",
-        "tags": [
-          "ibm_created",
-          "target_terraform",
-          "terraform",
-          "ai",
-          "solution"
-        ],
-        "keywords": [
-          "watsonx ai",
-          "watsonx.ai",
-          "watsonx.ai project",
-          "IaC",
-          "infrastructure as code",
-          "terraform",
-          "solution",
-          "ai"
-        ],
-        "short_description": "Creates and configures IBM watsonx.ai Project",
-        "long_description": "This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project.",
-        "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
-        "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
-        "provider_name": "IBM",
-        "features": [
-          {
-            "title": "Creates an instance of IBM watsonx.ai Studio",
-            "description": "Creates and configures an IBM watsonx.ai Studio instance."
-          },
-          {
-            "title": "Creates an instance of IBM watsonx.ai Runtime",
-            "description": "Creates and configures an IBM watsonx.ai Runtime instance."
-          },
-          {
-            "title": "Configures the watsonx profile for IBM Cloud user",
-            "description": "Configures the watsonx profile for IBM Cloud user."
-          },
-          {
-            "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
-            "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
-          }
-        ],
-        "flavors": [
-          {
-            "label": "Standard",
-            "name": "standard",
-            "install_type": "fullstack",
-            "working_directory": "solutions/standard",
-            "compliance": {
-              "authority": "scc-v3",
-              "profiles": [
-                {
-                  "profile_name": "IBM Cloud Framework for AI Security Guardrails 2.0",
-                  "profile_version": "1.1.0"
-                }
-              ]},
-            "iam_permissions": [
+  "products": [
+    {
+      "name": "deploy-arch-ibm-watsonx-ai",
+      "label": "Cloud automation for watsonx.ai",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "ai",
+        "solution"
+      ],
+      "keywords": [
+        "watsonx ai",
+        "watsonx.ai",
+        "watsonx.ai project",
+        "IaC",
+        "infrastructure as code",
+        "terraform",
+        "solution",
+        "ai"
+      ],
+      "short_description": "Creates and configures IBM watsonx.ai Project",
+      "long_description": "This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project.",
+      "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
+      "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
+      "provider_name": "IBM",
+      "features": [
+        {
+          "title": "Creates an instance of IBM watsonx.ai Studio",
+          "description": "Creates and configures an IBM watsonx.ai Studio instance."
+        },
+        {
+          "title": "Creates an instance of IBM watsonx.ai Runtime",
+          "description": "Creates and configures an IBM watsonx.ai Runtime instance."
+        },
+        {
+          "title": "Configures the watsonx profile for IBM Cloud user",
+          "description": "Configures the watsonx profile for IBM Cloud user."
+        },
+        {
+          "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
+          "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Standard",
+          "name": "standard",
+          "install_type": "fullstack",
+          "working_directory": "solutions/standard",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
               {
-                "role_crns": [
-                  "crn:v1:bluemix:public:iam::::role:Editor"
-                ],
-                "service_name": "all-account-management-services"
+                "profile_name": "IBM Cloud Framework for AI Security Guardrails 2.0",
+                "profile_version": "1.1.0"
+              }
+            ]
+          },
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "all-account-management-services"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "data-science-experience"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "pm-20"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "cloud-object-storage"
+            }
+          ],
+          "architecture": {
+            "descriptions": "This architecture creates and configures an IBM watsonx.ai Project.",
+            "features": [
+              {
+                "title": "Creates an instance of IBM watsonx.ai Studio",
+                "description": "Creates and configures an IBM watsonx.ai Studio instance."
               },
               {
-                "role_crns": [
-                  "crn:v1:bluemix:public:iam::::role:Editor"
-                ],
-                "service_name": "data-science-experience"
+                "title": "Creates an instance of IBM watsonx.ai Runtime",
+                "description": "Creates and configures an IBM watsonx.ai Runtime instance."
               },
               {
-                "role_crns": [
-                  "crn:v1:bluemix:public:iam::::role:Editor"
-                ],
-                "service_name": "pm-20"
+                "title": "Configures the watsonx profile for IBM Cloud user",
+                "description": "Configures the watsonx profile for IBM Cloud user."
               },
               {
-                "role_crns": [
-                  "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                  "crn:v1:bluemix:public:iam::::role:Editor"
-                ],
-                "service_name": "cloud-object-storage"
+                "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
+                "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
               }
             ],
-            "architecture": {
-              "descriptions": "This architecture creates and configures an IBM watsonx.ai Project.",
-              "features": [
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "watsonx.ai on IBM Cloud",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "This architecture creates and configures an IBM watsonx.ai Project."
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "ibmcloud_api_key",
+              "required": true,
+              "type": "password"
+            },
+            {
+              "key": "provider_visibility",
+              "options": [
                 {
-                    "title": "Creates an instance of IBM watsonx.ai Studio",
-                    "description": "Creates and configures an IBM watsonx.ai Studio instance."
+                  "displayname": "private",
+                  "value": "private"
                 },
                 {
-                    "title": "Creates an instance of IBM watsonx.ai Runtime",
-                    "description": "Creates and configures an IBM watsonx.ai Runtime instance."
+                  "displayname": "public",
+                  "value": "public"
                 },
                 {
-                    "title": "Configures the watsonx profile for IBM Cloud user",
-                    "description": "Configures the watsonx profile for IBM Cloud user."
-                },
-                {
-                    "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
-                    "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
-                }
-              ],
-              "diagrams": [
-                {
-                  "diagram": {
-                    "caption": "watsonx.ai on IBM Cloud",
-                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
-                    "type": "image/svg+xml"
-                  },
-                  "description": "This architecture creates and configures an IBM watsonx.ai Project."
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
                 }
               ]
             },
-            "configuration": [
+            {
+              "key": "use_existing_resource_group"
+            },
+            {
+              "key": "resource_group_name"
+            },
+            {
+              "key": "prefix",
+              "required": true,
+              "description": "Prefix to add to all resources created by this solution. To not use any prefix value, you can enter the string `__NULL__`."
+            },
+            {
+              "key": "region",
+              "required": true,
+              "options": [
                 {
-                  "key": "ibmcloud_api_key",
-                  "required": true,
-                  "type": "password"
-                },
-                {
-                    "key": "provider_visibility",
-                    "options": [
-                      {
-                        "displayname": "private",
-                        "value": "private"
-                      },
-                      {
-                        "displayname": "public",
-                        "value": "public"
-                      },
-                      {
-                        "displayname": "public-and-private",
-                        "value": "public-and-private"
-                      }
-                    ]
-                },
-                {
-                  "key": "use_existing_resource_group"
-                },
-                {
-                  "key": "resource_group_name"
-                },
-                {
-                  "key": "prefix",
-                  "required": true,
-                  "description": "Prefix to add to all resources created by this solution. To not use any prefix value, you can enter the string `__NULL__`."
-                },
-                {
-                  "key": "region",
-                  "required": true,
-                  "default_value": "us-south",
-                  "options": [
-                    {
-                      "displayname": "Dallas (us-south)",
-                      "value": "us-south"
-                    }
-                  ]
-                },
-                {
-                    "key": "existing_kms_instance_crn",
-                    "required": true
-                },
-                {
-                    "key": "existing_cos_kms_key_crn"
-                },
-                {
-                  "key": "watsonx_ai_studio_plan",
-                  "default_value": "professional-v1",
-                  "options": [
-                    {
-                      "displayname": "Lite",
-                      "value": "free-v1"
-                    },
-                    {
-                      "displayname": "Professional",
-                      "value": "professional-v1"
-                    }
-                  ]
-                },
-                {
-                  "key": "watsonx_ai_studio_instance_name"
-                },
-                {
-                  "key": "watsonx_ai_runtime_instance_name"
-                },
-                {
-                    "key": "watsonx_ai_runtime_plan",
-                    "default_value": "v2-professional",
-                    "options": [
-                      {
-                        "displayname": "Lite",
-                        "value": "lite"
-                      },
-                      {
-                        "displayname": "Essentials",
-                        "value": "v2-professional"
-                      },
-                      {
-                        "displayname": "Standard",
-                        "value": "v2-standard"
-                      }
-                    ]
-                },
-                {
-                  "key": "watsonx_ai_runtime_service_endpoints",
-                  "default_value": "public-and-private",
-                  "options": [
-                    {
-                      "displayname": "Public Network",
-                      "value": "public"
-                    },
-                    {
-                      "displayname": "Private Network",
-                      "value": "private"
-                    },
-                    {
-                      "displayname": "Both Public & Private Network",
-                      "value": "public-and-private"
-                    }
-                  ]
+                  "displayname": "Dallas (us-south)",
+                  "value": "us-south"
                 }
               ]
-          }
-        ]
-      }
-    ]
-  }
+            },
+            {
+              "key": "enable_cos_kms_encryption"
+            },
+            {
+              "key": "existing_cos_instance_crn"
+            },
+            {
+              "key": "cos_instance_name"
+            },
+            {
+              "key": "cos_plan"
+            },
+            {
+              "key": "cos_instance_tags"
+            },
+            {
+              "key": "cos_instance_access_tags"
+            },
+            {
+              "key": "skip_cos_kms_authorization_policy"
+            },
+            {
+              "key": "existing_cos_kms_key_crn"
+            },
+            {
+              "key": "existing_kms_instance_crn"
+            },
+            {
+              "key": "kms_endpoint_type"
+            },
+            {
+              "key": "kms_key_name"
+            },
+            {
+              "key": "kms_key_ring_name"
+            },
+            {
+              "key": "watsonx_ai_project_name"
+            },
+            {
+              "key": "mark_as_sensitive"
+            },
+            {
+              "key": "project_description"
+            },
+            {
+              "key": "project_tags"
+            },
+            {
+              "key": "resource_tags"
+            },
+            {
+              "key": "existing_watsonx_ai_studio_instance_crn"
+            },
+            {
+              "key": "watsonx_ai_studio_instance_name"
+            },
+            {
+              "key": "watsonx_ai_studio_plan",
+              "options": [
+                {
+                  "displayname": "Lite",
+                  "value": "free-v1"
+                },
+                {
+                  "displayname": "Professional",
+                  "value": "professional-v1"
+                }
+              ]
+            },
+            {
+              "key": "existing_watsonx_ai_runtime_instance_crn"
+            },
+            {
+              "key": "watsonx_ai_runtime_instance_name"
+            },
+            {
+              "key": "watsonx_ai_runtime_plan",
+              "options": [
+                {
+                  "displayname": "Lite",
+                  "value": "lite"
+                },
+                {
+                  "displayname": "Essentials",
+                  "value": "v2-professional"
+                },
+                {
+                  "displayname": "Standard",
+                  "value": "v2-standard"
+                }
+              ]
+            },
+            {
+              "key": "watsonx_ai_runtime_service_endpoints",
+              "options": [
+                {
+                  "displayname": "Public Network",
+                  "value": "public"
+                },
+                {
+                  "displayname": "Private Network",
+                  "value": "private"
+                },
+                {
+                  "displayname": "Both Public & Private Network",
+                  "value": "public-and-private"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

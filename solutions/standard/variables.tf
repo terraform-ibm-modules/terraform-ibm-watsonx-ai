@@ -171,7 +171,7 @@ variable "kms_key_name" {
 variable "enable_cos_kms_encryption" {
   description = "Flag to enable COS KMS encryption. If set to true, a value must be passed for `existing_cos_kms_key_crn`."
   type        = bool
-  default     = true
+  default     = false
 
   validation {
     condition     = (var.enable_cos_kms_encryption == true && var.existing_cos_kms_key_crn == null) ? (var.existing_kms_instance_crn == null ? false : true) : true
