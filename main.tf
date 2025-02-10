@@ -77,9 +77,11 @@ resource "ibm_resource_instance" "watsonx_ai_runtime_instance" {
 # ****************************
 
 module "configure_user" {
-  source            = "./modules/configure_user"
-  resource_group_id = var.resource_group_id
-  region            = var.region
+  source                = "./modules/configure_user"
+  resource_group_id     = var.resource_group_id
+  region                = var.region
+  watsonx_ai_project_id = module.configure_project[0].watsonx_ai_project_id
+  new_project_members   = var.new_watsonx_ai_project_members
 }
 
 # ****************************
