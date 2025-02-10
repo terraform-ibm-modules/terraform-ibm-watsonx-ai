@@ -170,6 +170,7 @@ func TestRunStandardSolution(t *testing.T) {
 	} else {
 		logger.Log(t, "START: Destroy (existing resources)")
 		terraform.Destroy(t, existingTerraformOptions)
+		terraform.WorkspaceDelete(t, existingTerraformOptions, prefix)
 		logger.Log(t, "END: Destroy (existing resources)")
 	}
 }
