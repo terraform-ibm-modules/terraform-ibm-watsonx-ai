@@ -94,6 +94,8 @@ You need the following permissions to run this module:
         - `Editor` platform access
         - `Manager` service access
 
+> Note: If user is not the account owner, then the addition of the policy `All Account Management Services` with role `Administrator` is required for the user. To add the required access, go to:
+`IBM Cloud -> Manage -> Access (IAM) -> Users -> {USER} -> Access -> Access Policies`
 
 
 <!-- NO PERMISSIONS FOR MODULE

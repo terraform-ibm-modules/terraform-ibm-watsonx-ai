@@ -100,7 +100,7 @@ func TestRunStandardSolution(t *testing.T) {
 
 	var region = validRegions[rand.Intn(len(validRegions))]
 
-	prefix := "wx-da"
+	prefix := fmt.Sprintf("wx-da-%s", strings.ToLower(random.UniqueId()))
 	realTerraformDir := "./resources/kp-instance"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
