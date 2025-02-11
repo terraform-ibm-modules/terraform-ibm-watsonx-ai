@@ -64,12 +64,6 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "all-account-management-services (Required if user is not the Cloud accout owner)"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
               "service_name": "data-science-experience"
             },
             {
@@ -84,6 +78,12 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "all-account-management-services (Required if user is not the Cloud accout owner)"
             }
           ],
           "architecture": {
