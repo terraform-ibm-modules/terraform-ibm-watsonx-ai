@@ -64,7 +64,7 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "all-account-management-services"
+              "service_name": "all-account-management-services (Required if user is not the Cloud accout owner)"
             },
             {
               "role_crns": [
