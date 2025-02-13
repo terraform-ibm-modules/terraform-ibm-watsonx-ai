@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "name": "deploy-arch-ibm-watsonx-ai",
-      "label": "Cloud automation for watsonx.ai",
+      "name": "testing-deploy-arch-ibm-watsonx-ai",
+      "label": "[Add-ons Beta] Cloud automation for watsonx.ai",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -48,7 +48,7 @@
         {
           "label": "Standard",
           "name": "standard",
-          "install_type": "fullstack",
+          "install_type": "extension",
           "working_directory": "solutions/standard",
           "compliance": {
             "authority": "scc-v3",
@@ -144,7 +144,8 @@
               "key": "use_existing_resource_group"
             },
             {
-              "key": "resource_group_name"
+              "key": "resource_group_name",
+              "required": false
             },
             {
               "key": "prefix",
@@ -268,6 +269,46 @@
                 {
                   "displayname": "Both Public & Private Network",
                   "value": "public-and-private"
+                }
+              ]
+            }
+          ],
+          "dependencies": [
+            {
+              "name": "deploy-arch-ibm-account-infra-base",
+              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "flavors": [
+                "standard"
+              ],
+              "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
+              "input_mapping": [
+                {
+                  "dependency_output": "security_resource_group_name",
+                  "version_input": "resource_group_name"
+                },
+                {
+                  "version_input": "use_existing_resource_group",
+                  "value": true
+                }
+              ],
+              "optional": true,
+              "on_by_default": true,
+              "version": "^1.11.6"
+            },
+            {
+              "name": "testing-deploy-arch-ibm-kms",
+              "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
+              "version": "^1.0.1",
+              "flavors": [
+                "standard"
+              ],
+              "catalog_id": "f64499c8-eb50-4985-bf91-29f9e605a433",
+              "optional": true,
+              "on_by_default": true,
+              "input_mapping": [
+                {
+                  "dependency_output": "kms_instance_crn",
+                  "version_input": "existing_kms_instance_crn"
                 }
               ]
             }
