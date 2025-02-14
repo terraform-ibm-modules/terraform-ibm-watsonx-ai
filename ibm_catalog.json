@@ -48,7 +48,7 @@
         {
           "label": "Standard",
           "name": "standard",
-          "install_type": "extension",
+          "install_type": "fullstack",
           "working_directory": "solutions/standard",
           "compliance": {
             "authority": "scc-v3",
@@ -61,15 +61,15 @@
           },
           "iam_permissions": [
             {
-              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
-              "service_name": "all-account-management-services"
-            },
-            {
-              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
               "service_name": "data-science-experience"
             },
             {
-              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
               "service_name": "pm-20"
             },
             {
@@ -138,8 +138,7 @@
               "key": "use_existing_resource_group"
             },
             {
-              "key": "resource_group_name",
-              "required": false
+              "key": "resource_group_name"
             },
             {
               "key": "prefix",
@@ -266,31 +265,7 @@
                 }
               ]
             }
-          ],
-          "dependencies": [
-            {
-              "name": "deploy-arch-ibm-account-infra-base",
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "flavors": ["standard"],
-              "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "ignore_auto_referencing": ["*"],
-              "input_mapping": [
-                {
-                  "dependency_output": "workload_resource_group_name",
-                  "version_input": "resource_group_name"
-                },
-                {
-                  "value": true,
-                  "dependency_input": "use_existing_resource_group",
-                  "reference_version": true
-                }
-              ],
-              "optional": true,
-              "on_by_default": true,
-              "version": "^v1.18.0"
-            }
-          ],
-          "dependency_version_2": true
+          ]
         }
       ]
     }
