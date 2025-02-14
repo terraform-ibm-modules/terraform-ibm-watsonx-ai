@@ -94,14 +94,8 @@ You need the following permissions to run this module:
         - `Editor` platform access
         - `Manager` service access
 
-
-
-<!-- NO PERMISSIONS FOR MODULE
-If no permissions are required for the module, uncomment the following
-statement instead the previous block.
--->
-
-<!-- No permissions are needed to run this module.-->
+> Note: If you are not the IBM Cloud account owner, then the addition of the policy `All Account Management Services` with role `Administrator` is required for storage delegation. To add the required access, go to:
+`IBM Cloud -> Manage -> Access (IAM) -> Users -> {USER} -> Access -> Access Policies`
 
 
 <!-- The following content is automatically populated by the pre-commit hook -->
