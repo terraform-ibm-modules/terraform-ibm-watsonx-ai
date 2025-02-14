@@ -77,11 +77,9 @@ resource "ibm_resource_instance" "watsonx_ai_runtime_instance" {
 # ****************************
 
 module "configure_user" {
-  source                = "./modules/configure_user"
-  resource_group_id     = var.resource_group_id
-  region                = var.region
-  watsonx_ai_project_id = module.configure_project[0].watsonx_ai_project_id
-  new_project_members   = var.new_watsonx_ai_project_members
+  source            = "./modules/configure_user"
+  resource_group_id = var.resource_group_id
+  region            = var.region
 }
 
 # ****************************
@@ -116,18 +114,19 @@ module "storage_delegation" {
 }
 
 module "configure_project" {
-  source                    = "./modules/configure_project"
-  depends_on                = [module.storage_delegation]
-  count                     = var.create_watsonx_ai_project ? 1 : 0
-  project_name              = var.prefix != null ? "${var.prefix}-${var.project_name}" : var.project_name
-  project_description       = var.project_description
-  project_tags              = var.project_tags
-  mark_as_sensitive         = var.mark_as_sensitive
-  watsonx_ai_runtime_guid   = local.watsonx_ai_runtime_guid
-  watsonx_ai_runtime_crn    = local.watsonx_ai_runtime_crn
-  watsonx_ai_runtime_name   = local.watsonx_ai_runtime_name
-  cos_guid                  = module.cos_crn_parser.service_instance
-  cos_crn                   = var.cos_instance_crn
-  watsonx_project_delegated = local.is_storage_delegated
-  region                    = var.region
+  source                         = "./modules/configure_project"
+  depends_on                     = [module.storage_delegation]
+  count                          = var.create_watsonx_ai_project ? 1 : 0
+  project_name                   = var.prefix != null ? "${var.prefix}-${var.project_name}" : var.project_name
+  project_description            = var.project_description
+  project_tags                   = var.project_tags
+  mark_as_sensitive              = var.mark_as_sensitive
+  watsonx_ai_runtime_guid        = local.watsonx_ai_runtime_guid
+  watsonx_ai_runtime_crn         = local.watsonx_ai_runtime_crn
+  watsonx_ai_runtime_name        = local.watsonx_ai_runtime_name
+  cos_guid                       = module.cos_crn_parser.service_instance
+  cos_crn                        = var.cos_instance_crn
+  watsonx_project_delegated      = local.is_storage_delegated
+  region                         = var.region
+  watsonx_ai_new_project_members = var.watsonx_ai_new_project_members
 }

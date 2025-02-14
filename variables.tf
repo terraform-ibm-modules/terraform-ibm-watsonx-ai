@@ -168,7 +168,7 @@ variable "mark_as_sensitive" {
   default     = false
 }
 
-variable "new_watsonx_ai_project_members" {
+variable "watsonx_ai_new_project_members" {
   description = "The list of new members the owner of the Watsonx.ai project would like to add to the project."
   type = list(object({
     email  = string
@@ -180,7 +180,7 @@ variable "new_watsonx_ai_project_members" {
 
   validation {
     condition = alltrue([
-      for member in var.new_watsonx_ai_project_members : contains(["admin", "editor", "viewer"], member.role)
+      for member in var.watsonx_ai_new_project_members : contains(["admin", "editor", "viewer"], member.role)
     ])
     error_message = "The specified new member role is not valid. Supported options are admin, editor, or viewer."
   }

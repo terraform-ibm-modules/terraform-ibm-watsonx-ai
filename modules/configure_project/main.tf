@@ -100,3 +100,30 @@ module "watsonx_ai_runtime_crn_parser" {
   version = "1.1.0"
   crn     = var.watsonx_ai_runtime_crn
 }
+
+data "ibm_iam_auth_token" "tokendata" {}
+
+locals {
+  sensitive_tokendata = sensitive(data.ibm_iam_auth_token.tokendata.iam_access_token)
+}
+
+resource "null_resource" "add_to_project" {
+  for_each   = { for member in var.watsonx_ai_new_project_members : member.email => member }
+  depends_on = [data.ibm_iam_auth_token.tokendata]
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/add_user_to_project.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      iam_token  = local.sensitive_tokendata
+      region     = var.region
+      project_id = local.watsonx_project_id
+      user_name  = each.value.email
+      iam_id     = each.value.iam_id
+      role       = each.value.role
+    }
+  }
+}

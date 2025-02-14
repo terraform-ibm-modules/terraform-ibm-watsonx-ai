@@ -106,6 +106,7 @@ module "watsonx_ai" {
   watsonx_ai_runtime_plan                  = var.watsonx_ai_runtime_plan
   watsonx_ai_runtime_instance_name         = var.watsonx_ai_runtime_instance_name
   watsonx_ai_runtime_service_endpoints     = var.watsonx_ai_runtime_service_endpoints
+  watsonx_ai_new_project_members           = var.watsonx_ai_new_project_members
 
   create_watsonx_ai_project     = true
   project_name                  = var.watsonx_ai_project_name
