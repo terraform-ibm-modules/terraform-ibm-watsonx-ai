@@ -1,8 +1,8 @@
 {
   "products": [
     {
-      "name": "testing-deploy-arch-ibm-watsonx-ai",
-      "label": "[Add-ons Beta] Cloud automation for watsonx.ai",
+      "name": "deploy-arch-ibm-watsonx-ai",
+      "label": "Cloud automation for watsonx.ai",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
