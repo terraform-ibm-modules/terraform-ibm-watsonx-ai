@@ -16,7 +16,7 @@ module "resource_group" {
 
 module "cos" {
   source            = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version           = "8.19.2"
+  version           = "8.19.3"
   resource_group_id = module.resource_group.resource_group_id
   cos_instance_name = "${var.prefix}-cos"
   cos_plan          = "standard"
@@ -34,7 +34,7 @@ locals {
 
 module "key_protect_all_inclusive" {
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "4.19.5"
+  version                   = "4.19.7"
   resource_group_id         = module.resource_group.resource_group_id
   region                    = var.region
   key_protect_instance_name = "${var.prefix}-kp"
