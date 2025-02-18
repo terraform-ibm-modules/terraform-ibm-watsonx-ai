@@ -265,6 +265,9 @@
                   "value": "public-and-private"
                 }
               ]
+            },
+            {
+              "key": "watsonx_ai_new_project_members"
             }
           ]
         }
