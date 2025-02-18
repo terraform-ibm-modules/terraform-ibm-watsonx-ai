@@ -123,7 +123,7 @@ variable "watsonx_ai_runtime_service_endpoints" {
 }
 
 variable "watsonx_ai_new_project_members" {
-  description = "The list of new members the owner of the Watsonx.ai project would like to add to the project."
+  description = "The list of new members the owner of the Watsonx.ai project would like to add to the project. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions/standard/DA-watsonx_ai_new_project_members.md"
   type = list(object({
     email  = string
     iam_id = string
