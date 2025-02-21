@@ -286,6 +286,11 @@
                 {
                   "value": true,
                   "version_input": "use_existing_resource_group"
+                },
+                {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
                 }
               ],
               "optional": true,
@@ -379,11 +384,6 @@
                 "*"
               ],
               "input_mapping": [
-                {
-                  "dependency_input": "resource_group_name",
-                  "version_input": "resource_group_name",
-                  "reference_version": true
-                },
                 {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
