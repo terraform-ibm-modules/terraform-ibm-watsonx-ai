@@ -64,29 +64,8 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
-func TestRunBasicExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "wxai-basic", basicExampleDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunCompleteExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptions(t, "wxai-complete", completeExampleDir)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
 // Provision KMS - Key Protect to use in DA tests
-func setupKMSKeyProtect(t *testing.T, region string) *terraform.Options {
-	prefix := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.Options {
 	realTerraformDir := "./resources/kp-instance"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
@@ -112,6 +91,7 @@ func setupKMSKeyProtect(t *testing.T, region string) *terraform.Options {
 	return existingTerraformOptions
 }
 
+// Cleanup the resources when KMS encryption key is created.
 func cleanupResources(t *testing.T, terraformOptions *terraform.Options, prefix string) {
 	// Check if "DO_NOT_DESTROY_ON_FAILURE" is set
 	envVal, _ := os.LookupEnv("DO_NOT_DESTROY_ON_FAILURE")
@@ -126,11 +106,33 @@ func cleanupResources(t *testing.T, terraformOptions *terraform.Options, prefix 
 	}
 }
 
+func TestRunBasicExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "wxai-basic", basicExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestRunCompleteExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "wxai-complete", completeExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 // Test the DA
 func TestRunStandardSolution(t *testing.T) {
 	t.Parallel()
+
 	var region = validRegions[rand.Intn(len(validRegions))]
-	existingTerraformOptions := setupKMSKeyProtect(t, region)
+	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
 
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -166,14 +168,17 @@ func TestRunStandardSolution(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 
-	cleanupResources(t, existingTerraformOptions, options.Prefix)
+	cleanupResources(t, existingTerraformOptions, prefixKMSKey)
 }
 
 func TestRunStandardUpgradeSolution(t *testing.T) {
 	t.Parallel()
-	var region = validRegions[rand.Intn(len(validRegions))]
-	existingTerraformOptions := setupKMSKeyProtect(t, region)
 
+	var region = validRegions[rand.Intn(len(validRegions))]
+	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
+
+	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  standardSolutionTerraformDir,
@@ -209,5 +214,5 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		assert.NotNil(t, output, "Expected some output")
 	}
 
-	cleanupResources(t, existingTerraformOptions, options.Prefix)
+	cleanupResources(t, existingTerraformOptions, prefixKMSKey)
 }
