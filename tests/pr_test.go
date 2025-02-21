@@ -23,8 +23,6 @@ const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 const standardSolutionTerraformDir = "solutions/standard"
 
-var permanentResources map[string]interface{}
-
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
 	"us-south",
@@ -58,7 +56,6 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"access_tags":    permanentResources["accessTags"],
 		"region":         validRegions[rand.Intn(len(validRegions))],
 		"prefix":         options.Prefix,
 		"resource_group": resourceGroup,
