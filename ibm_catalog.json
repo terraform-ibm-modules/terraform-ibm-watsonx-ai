@@ -278,6 +278,10 @@
                   "reference_version": true
                 },
                 {
+                  "value": "__NULL__",
+                  "dependency_input": "prefix"
+                },
+                {
                   "value": true,
                   "version_input": "use_existing_resource_group"
                 }
