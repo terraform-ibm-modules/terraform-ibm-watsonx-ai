@@ -278,8 +278,9 @@
                   "reference_version": true
                 },
                 {
-                  "value": "__NULL__",
-                  "dependency_input": "prefix"
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
                 },
                 {
                   "value": true,
