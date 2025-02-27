@@ -288,7 +288,7 @@
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
-              "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9",
+              "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9-global",
               "version": "^1.0.6",
               "flavors": ["standard"],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
