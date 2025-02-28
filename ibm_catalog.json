@@ -273,9 +273,8 @@
               "ignore_auto_referencing": ["*"],
               "input_mapping": [
                 {
-                  "dependency_input": "workload_resource_group_name",
-                  "version_input": "resource_group_name",
-                  "reference_version": true
+                  "dependency_output": "workload_resource_group_name",
+                  "version_input": "resource_group_name"
                 },
                 {
                   "dependency_input": "prefix",
