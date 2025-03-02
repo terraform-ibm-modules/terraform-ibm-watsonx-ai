@@ -68,7 +68,7 @@ module "kms" {
 module "cos_instance" {
   count               = var.existing_cos_instance_crn == null ? 1 : 0 # no need to call COS module if consumer is using existing COS instance
   source              = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version             = "8.19.4"
+  version             = "8.19.5"
   resource_group_id   = module.resource_group.resource_group_id
   create_cos_instance = true
   cos_instance_name   = try("${local.prefix}-${var.cos_instance_name}", var.cos_instance_name)
