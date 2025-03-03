@@ -114,7 +114,7 @@ variable "watsonx_ai_runtime_plan" {
 variable "watsonx_ai_runtime_service_endpoints" {
   type        = string
   description = "The type of service endpoints for watsonx.ai Runtime. Possible values: 'public', 'private', 'public-and-private'."
-  default     = "public"
+  default     = "private"
 
   validation {
     condition     = contains(["public", "public-and-private", "private"], var.watsonx_ai_runtime_service_endpoints)
@@ -149,7 +149,7 @@ variable "existing_cos_kms_key_crn" {
 variable "kms_endpoint_type" {
   type        = string
   description = "The type of endpoint to use for communicating with the Key Protect instance. Possible values: `public`, `private`. Applies only if `existing_cos_kms_key_crn` is not specified."
-  default     = "public"
+  default     = "private"
   validation {
     condition     = can(regex("public|private", var.kms_endpoint_type))
     error_message = "Valid values for the `kms_endpoint_type_value` are `public` or `private`."
