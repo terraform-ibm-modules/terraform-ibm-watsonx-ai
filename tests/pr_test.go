@@ -21,7 +21,7 @@ import (
 const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
-const standardSolutionTerraformDir = "solutions/standard"
+const standardSolutionTerraformDir = "solutions/fully-configurable"
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{

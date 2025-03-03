@@ -33,7 +33,7 @@ variable "resource_group_name" {
 variable "prefix" {
   type        = string
   description = "Prefix to add to all the resources created by this solution. To not use any prefix value, you can set this value to `null` or an empty string."
-  default     = "watsonx-ai"
+  default     = "dev"
 }
 
 variable "region" {
@@ -81,7 +81,7 @@ variable "watsonx_ai_studio_plan" {
 variable "watsonx_ai_studio_instance_name" {
   type        = string
   description = "The name of the watsonx.ai Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
-  default     = "studio"
+  default     = "watson-ai"
 }
 
 ###############################################################################################################
