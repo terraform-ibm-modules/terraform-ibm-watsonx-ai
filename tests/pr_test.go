@@ -162,6 +162,7 @@ func TestRunStandardSolution(t *testing.T) {
 		"provider_visibility":         "public",
 		"watsonx_ai_project_name":     "wxai-da-prj",
 		"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"kms_endpoint_type":           "public",
 	}
 
 	output, err := options.RunTestConsistency()
