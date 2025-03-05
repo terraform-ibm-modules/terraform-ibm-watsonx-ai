@@ -155,14 +155,13 @@ func TestRunStandardSolution(t *testing.T) {
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                      options.Prefix,
-		"region":                      options.Region,
-		"use_existing_resource_group": true,
-		"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
-		"provider_visibility":         "public",
-		"watsonx_ai_project_name":     "wxai-da-prj",
-		"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
-		"kms_endpoint_type":           "public",
+		"prefix":                       options.Prefix,
+		"region":                       options.Region,
+		"existing_resource_group_name": resourceGroup,
+		"provider_visibility":          "public",
+		"watsonx_ai_project_name":      "wxai-da-prj",
+		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"kms_endpoint_type":            "public",
 	}
 
 	output, err := options.RunTestConsistency()
@@ -200,13 +199,12 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                      options.Prefix,
-		"region":                      options.Region,
-		"use_existing_resource_group": true,
-		"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
-		"provider_visibility":         "public",
-		"watsonx_ai_project_name":     "wxai-ug-prj",
-		"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"prefix":                       options.Prefix,
+		"region":                       options.Region,
+		"existing_resource_group_name": resourceGroup,
+		"provider_visibility":          "public",
+		"watsonx_ai_project_name":      "wxai-ug-prj",
+		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 	}
 
 	output, err := options.RunTestUpgrade()
