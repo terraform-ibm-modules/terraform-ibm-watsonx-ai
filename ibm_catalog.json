@@ -218,7 +218,14 @@
               "key": "existing_watsonx_ai_runtime_instance_crn"
             },
             {
-              "key": "resource_tags"
+              "key": "resource_tags",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
             },
             {
               "key": "watsonx_ai_project_name"
@@ -227,7 +234,14 @@
               "key": "project_description"
             },
             {
-              "key": "project_tags"
+              "key": "project_tags",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
             },
             {
               "key": "mark_project_as_sensitive"
@@ -239,10 +253,24 @@
               "key": "cos_plan"
             },
             {
-              "key": "cos_instance_tags"
+              "key": "cos_instance_tags",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
             },
             {
-              "key": "cos_instance_access_tags"
+              "key": "cos_instance_access_tags",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "type": "string"
+                }
+              }
             },
             {
               "key": "existing_cos_instance_crn"
