@@ -29,8 +29,8 @@ locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
   kms_region = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
 
-  kms_key_ring_name = try("${var.prefix}-${var.kms_key_ring_name}", var.kms_key_ring_name)
-  kms_key_name      = try("${var.prefix}-${var.kms_key_name}", var.kms_key_name)
+  kms_key_ring_name = try("${var.prefix}-${var.cos_key_ring_name}", var.cos_key_ring_name)
+  kms_key_name      = try("${var.prefix}-${var.cos_key_name}", var.cos_key_name)
 }
 
 module "kms" {
@@ -110,9 +110,9 @@ module "watsonx_ai" {
   project_name                  = var.watsonx_ai_project_name
   project_description           = var.project_description
   project_tags                  = var.project_tags
-  mark_as_sensitive             = var.mark_as_sensitive
+  mark_as_sensitive             = var.mark_project_as_sensitive
   enable_cos_kms_encryption     = var.enable_cos_kms_encryption
   cos_instance_crn              = local.cos_instance_crn
   cos_kms_key_crn               = local.cos_kms_key_crn
-  skip_iam_authorization_policy = var.skip_cos_kms_authorization_policy
+  skip_iam_authorization_policy = var.skip_cos_kms_iam_auth_policy
 }

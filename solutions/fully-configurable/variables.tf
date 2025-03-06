@@ -21,13 +21,13 @@ variable "provider_visibility" {
 
 variable "existing_resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision the watsonx.ai in."
+  description = "The name of an existing resource group to provision the watsonx.ai resources in."
 }
 
 variable "prefix" {
   type        = string
   nullable    = true
-  description = "The prefix to add to all resources that this solution creates (e.g `prod`, `test`, `dev`). To not use any prefix value, you can set this value to `null` or an empty string."
+  description = "The prefix to add to all resources that this solution creates. To not use any prefix value, you can set this value to `null` or an empty string."
 }
 
 variable "region" {
@@ -47,7 +47,7 @@ variable "region" {
 }
 
 variable "resource_tags" {
-  description = "Optional list of tags to describe the service instances created by the module."
+  description = "Optional list of tags to describe the watsonx_ai runtime and studio instances created by the module."
   type        = list(string)
   default     = []
 }
@@ -150,13 +150,13 @@ variable "kms_endpoint_type" {
   }
 }
 
-variable "kms_key_ring_name" {
+variable "cos_key_ring_name" {
   type        = string
   default     = "cos-key-ring"
   description = "The name of the key ring to create for the Cloud Object Storage bucket key. If an existing key is used, this variable is not required. If the prefix input variable is passed, the name of the key ring is prefixed to the value in the `<prefix>-value` format."
 }
 
-variable "kms_key_name" {
+variable "cos_key_name" {
   type        = string
   default     = "cos-key"
   description = "The name of the key to create for the Cloud Object Storage bucket. If an existing key is used, this variable is not required. If the prefix input variable is passed, the name of the key is prefixed to the value in the `<prefix>-value` format."
@@ -211,7 +211,7 @@ variable "cos_instance_access_tags" {
   default     = []
 }
 
-variable "skip_cos_kms_authorization_policy" {
+variable "skip_cos_kms_iam_auth_policy" {
   type        = bool
   description = "Whether to create an IAM authorization policy that permits the Object Storage instance to read the encryption key from the KMS instance. An authorization policy must exist before an encrypted bucket can be created. Set to `true` to avoid creating the policy."
   default     = false
@@ -246,7 +246,7 @@ variable "project_tags" {
   }
 }
 
-variable "mark_as_sensitive" {
+variable "mark_project_as_sensitive" {
   description = "Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. "
   type        = bool
   default     = false
