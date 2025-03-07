@@ -358,7 +358,7 @@
                   "reference_version": true
                 },
                 {
-                  "dependency_input": "use_existing_resource_group",
+                  "dependency_input": "existing_resource_group",
                   "value": true,
                   "reference_version": true
                 }
