@@ -124,6 +124,18 @@
                 {
                   "displayname": "Dallas (us-south)",
                   "value": "us-south"
+                },
+                {
+                  "displayname": "Frankfurt (eu-de)",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "London (eu-gb)",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "Tokyo (jp-tok)",
+                  "value": "jp-tok"
                 }
               ]
             },
@@ -372,7 +384,7 @@
                   "reference_version": true
                 },
                 {
-                  "dependency_input": "use_existing_resource_group",
+                  "dependency_input": "existing_resource_group",
                   "value": true,
                   "reference_version": true
                 }
