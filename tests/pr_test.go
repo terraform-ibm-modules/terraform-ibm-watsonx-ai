@@ -178,8 +178,6 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
 
-	fmt.Println("base apply is done and existing resources have been created")
-
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
