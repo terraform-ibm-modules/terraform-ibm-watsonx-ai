@@ -1,5 +1,5 @@
 locals {
-  prefix = var.prefix != null ? (var.prefix != "" ? var.prefix : null) : null
+  prefix = var.prefix != null ? trimspace(var.prefix) != "" ? "${var.prefix}-" : "" : ""
 }
 
 ##############################################################################
@@ -27,10 +27,9 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
-
-  kms_key_ring_name = try("${var.prefix}-${var.cos_key_ring_name}", var.cos_key_ring_name)
-  kms_key_name      = try("${var.prefix}-${var.cos_key_name}", var.cos_key_name)
+  kms_region        = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
+  kms_key_ring_name = var.cos_key_ring_name != null ? "${local.prefix}${var.cos_key_ring_name}" : null
+  kms_key_name      = var.cos_key_name != null ? "${local.prefix}${var.cos_key_name}" : null
 }
 
 module "kms" {
@@ -70,7 +69,7 @@ module "cos_instance" {
   version             = "8.19.5"
   resource_group_id   = module.resource_group.resource_group_id
   create_cos_instance = true
-  cos_instance_name   = try("${local.prefix}-${var.cos_instance_name}", var.cos_instance_name)
+  cos_instance_name   = var.cos_instance_name != null ? "${local.prefix}${var.cos_instance_name}" : null
   cos_tags            = var.cos_instance_tags
   access_tags         = var.cos_instance_access_tags
   cos_plan            = var.cos_plan
