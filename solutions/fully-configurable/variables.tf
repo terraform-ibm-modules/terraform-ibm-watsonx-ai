@@ -224,7 +224,7 @@ variable "skip_cos_kms_iam_auth_policy" {
 variable "watsonx_ai_project_name" {
   description = "The name of the watsonx.ai project."
   type        = string
-  default     = "watsonx-ai-project"
+  default     = "ai-project"
 }
 
 variable "project_description" {

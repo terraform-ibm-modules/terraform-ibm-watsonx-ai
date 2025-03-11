@@ -152,6 +152,10 @@
               }
             },
             {
+              "key": "watsonx_ai_project_name",
+              "required": true
+            },
+            {
               "key": "provider_visibility",
               "options": [
                 {
@@ -236,9 +240,6 @@
                   "type": "string"
                 }
               }
-            },
-            {
-              "key": "watsonx_ai_project_name"
             },
             {
               "key": "project_description"
