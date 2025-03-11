@@ -25,4 +25,4 @@ repository:
   description: "Terraform module to create and configure watsonx.ai Project"
 
   # Use a comma-separated list of topics to set on the repo (ensure not to use any caps in the topic string).
-  topics: terraform, ibm-cloud, terraform-module, core-team, watsonx, watson-studio, machine-learning, watsonx-ai, watsonx.ai, watsonx.ai-Runtime, watsonx.ai-Studio
+  topics: terraform, ibm-cloud, terraform-module, core-team, watsonx, watson-studio, machine-learning, watsonx-ai, watsonx.ai, watsonx.ai-runtime, watsonx.ai-studio
