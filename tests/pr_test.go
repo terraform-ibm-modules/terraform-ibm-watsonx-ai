@@ -178,6 +178,8 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
 
+	fmt.Println("base apply is done and existing resources have been created")
+
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
@@ -205,6 +207,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		"provider_visibility":          "public",
 		"watsonx_ai_project_name":      "wxai-ug-prj",
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"kms_endpoint_type":            "public",
 	}
 
 	output, err := options.RunTestUpgrade()
