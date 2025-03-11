@@ -75,7 +75,7 @@ variable "watsonx_ai_studio_plan" {
 variable "watsonx_ai_studio_instance_name" {
   type        = string
   description = "The name of the watsonx.ai Studio instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
-  default     = "watson-ai"
+  default     = "watsonx-studio"
 }
 
 ###############################################################################################################
@@ -91,7 +91,7 @@ variable "existing_watsonx_ai_runtime_instance_crn" {
 variable "watsonx_ai_runtime_instance_name" {
   type        = string
   description = "The name of the watsonx.ai Runtime instance to create. If a prefix input variable is passed, it is prefixed to the value in the `<prefix>-value` format."
-  default     = "runtime"
+  default     = "watsonx-runtime"
 }
 
 variable "watsonx_ai_runtime_plan" {
@@ -224,7 +224,7 @@ variable "skip_cos_kms_iam_auth_policy" {
 variable "watsonx_ai_project_name" {
   description = "The name of the watsonx.ai project."
   type        = string
-  default     = "sample-project"
+  default     = "watsonx-ai-project"
 }
 
 variable "project_description" {
