@@ -183,34 +183,6 @@ variable "existing_cos_instance_crn" {
   description = "The CRN of an existing Cloud Object Storage instance. If a CRN is not specified, a new instance of Cloud Object Storage is created."
 }
 
-variable "cos_instance_name" {
-  type        = string
-  default     = "cos"
-  description = "The name of the Cloud Object Storage instance to create. If the prefix input variable is passed, the name of the instance is prefixed to the value in the `<prefix>-value` format."
-}
-
-variable "cos_plan" {
-  default     = "standard"
-  description = "The plan that's used to provision the Cloud Object Storage instance."
-  type        = string
-  validation {
-    condition     = contains(["standard"], var.cos_plan)
-    error_message = "You must use a standard plan. Standard plan instances are the most common and are recommended for most workloads."
-  }
-}
-
-variable "cos_instance_tags" {
-  type        = list(string)
-  description = "A list of optional tags to add to a new Cloud Object Storage instance."
-  default     = []
-}
-
-variable "cos_instance_access_tags" {
-  type        = list(string)
-  description = "A list of access tags to apply to a new Cloud Object Storage instance."
-  default     = []
-}
-
 variable "skip_cos_kms_iam_auth_policy" {
   type        = bool
   description = "Whether to create an IAM authorization policy that permits the Object Storage instance to read the encryption key from the KMS instance. An authorization policy must exist before an encrypted bucket can be created. Set to `true` to avoid creating the policy."

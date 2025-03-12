@@ -258,32 +258,6 @@
               "key": "mark_project_as_sensitive"
             },
             {
-              "key": "cos_instance_name"
-            },
-            {
-              "key": "cos_plan"
-            },
-            {
-              "key": "cos_instance_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
-            },
-            {
-              "key": "cos_instance_access_tags",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "config_constraints": {
-                  "type": "string"
-                }
-              }
-            },
-            {
               "key": "existing_cos_instance_crn"
             },
             {
