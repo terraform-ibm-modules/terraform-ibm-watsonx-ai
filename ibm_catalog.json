@@ -156,6 +156,10 @@
               "required": true
             },
             {
+              "key": "existing_cos_instance_crn",
+              "required": true
+            },
+            {
               "key": "provider_visibility",
               "options": [
                 {
@@ -256,9 +260,6 @@
             },
             {
               "key": "mark_project_as_sensitive"
-            },
-            {
-              "key": "existing_cos_instance_crn"
             },
             {
               "key": "enable_cos_kms_encryption"
