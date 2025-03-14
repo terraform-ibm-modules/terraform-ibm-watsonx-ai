@@ -1,5 +1,5 @@
 locals {
-  prefix = var.prefix != null ? (var.prefix != "" ? var.prefix : null) : null
+  prefix = var.prefix != null ? trimspace(var.prefix) != "" ? "${var.prefix}-" : "" : ""
 }
 
 ##############################################################################
@@ -27,16 +27,15 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
-
-  kms_key_ring_name = try("${var.prefix}-${var.kms_key_ring_name}", var.kms_key_ring_name)
-  kms_key_name      = try("${var.prefix}-${var.kms_key_name}", var.kms_key_name)
+  kms_region        = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
+  kms_key_ring_name = var.cos_key_ring_name != null ? "${local.prefix}${var.cos_key_ring_name}" : null
+  kms_key_name      = var.cos_key_name != null ? "${local.prefix}${var.cos_key_name}" : null
 }
 
 module "kms" {
   count                       = (var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null) ? 1 : 0 # no need to create any KMS resources if passing an existing key
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "4.20.0"
+  version                     = "4.21.2"
   create_key_protect_instance = false
   region                      = local.kms_region
   existing_kms_instance_crn   = var.existing_kms_instance_crn
@@ -60,21 +59,6 @@ module "kms" {
   ]
 }
 
-#######################################################################################################################
-# COS
-#######################################################################################################################
-
-module "cos_instance" {
-  count               = var.existing_cos_instance_crn == null ? 1 : 0 # no need to call COS module if consumer is using existing COS instance
-  source              = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version             = "8.19.5"
-  resource_group_id   = module.resource_group.resource_group_id
-  create_cos_instance = true
-  cos_instance_name   = try("${local.prefix}-${var.cos_instance_name}", var.cos_instance_name)
-  cos_tags            = var.cos_instance_tags
-  access_tags         = var.cos_instance_access_tags
-  cos_plan            = var.cos_plan
-}
 
 
 ########################################################################################################################
@@ -82,7 +66,7 @@ module "cos_instance" {
 ########################################################################################################################
 
 locals {
-  cos_instance_crn = var.existing_cos_instance_crn == null ? module.cos_instance[0].cos_instance_crn : var.existing_cos_instance_crn
+  cos_instance_crn = var.existing_cos_instance_crn
   cos_kms_key_crn  = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
 }
 
@@ -110,9 +94,9 @@ module "watsonx_ai" {
   project_name                  = var.watsonx_ai_project_name
   project_description           = var.project_description
   project_tags                  = var.project_tags
-  mark_as_sensitive             = var.mark_as_sensitive
+  mark_as_sensitive             = var.mark_project_as_sensitive
   enable_cos_kms_encryption     = var.enable_cos_kms_encryption
   cos_instance_crn              = local.cos_instance_crn
   cos_kms_key_crn               = local.cos_kms_key_crn
-  skip_iam_authorization_policy = var.skip_cos_kms_authorization_policy
+  skip_iam_authorization_policy = var.skip_cos_kms_iam_auth_policy
 }
