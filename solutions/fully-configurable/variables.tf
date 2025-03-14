@@ -179,8 +179,7 @@ variable "enable_cos_kms_encryption" {
 
 variable "existing_cos_instance_crn" {
   type        = string
-  default     = null
-  description = "The CRN of an existing Cloud Object Storage instance. If a CRN is not specified, a new instance of Cloud Object Storage is created."
+  description = "The CRN of an existing Cloud Object Storage instance."
 }
 
 variable "skip_cos_kms_iam_auth_policy" {
