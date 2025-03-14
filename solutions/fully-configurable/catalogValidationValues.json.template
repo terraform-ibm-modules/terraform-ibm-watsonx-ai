@@ -4,6 +4,6 @@
   "region": "us-south",
   "resource_tags": $TAGS,
   "existing_resource_group_name": "geretain-test-resources",
-  "existing_cos_instance_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/abac0df06b644a9cabc6e44f55b3880e:855ed836-05ce-4f39-98fa-508774f29323::"
+  "existing_cos_instance_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/abac0df06b644a9cabc6e44f55b3880e:855ed836-05ce-4f39-98fa-508774f29323::",
   "enable_cos_kms_encryption": false
 }
