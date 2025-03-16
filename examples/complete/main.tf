@@ -16,7 +16,7 @@ module "resource_group" {
 
 module "cos" {
   source            = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version           = "8.20.1"
+  version           = "8.20.2"
   resource_group_id = module.resource_group.resource_group_id
   cos_instance_name = "${var.prefix}-cos"
   cos_plan          = "standard"
