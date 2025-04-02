@@ -3,6 +3,7 @@ package test
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strings"
@@ -14,6 +15,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -22,6 +24,7 @@ const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 const standardSolutionTerraformDir = "solutions/fully-configurable"
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
@@ -29,6 +32,21 @@ var validRegions = []string{
 	"eu-de",
 	"eu-gb",
 	"jp-tok",
+}
+
+var permanentResources map[string]interface{}
+
+// TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
+// for multiple tests
+func TestMain(m *testing.M) {
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	os.Exit(m.Run())
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
@@ -155,14 +173,14 @@ func TestRunStandardSolution(t *testing.T) {
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                      options.Prefix,
-		"region":                      options.Region,
-		"use_existing_resource_group": true,
-		"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
-		"provider_visibility":         "public",
-		"watsonx_ai_project_name":     "wxai-da-prj",
-		"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
-		"kms_endpoint_type":           "public",
+		"prefix":                       options.Prefix,
+		"region":                       options.Region,
+		"existing_resource_group_name": resourceGroup,
+		"provider_visibility":          "public",
+		"watsonx_ai_project_name":      "wxai-da-prj",
+		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"kms_endpoint_type":            "public",
+		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
 	}
 
 	output, err := options.RunTestConsistency()
@@ -200,13 +218,14 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                      options.Prefix,
-		"region":                      options.Region,
-		"use_existing_resource_group": true,
-		"resource_group_name":         terraform.Output(t, existingTerraformOptions, "resource_group_name"),
-		"provider_visibility":         "public",
-		"watsonx_ai_project_name":     "wxai-ug-prj",
-		"existing_kms_instance_crn":   terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"prefix":                       options.Prefix,
+		"region":                       options.Region,
+		"existing_resource_group_name": resourceGroup,
+		"provider_visibility":          "public",
+		"watsonx_ai_project_name":      "wxai-ug-prj",
+		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
+		"kms_endpoint_type":            "public",
+		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
 	}
 
 	output, err := options.RunTestUpgrade()
