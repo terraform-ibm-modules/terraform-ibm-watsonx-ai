@@ -31,7 +31,7 @@ module "watsonx_ai" {
   region                    = var.region
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
-  project_name              = "${var.prefix}-project-basic"
+  project_name              = "project-basic"
   enable_cos_kms_encryption = false
   cos_instance_crn          = module.cos.cos_instance_crn
 }
