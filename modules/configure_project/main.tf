@@ -107,7 +107,7 @@ locals {
   sensitive_tokendata = sensitive(data.ibm_iam_auth_token.tokendata.iam_access_token)
 }
 
-resource "null_resource" "add_to_project" {
+resource "null_resource" "add_collaborators_to_project" {
   for_each   = { for member in var.watsonx_ai_new_project_members : member.email => member }
   depends_on = [data.ibm_iam_auth_token.tokendata]
   triggers = {
@@ -115,7 +115,7 @@ resource "null_resource" "add_to_project" {
   }
 
   provisioner "local-exec" {
-    command     = "${path.module}/scripts/add_user_to_project.sh"
+    command     = "${path.module}/scripts/add_collaborators_to_project.sh"
     interpreter = ["/bin/bash", "-c"]
     environment = {
       iam_token  = local.sensitive_tokendata
