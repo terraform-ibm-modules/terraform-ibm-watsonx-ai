@@ -311,7 +311,7 @@
               ],
               "optional": true,
               "on_by_default": true,
-              "version": "^v1.18.0"
+              "version": "^v2.0.6"
             },
             {
               "name": "testing-deploy-arch-ibm-kms",
