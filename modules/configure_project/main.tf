@@ -111,7 +111,7 @@ resource "null_resource" "add_collaborators_to_project" {
   for_each   = { for member in var.watsonx_ai_new_project_members : member.email => member }
   depends_on = [data.ibm_iam_auth_token.tokendata]
   triggers = {
-    always_run = timestamp()
+    members = jsonencode(var.watsonx_ai_new_project_members)
   }
 
   provisioner "local-exec" {
