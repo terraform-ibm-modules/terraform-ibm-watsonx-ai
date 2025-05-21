@@ -66,6 +66,13 @@ variable "watsonx_ai_new_project_members" {
     ])
     error_message = "The specified new member type is not valid. Supported options are user, group, service, or profile."
   }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : member.type != "user" ? member.email == member.iam_id : true
+    ])
+    error_message = "The specified email and iam_id must be the same if the member type is not user."
+  }
 }
 
 ############################################################
