@@ -28,7 +28,9 @@ curl -s -X POST --location "$dataplatform_api/v2/projects/$project_id/members" \
                 {
                     \"user_name\": \"$user_name\",
                     \"id\": \"$iam_id\",
-                    \"role\": \"$role\"
+                    \"role\": \"$role\",
+                    \"state\": \"$state\",
+                    \"type\": \"$type\"
                 }
             ]
         }"

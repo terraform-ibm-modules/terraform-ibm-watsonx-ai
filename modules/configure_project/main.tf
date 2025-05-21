@@ -124,6 +124,8 @@ resource "null_resource" "add_collaborators_to_project" {
       user_name  = each.value.email
       iam_id     = each.value.iam_id
       role       = each.value.role
+      state      = each.value.state
+      type       = each.value.type
     }
   }
 }

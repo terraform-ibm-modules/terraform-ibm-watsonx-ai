@@ -40,6 +40,8 @@ variable "watsonx_ai_new_project_members" {
     email  = string
     iam_id = string
     role   = string
+    state  = optional(string, "ACTIVE")
+    type   = optional(string, "user")
     })
   )
   default = []
@@ -49,6 +51,20 @@ variable "watsonx_ai_new_project_members" {
       for member in var.watsonx_ai_new_project_members : contains(["admin", "editor", "viewer"], member.role)
     ])
     error_message = "The specified new member role is not valid. Supported options are admin, editor, or viewer."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["ACTIVE", "PENDING"], member.state)
+    ])
+    error_message = "The specified new member state is not valid. Supported options are `ACTIVE` or `PENDING`."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["user", "group", "service", "profile"], member.type)
+    ])
+    error_message = "The specified new member type is not valid. Supported options are user, group, service, or profile."
   }
 }
 
