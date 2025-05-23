@@ -17,11 +17,6 @@ variable "resource_group_id" {
   }
 }
 
-variable "prefix" {
-  description = "Prefix to add to all watsonx.ai resources created by this module."
-  type        = string
-}
-
 variable "region" {
   default     = "us-south"
   description = "Region where the watsonx.ai resources will be provisioned."
