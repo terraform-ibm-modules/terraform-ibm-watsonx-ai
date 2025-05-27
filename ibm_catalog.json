@@ -166,20 +166,7 @@
             },
             {
               "key": "provider_visibility",
-              "options": [
-                {
-                  "displayname": "private",
-                  "value": "private"
-                },
-                {
-                  "displayname": "public",
-                  "value": "public"
-                },
-                {
-                  "displayname": "public-and-private",
-                  "value": "public-and-private"
-                }
-              ]
+              "hidden": true
             },
             {
               "key": "watsonx_ai_studio_instance_name"
