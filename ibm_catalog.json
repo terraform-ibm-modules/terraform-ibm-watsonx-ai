@@ -2,7 +2,7 @@
   "products": [
     {
       "name": "deploy-arch-ibm-watsonx-ai",
-      "label": "[Add-ons Beta] Cloud automation for watsonx.ai",
+      "label": "Cloud automation for watsonx.ai",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -23,18 +23,18 @@
         "ai"
       ],
       "short_description": "Creates and configures IBM watsonx.ai Project",
-      "long_description": "This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project.",
+      "long_description": "This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project. For detailed information on IBM watsonx AI, please refer this [documentation](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai).",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
       "provider_name": "IBM",
       "features": [
         {
           "title": "Creates an instance of IBM watsonx.ai Studio",
-          "description": "Creates and configures an IBM watsonx.ai Studio instance."
+          "description": "Creates and configures an IBM watsonx.ai Studio instance, including provisioning the necessary infrastructure, setting workspace parameters, and enabling AI development capabilities"
         },
         {
           "title": "Creates an instance of IBM watsonx.ai Runtime",
-          "description": "Creates and configures an IBM watsonx.ai Runtime instance."
+          "description": "Creates and configures an IBM watsonx.ai Runtime instance, enabling the execution of machine learning and foundation models."
         },
         {
           "title": "Configures the watsonx profile for IBM Cloud user",
@@ -65,13 +65,15 @@
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "data-science-experience"
+              "service_name": "data-science-experience",
+              "notes": "Required for creating a new instance of watsonx AI studio."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "pm-20"
+              "service_name": "pm-20",
+              "notes": "Required for creating a new instance of watsonx AI runtime."
             },
             {
               "role_crns": [
