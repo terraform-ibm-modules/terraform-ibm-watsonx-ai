@@ -43,8 +43,13 @@
         {
           "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
           "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
+        },
+        {
+          "title": "Optional Integrations",
+          "description": "This solution can be integrated with [IBM Cloud Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) that supports configuring resources for logging, monitoring and activity tracker event routing"
         }
       ],
+      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in that repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note this product is not supported via the IBM Cloud Support Center.",
       "flavors": [
         {
           "label": "Fully configurable",
@@ -81,7 +86,30 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "cloud-object-storage",
-              "notes": "Required if enabling cos encryption using kms."
+              "notes": "[Optional] Required if enabling cos encryption using kms."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "kms",
+              "notes": "[Optional] Required if KMS encryption is enabled and Key protect is used for encryption."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "hs-crypto",
+              "notes": "[Optional] Required if Hyper Protect Crypto Services (HPCS) encryption is enabled and is used for encryption."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "All Account Management services",
+              "notes": "[Optional] Required when setting up foundational IBM Cloud account components such as IAM settings, trusted profiles, access groups, and resource groups."
             }
           ],
           "architecture": {
@@ -106,11 +134,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "watsonx.ai on IBM Cloud",
+                  "caption": "IBM watsonx.ai architecture",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This solution deploys a watsonx.ai instance on IBM Cloud, with optional integration of additional services to support enterprise-grade requirements. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance, where a Key Ring and associated Key are created to manage encryption through IBM Cloud Key Management Services (KMS). In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.data deployment. You can use IBM Cloud Activity Tracker Event Routing to monitor how users and applications interact with watsonx.ai, supporting compliance and auditability. Platform logs can be enabled to collect, view, and analyze logs related to key watsonx.data components such as the metastore and query engine, and to gain visibility into usage patterns through active tasks and queries. Furthermore, IBM Cloud Monitoring captures essential metrics such as CPU and memory utilization, helping you proactively monitor system performance and resource consumption."
+                "description": "This solution deploys a watsonx.ai instance on IBM Cloud. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance and manage encryption through IBM Cloud Key Management Services (KMS). In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.data deployment. You can use IBM Cloud Activity Tracker Event Routing to monitor how users and applications interact with watsonx.ai, supporting compliance and auditability. Platform logs can be enabled to collect, view, and analyze logs related to key watsonx.data components such as the metastore and query engine, and to gain visibility into usage patterns through active tasks and queries. Furthermore, IBM Cloud Monitoring captures essential metrics such as CPU and memory utilization, helping you proactively monitor system performance and resource consumption."
               }
             ]
           },
@@ -146,6 +174,7 @@
             },
             {
               "key": "existing_resource_group_name",
+              "display_name": "resource_group",
               "required": true,
               "custom_config": {
                 "type": "resource_group",
@@ -292,15 +321,6 @@
                   "version_input": "existing_resource_group_name"
                 },
                 {
-                  "dependency_input": "global_resource_group_name",
-                  "value": "workload-rg"
-                },
-                {
-                  "dependency_input": "provider_visibility",
-                  "version_input": "provider_visibility",
-                  "reference_version": true
-                },
-                {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
                   "reference_version": true
@@ -308,13 +328,13 @@
               ],
               "optional": true,
               "on_by_default": false,
-              "version": "^v3.0.10"
+              "version": "v3.0.7"
             },
             {
-              "name": "testing-deploy-arch-ibm-kms",
+              "name": "deploy-arch-ibm-kms",
               "description": "Enable Cloud Automation for Key Protect when you want services to use your own managed encryption keys. If disabled, it will fall back on IBM Cloud's default service-managed encryption.",
-              "id": "85fdbd7a-8c77-4abd-b716-653a31f3aba9-global",
-              "version": "^5.1.4",
+              "id": "2cad4789-fa90-4886-9c9e-857081c273ee-global",
+              "version": "v5.1.4",
               "flavors": [
                 "fully-configurable"
               ],
@@ -345,7 +365,7 @@
             {
               "name": "deploy-arch-ibm-cos",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": "^v9.0.4",
+              "version": "v9.0.2",
               "flavors": [
                 "instance"
               ],
@@ -377,8 +397,8 @@
             {
               "name": "deploy-arch-ibm-observability",
               "description": "Enables provisioning and configuration of IBM Cloud Logs, Cloud Monitoring, Logs routing, and Activity Tracker event routing to analyze logs generated by the watsonx AI instance",
-              "id": "daf2cf91-2384-4205-b7f4-621299a4896d-global",
-              "version": "^3.0.3",
+              "id": "a3137d28-79e0-479d-8a24-758ebd5a0eab-global",
+              "version": "v3.0.3",
               "flavors": [
                 "instances"
               ],

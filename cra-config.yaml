@@ -4,6 +4,7 @@ CRA_TARGETS:
   - CRA_TARGET: "solutions/fully-configurable" # Target directory for CRA scan. If not provided, the CRA Scan will not be run.
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json" # CRA Ignore file to use. If not provided, it checks the repo root directory for `cra-tf-validate-ignore-rules.json`
     PROFILE_ID: "0c8b9026-9c77-4384-9f6e-7bed5c25c49f" # SCC profile ID (currently set to AI Security Guardrails 2.0 profile).
-    TF_VAR_existing_cos_instance_crn: "aaaa-bbbb-cccc-dddd"
-    TF_VAR_provider_visibility: "public"
-    TF_VAR_prefix: "wxai-fc"
+    CRA_ENVIRONMENT_VARIABLES:  # An optional map of environment variables for CRA, where the key is the variable name and value is the value. Useful for providing TF_VARs.
+      TF_VAR_existing_cos_instance_crn: "aaaa-bbbb-cccc-dddd"
+      TF_VAR_provider_visibility: "public"
+      TF_VAR_prefix: "wxai-fc"
