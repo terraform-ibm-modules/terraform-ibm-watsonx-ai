@@ -105,6 +105,10 @@ module "cos_kms_key_crn_parser" {
   crn     = var.cos_kms_key_crn
 }
 
+locals {
+  cos_guid = module.cos_crn_parser.service_instance
+}
+
 module "storage_delegation" {
   source                        = "./modules/storage_delegation"
   count                         = var.enable_cos_kms_encryption ? 1 : 0
@@ -124,7 +128,7 @@ module "configure_project" {
   watsonx_ai_runtime_guid   = local.watsonx_ai_runtime_guid
   watsonx_ai_runtime_crn    = local.watsonx_ai_runtime_crn
   watsonx_ai_runtime_name   = local.watsonx_ai_runtime_name
-  cos_guid                  = module.cos_crn_parser.service_instance
+  cos_guid                  = local.cos_guid
   cos_crn                   = var.cos_instance_crn
   watsonx_project_delegated = local.is_storage_delegated
   region                    = var.region

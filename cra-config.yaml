@@ -8,4 +8,3 @@ CRA_TARGETS:
       TF_VAR_existing_cos_instance_crn: "aaaa-bbbb-cccc-dddd"
       TF_VAR_provider_visibility: "public"
       TF_VAR_prefix: "wxai-fc"
-      TF_VAR_cos_guid: "aaaa-bbbb"
