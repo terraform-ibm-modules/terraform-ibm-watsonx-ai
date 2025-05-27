@@ -110,7 +110,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This architecture creates and configures an IBM watsonx.ai Project."
+                "description": "This solution deploys a watsonx.ai instance on IBM Cloud, with optional integration of additional services to support enterprise-grade requirements. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance, where a Key Ring and associated Key are created to manage encryption through IBM Cloud Key Management Services (KMS). In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.data deployment. You can use IBM Cloud Activity Tracker Event Routing to monitor how users and applications interact with watsonx.ai, supporting compliance and auditability. Platform logs can be enabled to collect, view, and analyze logs related to key watsonx.data components such as the metastore and query engine, and to gain visibility into usage patterns through active tasks and queries. Furthermore, IBM Cloud Monitoring captures essential metrics such as CPU and memory utilization, helping you proactively monitor system performance and resource consumption."
               }
             ]
           },
