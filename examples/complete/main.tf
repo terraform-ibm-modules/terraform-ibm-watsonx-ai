@@ -62,7 +62,6 @@ data "ibm_iam_auth_token" "restapi" {
 
 module "watsonx_ai" {
   source                    = "../.."
-  prefix                    = var.prefix
   region                    = var.region
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
