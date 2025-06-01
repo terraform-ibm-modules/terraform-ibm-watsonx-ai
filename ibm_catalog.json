@@ -29,11 +29,11 @@
       "provider_name": "IBM",
       "features": [
         {
-          "title": "Watsonx.ai Studio",
+          "title": "watsonx.ai Studio",
           "description": "Creates and configures an IBM watsonx.ai Studio instance, including provisioning the necessary infrastructure, setting workspace parameters, and enabling AI development capabilities"
         },
         {
-          "title": "Watsonx.ai Runtime",
+          "title": "watsonx.ai Runtime",
           "description": "Creates and configures an IBM watsonx.ai Runtime instance, enabling the execution of machine learning and foundation models."
         },
         {
@@ -41,12 +41,12 @@
           "description": "Configures the watsonx profile for IBM Cloud user."
         },
         {
-          "title": "Creates a KMS encryption enabled IBM watsonx.ai project",
-          "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
+          "title": "Enable KMS Encryption",
+          "description": "This solution creates and configures a KMS encryption enabled IBM watsonx.ai project. For more details on KMS encryption, refer [this](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about)."
         },
         {
           "title": "Optional Integrations",
-          "description": "This solution can be integrated with [IBM Cloud Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) that supports configuring resources for logging, monitoring and activity tracker event routing"
+          "description": "This solution can be integrated with [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) that supports configuring resources for logging, monitoring and activity tracker event routing"
         }
       ],
       "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in the repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note this product is not supported via the IBM Cloud Support Center.",
@@ -86,7 +86,7 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "cloud-object-storage",
-              "notes": "[Optional] Required if enabling cos encryption using kms."
+              "notes": "[Optional] Required if enabling storage delegation for cloud-object-storage."
             },
             {
               "role_crns": [
@@ -134,11 +134,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "IBM watsonx.ai architecture",
+                  "caption": "watsonx.ai on IBM Cloud",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This solution deploys an enterprise-grade AI development studio along with the runtime on IBM Cloud. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance and manage encryption through IBM Cloud Key Management Services (KMS). In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.data deployment. You can use IBM Cloud Activity Tracker Event Routing to monitor how users and applications interact with watsonx.ai, supporting compliance and auditability. Platform logs can be enabled to collect, view, and analyze logs related to key watsonx.data components such as the metastore and query engine, and to gain visibility into usage patterns through active tasks and queries. Furthermore, IBM Cloud Monitoring captures essential metrics such as CPU and memory utilization, helping you proactively monitor system performance and resource consumption."
+                "description": "This solution deploys an enterprise-grade AI development studio along with the runtime on IBM Cloud. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance and manage encryption through IBM Cloud Key Management Services (KMS). It allows to enable storage delegation for the `Cloud Object Storage` instance that allows non-administrative users to create projects, the Platform assets catalog, and the corresponding Cloud Object Storage buckets. In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.ai deployment."
               }
             ]
           },
@@ -175,7 +175,6 @@
             {
               "key": "existing_resource_group_name",
               "display_name": "resource_group",
-              "default_value": "Default",
               "required": true,
               "custom_config": {
                 "type": "resource_group",
@@ -199,8 +198,7 @@
               "hidden": true
             },
             {
-              "key": "watsonx_ai_studio_instance_name",
-              "required": true
+              "key": "watsonx_ai_studio_instance_name"
             },
             {
               "key": "watsonx_ai_studio_plan",
@@ -398,7 +396,7 @@
             },
             {
               "name": "deploy-arch-ibm-observability",
-              "description": "Enables provisioning and configuration of IBM Cloud Logs, Cloud Monitoring, Logs routing, and Activity Tracker event routing to analyze logs generated by the watsonx.ai instance",
+              "description": "Enables provisioning and configuration of IBM Cloud Logs, Cloud Monitoring, Logs routing, and Activity Tracker event routing to analyze logs generated by the watsonx.ai instance.",
               "id": "a3137d28-79e0-479d-8a24-758ebd5a0eab-global",
               "version": "v3.0.3",
               "flavors": [
