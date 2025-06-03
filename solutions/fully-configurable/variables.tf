@@ -28,7 +28,7 @@ variable "existing_resource_group_name" {
 variable "prefix" {
   type        = string
   nullable    = true
-  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits and hyphens ('-'). It should not exceed 16 characters, must not end with a hyphen ('-'), and can not contain consecutive hyphens ('--'). Example: wx-54-ai."
+  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits and hyphens ('-'). It should not exceed 16 characters, must not end with a hyphen ('-'), and can not contain consecutive hyphens ('--'). Example: wx-54-ai. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)"
 
   validation {
     condition = var.prefix == null || var.prefix == "" ? true : alltrue([
