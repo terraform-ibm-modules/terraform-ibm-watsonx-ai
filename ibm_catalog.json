@@ -146,7 +146,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This solution deploys an enterprise-grade AI development studio along with the runtime on IBM Cloud. It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance and manage encryption through IBM Cloud Key Management Services (KMS). It allows to enable storage delegation for the `Cloud Object Storage` instance that allows non-administrative users to create projects, the Platform assets catalog, and the corresponding Cloud Object Storage buckets. In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.ai deployment."
+                "description": "This solution deploys an enterprise-grade AI development studio along with the runtime on IBM Cloud.<br>It enables encryption for the watsonx.ai instance by provisioning an IBM Key Protect service instance and manage encryption through IBM Cloud Key Management Services (KMS).<br>It allows to enable storage delegation for the `Cloud Object Storage` instance that allows non-administrative users to create projects, the Platform assets catalog, and the corresponding Cloud Object Storage buckets.<br>In addition, IBM Cloud Observability provides robust monitoring and logging capabilities to deliver deep operational insights into your watsonx.ai deployment."
               }
             ]
           },
