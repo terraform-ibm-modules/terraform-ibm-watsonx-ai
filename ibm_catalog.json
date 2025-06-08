@@ -30,15 +30,15 @@
       "features": [
         {
           "title": "watsonx.ai Studio",
-          "description": "This solution creates an IBM watsonx.ai Studio instance, including provisioning the necessary infrastructure, setting workspace parameters, and enabling AI development capabilities."
+          "description": "This solution creates an IBM watsonx.ai Studio instance, including provisioning the necessary infrastructure, setting workspace parameters, and enabling AI development capabilities. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)"
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "This solution creates and configures an IBM watsonx.ai Runtime instance, enabling the execution of machine learning and foundation models."
+          "description": "This solution creates and configures an IBM watsonx.ai Runtime instance, enabling the execution of machine learning and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas)"
         },
         {
           "title": "watsonx.ai Project",
-          "description": "This solution creates a starter watsonx.ai Project."
+          "description": "This solution creates a starter watsonx.ai Project. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)"
         },
         {
           "title": "watsonx profile for IBM Cloud user",
@@ -114,6 +114,22 @@
               ],
               "service_name": "All Account Management services",
               "notes": "[Optional] Required when setting up foundational IBM Cloud account components such as IAM settings, trusted profiles, access groups, and resource groups."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "sysdig-monitor",
+              "notes": "[Optional] Required if you are consuming the Observability deployable architecture which sets up Cloud Monitoring."
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "logs",
+              "notes": "[Optional] Required if you are consuming the Observability deployable architecture which sets up Cloud Logs."
             }
           ],
           "architecture": {
@@ -202,7 +218,20 @@
             },
             {
               "key": "provider_visibility",
-              "hidden": true
+              "options": [
+                {
+                  "displayname": "private",
+                  "value": "private"
+                },
+                {
+                  "displayname": "public",
+                  "value": "public"
+                },
+                {
+                  "displayname": "public-and-private",
+                  "value": "public-and-private"
+                }
+              ]
             },
             {
               "key": "watsonx_ai_studio_instance_name"
@@ -325,7 +354,7 @@
           "dependencies": [
             {
               "name": "deploy-arch-ibm-account-infra-base",
-              "description": "Cloud automation for Account Configuration organizes your IBM Cloud account with a ready-made set of resource groups by default—and, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings.",
+              "description": "Cloud automation for Account Configuration organizes your IBM Cloud account with a ready-made set of resource groups by default and, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings.",
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "flavors": [
                 "resource-group-only",
@@ -382,7 +411,7 @@
             },
             {
               "name": "deploy-arch-ibm-cos",
-              "description": "Required if enabling storage delegation for cloud object storage instance.",
+              "description": "Enable storage delegation for Cloud Object Storage instance.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
               "version": "v9.0.2",
               "flavors": [
@@ -393,24 +422,19 @@
               "on_by_default": true,
               "input_mapping": [
                 {
-                  "dependency_output": "cos_instance_id",
+                  "dependency_output": "cos_instance_crn",
                   "version_input": "existing_cos_instance_crn"
                 },
                 {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
                   "reference_version": true
-                },
-                {
-                  "dependency_input": "use_existing_resource_group",
-                  "value": true,
-                  "reference_version": true
                 }
               ]
             },
             {
               "name": "deploy-arch-ibm-observability",
-              "description": "Configure IBM Cloud Logs and Cloud Monitoring for analysing logs and metrics generated by the watsonx.ai instance.",
+              "description": "Configure IBM Cloud Logs, Cloud Monitoring and Activity Tracker event routing for analysing logs and metrics generated by the watsonx.ai instance.",
               "id": "a3137d28-79e0-479d-8a24-758ebd5a0eab-global",
               "version": "v3.0.3",
               "flavors": [
