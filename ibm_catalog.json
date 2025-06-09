@@ -102,14 +102,6 @@
             },
             {
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "hs-crypto",
-              "notes": "[Optional] Required if KMS encryption is enabled and Hyper Protect Crypto Service is used for encryption."
-            },
-            {
-              "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
               "service_name": "All Account Management services",
@@ -218,6 +210,7 @@
             },
             {
               "key": "provider_visibility",
+              "hidden": true,
               "options": [
                 {
                   "displayname": "private",
