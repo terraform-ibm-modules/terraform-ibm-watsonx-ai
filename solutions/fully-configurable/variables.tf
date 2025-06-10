@@ -214,7 +214,7 @@ variable "watsonx_ai_project_name" {
 variable "project_description" {
   description = "A description of the watsonx.ai project that is created."
   type        = string
-  default     = "The watsonx.ai project created by the watsonx.ai deployable architecture."
+  default     = "The watsonx.ai project created by the deployable architecture - Cloud automation for watsonx.ai."
 }
 
 variable "project_tags" {
