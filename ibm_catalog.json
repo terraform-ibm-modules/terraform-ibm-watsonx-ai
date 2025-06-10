@@ -23,37 +23,41 @@
         "ai"
       ],
       "short_description": "Creates and configures IBM watsonx.ai Studio, watsonx.ai Runtime and watsonx.ai Project.",
-      "long_description": "IBM watsonx.ai provides an enterprise-grade studio of integrated tools for developing AI services and deploying them into your applications of choice. This architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project. It enables storage delegation for the Cloud Object Storage instance. For detailed information on IBM watsonx.ai, please refer this [documentation](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai).",
+      "long_description": "IBM watsonx.ai provides an enterprise-grade studio of integrated tools for developing AI services and deploying them into your applications of choice. This deployable architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project. It enables storage delegation for the Cloud Object Storage instance. For detailed information on IBM watsonx.ai, please refer this [documentation](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai).",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
       "provider_name": "IBM",
       "features": [
         {
           "title": "watsonx.ai Studio",
-          "description": "This solution creates an IBM watsonx.ai Studio instance, including provisioning the necessary infrastructure, setting workspace parameters, and enabling AI development capabilities. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)"
+          "description": "Provisions an instance of IBM Cloud [watsonx.ai Studio](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas) that provides the environment and tools for you to collaboratively work on data to solve your business problems."
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "This solution creates and configures an IBM watsonx.ai Runtime instance, enabling the execution of machine learning and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas)"
+          "description": "This solution creates and configures an IBM [watsonx.ai Runtime](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas) instance, enabling the execution of machine learning and foundation models."
         },
         {
           "title": "watsonx.ai Project",
-          "description": "This solution creates a starter watsonx.ai Project. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)"
+          "description": "Creates a starter watsonx.ai Project. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)"
         },
         {
-          "title": "watsonx profile for IBM Cloud user",
-          "description": "This solution configures the watsonx profile for IBM Cloud user."
+          "title": "Sets up user profile",
+          "description": "Configures the watsonx.ai user profile with admin privileges for the created project."
         },
         {
-          "title": "Enable KMS Encryption",
-          "description": "This solution creates and configures a KMS encryption enabled IBM watsonx.ai project. For more details on KMS encryption, refer [this](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about)."
+          "title": "Object Storage",
+          "description": "Enables the creation of an Object Storage instance to link with your watsonx.ai project for assets storage."
+        },
+        {
+          "title": "KMS Encryption",
+          "description": "Supports Key Management Service(KMS) encryption for the Object Storage used for watsonx.ai, enhancing data security. For more details on KMS encryption, refer [this](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about)."
         },
         {
           "title": "Optional Integrations",
           "description": "This solution can be integrated with [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) that supports configuring resources for logging, monitoring and activity tracker event routing."
         }
       ],
-      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues please open an issue in the repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note this product is not supported via the IBM Cloud Support Center.",
+      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues, please open an issue in the repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note this product is not supported via the IBM Cloud Support Center.",
       "flavors": [
         {
           "label": "Fully configurable",
@@ -75,14 +79,14 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "data-science-experience",
-              "notes": "Required for creating a new instance of watsonx.ai Studio."
+              "notes": "Required for creating a instance of watsonx.ai Studio."
             },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "pm-20",
-              "notes": "Required for creating a new instance of watsonx.ai Runtime."
+              "notes": "Required for creating a instance of watsonx.ai Runtime."
             },
             {
               "role_crns": [
@@ -90,7 +94,7 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "cloud-object-storage",
-              "notes": "[Optional] Required if enabling storage delegation for Object Storage instance."
+              "notes": "Required for creating a Object Storage instance to store project's assets."
             },
             {
               "role_crns": [
@@ -105,7 +109,7 @@
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
               "service_name": "All Account Management services",
-              "notes": "[Optional] Required when setting up foundational IBM Cloud account components such as IAM settings, trusted profiles, access groups, and resource groups."
+              "notes": "[Optional] Required when setting up foundational IBM Cloud account components such as IAM settings, resource groups and also for storage delegation if you are not the Cloud account owner."
             },
             {
               "role_crns": [
@@ -136,15 +140,7 @@
               },
               {
                 "title": "watsonx.ai Project",
-                "description": "Configures a starter watsonx.ai Project."
-              },
-              {
-                "title": "watsonx profile for IBM Cloud user",
-                "description": "Supports configuring of the watsonx profile for IBM Cloud user."
-              },
-              {
-                "title": "KMS encryption enabled IBM watsonx.ai project",
-                "description": "Create and configures a KMS encryption enabled IBM watsonx.ai project."
+                "description": "Configures a watsonx.ai Project."
               }
             ],
             "diagrams": [
@@ -296,9 +292,6 @@
               }
             },
             {
-              "key": "enable_cos_kms_encryption"
-            },
-            {
               "key": "project_description"
             },
             {
@@ -313,6 +306,9 @@
             },
             {
               "key": "mark_project_as_sensitive"
+            },
+            {
+              "key": "enable_cos_kms_encryption"
             },
             {
               "key": "skip_cos_kms_iam_auth_policy"
@@ -404,7 +400,7 @@
             },
             {
               "name": "deploy-arch-ibm-cos",
-              "description": "Enable storage delegation for Cloud Object Storage instance.",
+              "description": "Enable to create an IBM Cloud Object Storage(COS) instance to store files that are related to project's assets, including uploaded data files or notebook files.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
               "version": "v9.0.2",
               "flavors": [
@@ -421,6 +417,11 @@
                 {
                   "dependency_input": "prefix",
                   "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "resource_group_name",
+                  "version_input": "existing_resource_group_name",
                   "reference_version": true
                 }
               ]
