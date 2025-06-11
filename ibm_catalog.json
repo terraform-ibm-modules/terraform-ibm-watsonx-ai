@@ -140,7 +140,7 @@
               },
               {
                 "title": "watsonx.ai Project",
-                "description": "Creates and configures a IBM watsonx.ai Project."
+                "description": "Creates and configures an IBM watsonx.ai Project."
               }
             ],
             "diagrams": [
