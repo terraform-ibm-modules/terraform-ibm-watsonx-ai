@@ -113,8 +113,8 @@ You need the following permissions to run this module:
 |------|--------|---------|
 | <a name="module_configure_project"></a> [configure\_project](#module\_configure\_project) | ./modules/configure_project | n/a |
 | <a name="module_configure_user"></a> [configure\_user](#module\_configure\_user) | ./modules/configure_user | n/a |
-| <a name="module_cos_crn_parser"></a> [cos\_crn\_parser](#module\_cos\_crn\_parser) | terraform-ibm-modules/common-utilities/ibm//modules/crn-parser | 1.1.0 |
-| <a name="module_cos_kms_key_crn_parser"></a> [cos\_kms\_key\_crn\_parser](#module\_cos\_kms\_key\_crn\_parser) | terraform-ibm-modules/common-utilities/ibm//modules/crn-parser | 1.1.0 |
+| <a name="module_cos_crn_parser"></a> [cos\_crn\_parser](#module\_cos\_crn\_parser) | terraform-ibm-modules/common-utilities/ibm//modules/crn-parser | 1.2.0 |
+| <a name="module_cos_kms_key_crn_parser"></a> [cos\_kms\_key\_crn\_parser](#module\_cos\_kms\_key\_crn\_parser) | terraform-ibm-modules/common-utilities/ibm//modules/crn-parser | 1.2.0 |
 | <a name="module_storage_delegation"></a> [storage\_delegation](#module\_storage\_delegation) | ./modules/storage_delegation | n/a |
 
 ### Resources
@@ -137,7 +137,6 @@ You need the following permissions to run this module:
 | <a name="input_existing_watsonx_ai_runtime_instance_crn"></a> [existing\_watsonx\_ai\_runtime\_instance\_crn](#input\_existing\_watsonx\_ai\_runtime\_instance\_crn) | The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_existing_watsonx_ai_studio_instance_crn"></a> [existing\_watsonx\_ai\_studio\_instance\_crn](#input\_existing\_watsonx\_ai\_studio\_instance\_crn) | The CRN of an existing watsonx.ai Studio instance. If not provided, a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_mark_as_sensitive"></a> [mark\_as\_sensitive](#input\_mark\_as\_sensitive) | Set to true to allow the watsonx.ai project to be created with 'Mark as sensitive' flag. It enforces access restriction and prevents data from being moved out of the project. | `bool` | `false` | no |
-| <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix to add to all watsonx.ai resources created by this module. | `string` | n/a | yes |
 | <a name="input_project_description"></a> [project\_description](#input\_project\_description) | A description of the watsonx.ai project that is created. | `string` | `"Watsonx project created by the watsonx.ai module."` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | The name of the watsonx.ai project. | `string` | `"demo"` | no |
 | <a name="input_project_tags"></a> [project\_tags](#input\_project\_tags) | A list of tags associated with the watsonx.ai project. Each tag consists of a string containing up to 255 characters. These tags can include spaces, letters, numbers, underscores, dashes, as well as the symbols # and @. | `list(string)` | <pre>[<br/>  "watsonx-ai"<br/>]</pre> | no |

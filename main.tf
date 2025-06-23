@@ -21,7 +21,7 @@ locals {
 
 resource "ibm_resource_instance" "watsonx_ai_studio_instance" {
   count             = var.existing_watsonx_ai_studio_instance_crn != null ? 0 : 1
-  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_ai_studio_instance_name}" : var.watsonx_ai_studio_instance_name
+  name              = var.watsonx_ai_studio_instance_name
   service           = "data-science-experience"
   plan              = var.watsonx_ai_studio_plan
   location          = var.region
@@ -54,7 +54,7 @@ data "ibm_resource_instance" "existing_watsonx_ai_runtime_instance" {
 
 resource "ibm_resource_instance" "watsonx_ai_runtime_instance" {
   count             = var.existing_watsonx_ai_runtime_instance_crn != null ? 0 : 1
-  name              = var.prefix != null ? "${var.prefix}-${var.watsonx_ai_runtime_instance_name}" : var.watsonx_ai_runtime_instance_name
+  name              = var.watsonx_ai_runtime_instance_name
   service           = "pm-20"
   plan              = var.watsonx_ai_runtime_plan
   location          = var.region
@@ -94,15 +94,19 @@ locals {
 
 module "cos_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.1.0"
+  version = "1.2.0"
   crn     = var.cos_instance_crn
 }
 
 module "cos_kms_key_crn_parser" {
   count   = var.enable_cos_kms_encryption ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.1.0"
+  version = "1.2.0"
   crn     = var.cos_kms_key_crn
+}
+
+locals {
+  cos_guid = module.cos_crn_parser.service_instance
 }
 
 module "storage_delegation" {
@@ -124,7 +128,7 @@ module "configure_project" {
   watsonx_ai_runtime_guid        = local.watsonx_ai_runtime_guid
   watsonx_ai_runtime_crn         = local.watsonx_ai_runtime_crn
   watsonx_ai_runtime_name        = local.watsonx_ai_runtime_name
-  cos_guid                       = module.cos_crn_parser.service_instance
+  cos_guid                       = local.cos_guid
   cos_crn                        = var.cos_instance_crn
   watsonx_project_delegated      = local.is_storage_delegated
   region                         = var.region
