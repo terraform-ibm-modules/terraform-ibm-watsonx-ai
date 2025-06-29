@@ -314,6 +314,9 @@
               ]
             },
             {
+              "key": "watsonx_ai_new_project_members"
+            },
+            {
               "key": "existing_watsonx_ai_runtime_instance_crn"
             },
             {
