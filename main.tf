@@ -118,18 +118,19 @@ module "storage_delegation" {
 }
 
 module "configure_project" {
-  source                    = "./modules/configure_project"
-  depends_on                = [module.storage_delegation]
-  count                     = var.create_watsonx_ai_project ? 1 : 0
-  project_name              = var.project_name
-  project_description       = var.project_description
-  project_tags              = var.project_tags
-  mark_as_sensitive         = var.mark_as_sensitive
-  watsonx_ai_runtime_guid   = local.watsonx_ai_runtime_guid
-  watsonx_ai_runtime_crn    = local.watsonx_ai_runtime_crn
-  watsonx_ai_runtime_name   = local.watsonx_ai_runtime_name
-  cos_guid                  = local.cos_guid
-  cos_crn                   = var.cos_instance_crn
-  watsonx_project_delegated = local.is_storage_delegated
-  region                    = var.region
+  source                         = "./modules/configure_project"
+  depends_on                     = [module.storage_delegation]
+  count                          = var.create_watsonx_ai_project ? 1 : 0
+  project_name                   = var.project_name
+  project_description            = var.project_description
+  project_tags                   = var.project_tags
+  mark_as_sensitive              = var.mark_as_sensitive
+  watsonx_ai_runtime_guid        = local.watsonx_ai_runtime_guid
+  watsonx_ai_runtime_crn         = local.watsonx_ai_runtime_crn
+  watsonx_ai_runtime_name        = local.watsonx_ai_runtime_name
+  cos_guid                       = local.cos_guid
+  cos_crn                        = var.cos_instance_crn
+  watsonx_project_delegated      = local.is_storage_delegated
+  region                         = var.region
+  watsonx_ai_new_project_members = var.watsonx_ai_new_project_members
 }
