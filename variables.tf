@@ -162,3 +162,44 @@ variable "mark_as_sensitive" {
   type        = bool
   default     = false
 }
+
+variable "watsonx_ai_new_project_members" {
+  description = "The list of new members the owner of the Watsonx.ai project would like to add to the project."
+  type = list(object({
+    email  = string
+    iam_id = string
+    role   = string
+    state  = optional(string, "ACTIVE")
+    type   = optional(string, "user")
+    })
+  )
+  default = []
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["admin", "editor", "viewer"], member.role)
+    ])
+    error_message = "The specified new member role is not valid. Supported options are admin, editor, or viewer."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["ACTIVE", "PENDING"], member.state)
+    ])
+    error_message = "The specified new member state is not valid. Supported options are `ACTIVE` or `PENDING`."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["user", "group", "service", "profile"], member.type)
+    ])
+    error_message = "The specified new member type is not valid. Supported options are user, group, service, or profile."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : member.type != "user" ? member.email == member.iam_id : true
+    ])
+    error_message = "The specified email and iam_id must be the same if the member type is not user."
+  }
+}
