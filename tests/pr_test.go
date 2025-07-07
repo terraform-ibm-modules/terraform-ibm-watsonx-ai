@@ -156,7 +156,7 @@ func TestRunStandardSolution(t *testing.T) {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  standardSolutionTerraformDir,
-		Prefix:        "wxai-da",
+		Prefix:        "wxai",
 		Region:        region,
 		ResourceGroup: resourceGroup,
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
@@ -201,7 +201,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  standardSolutionTerraformDir,
-		Prefix:        "wxai-da-upg",
+		Prefix:        "wxai-upg",
 		Region:        region,
 		ResourceGroup: resourceGroup,
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check

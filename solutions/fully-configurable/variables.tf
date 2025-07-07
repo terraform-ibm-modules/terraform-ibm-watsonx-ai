@@ -21,14 +21,26 @@ variable "provider_visibility" {
 
 variable "existing_resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision the watsonx.ai resources in."
+  description = "The name of an existing resource group in which the watsonx.ai instance will be provisioned."
   default     = "Default"
 }
 
 variable "prefix" {
   type        = string
   nullable    = true
-  description = "The prefix to add to all resources that this solution creates (e.g `prod`, `test`, `dev`). To not use any prefix value, you can set this value to `null` or an empty string."
+  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits and hyphens ('-'). It should not exceed 16 characters, must not end with a hyphen ('-'), and can not contain consecutive hyphens ('--'). Example: wx-54-ai. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)"
+
+  validation {
+    condition = var.prefix == null || var.prefix == "" ? true : alltrue([
+      can(regex("^[a-z][-a-z0-9]*[a-z0-9]$", var.prefix)), length(regexall("--", var.prefix)) == 0
+    ])
+    error_message = "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens ('-'). It must not end with a hyphen ('-'), and cannot contain consecutive hyphens ('--')."
+  }
+
+  validation {
+    condition     = var.prefix == null || var.prefix == "" ? true : length(var.prefix) <= 16
+    error_message = "Prefix must not exceed 16 characters."
+  }
 }
 
 variable "region" {
@@ -117,6 +129,47 @@ variable "watsonx_ai_runtime_service_endpoints" {
   }
 }
 
+variable "watsonx_ai_new_project_members" {
+  description = "The list of new members the owner of the Watsonx.ai project would like to add to the project. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions/standard/DA-watsonx_ai_new_project_members.md)"
+  type = list(object({
+    email  = string
+    iam_id = string
+    role   = string
+    state  = optional(string, "ACTIVE")
+    type   = optional(string, "user")
+    })
+  )
+  default = []
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["admin", "editor", "viewer"], member.role)
+    ])
+    error_message = "The specified new member role is not valid. Supported options are admin, editor, or viewer."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["ACTIVE", "PENDING"], member.state)
+    ])
+    error_message = "The specified new member state is not valid. Supported options are `ACTIVE` or `PENDING`."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : contains(["user", "group", "service", "profile"], member.type)
+    ])
+    error_message = "The specified new member type is not valid. Supported options are user, group, service, or profile."
+  }
+
+  validation {
+    condition = alltrue([
+      for member in var.watsonx_ai_new_project_members : member.type != "user" ? member.email == member.iam_id : true
+    ])
+    error_message = "The specified email and iam_id must be the same if the member type is not user."
+  }
+}
+
 ###############################################################################################################
 # KMS
 ###############################################################################################################
@@ -202,7 +255,7 @@ variable "watsonx_ai_project_name" {
 variable "project_description" {
   description = "A description of the watsonx.ai project that is created."
   type        = string
-  default     = "The watsonx.ai project created by the watsonx.ai deployable architecture."
+  default     = "The watsonx.ai project created by the deployable architecture - Cloud automation for watsonx.ai."
 }
 
 variable "project_tags" {

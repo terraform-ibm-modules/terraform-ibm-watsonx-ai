@@ -8,7 +8,7 @@ locals {
 
 module "resource_group" {
   source                       = "terraform-ibm-modules/resource-group/ibm"
-  version                      = "1.2.0"
+  version                      = "1.2.1"
   existing_resource_group_name = var.existing_resource_group_name
 }
 
@@ -21,7 +21,7 @@ module "resource_group" {
 module "existing_kms_crn_parser" {
   count   = var.existing_kms_instance_crn != null ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.1.0"
+  version = "1.2.0"
   crn     = var.existing_kms_instance_crn
 }
 
@@ -35,7 +35,7 @@ locals {
 module "kms" {
   count                       = (var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null) ? 1 : 0 # no need to create any KMS resources if passing an existing key
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.0.1"
+  version                     = "5.1.9"
   create_key_protect_instance = false
   region                      = local.kms_region
   existing_kms_instance_crn   = var.existing_kms_instance_crn
@@ -76,22 +76,22 @@ data "ibm_iam_auth_token" "restapi" {
 
 module "watsonx_ai" {
   source            = "../.."
-  prefix            = local.prefix
   region            = var.region
   resource_tags     = var.resource_tags
   resource_group_id = module.resource_group.resource_group_id
 
   existing_watsonx_ai_studio_instance_crn = var.existing_watsonx_ai_studio_instance_crn
   watsonx_ai_studio_plan                  = var.watsonx_ai_studio_plan
-  watsonx_ai_studio_instance_name         = var.watsonx_ai_studio_instance_name
+  watsonx_ai_studio_instance_name         = "${local.prefix}${var.watsonx_ai_studio_instance_name}"
 
   existing_watsonx_ai_runtime_instance_crn = var.existing_watsonx_ai_runtime_instance_crn
   watsonx_ai_runtime_plan                  = var.watsonx_ai_runtime_plan
-  watsonx_ai_runtime_instance_name         = var.watsonx_ai_runtime_instance_name
+  watsonx_ai_runtime_instance_name         = "${local.prefix}${var.watsonx_ai_runtime_instance_name}"
   watsonx_ai_runtime_service_endpoints     = var.watsonx_ai_runtime_service_endpoints
+  watsonx_ai_new_project_members           = var.watsonx_ai_new_project_members
 
   create_watsonx_ai_project     = true
-  project_name                  = var.watsonx_ai_project_name
+  project_name                  = "${local.prefix}${var.watsonx_ai_project_name}"
   project_description           = var.project_description
   project_tags                  = var.project_tags
   mark_as_sensitive             = var.mark_project_as_sensitive
