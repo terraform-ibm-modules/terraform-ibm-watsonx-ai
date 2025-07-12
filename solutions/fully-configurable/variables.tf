@@ -227,6 +227,29 @@ variable "enable_cos_kms_encryption" {
   }
 }
 
+variable "ibmcloud_kms_api_key" {
+  type        = string
+  description = "The IBM Cloud API key that can create a root key and key ring in the key management service (KMS) instance. If not specified, the 'ibmcloud_api_key' variable is used. Specify this key if the instance in `existing_kms_instance_crn` is in an account that's different from the Cloud Object Storage instance. Leave this input empty if the same account owns both instances."
+  sensitive   = true
+  default     = null
+}
+
+variable "kms_encryption_enabled" {
+  type        = bool
+  description = "Set to true to enable KMS encryption using customer-managed keys. When enabled, you must provide a value for at least one of the following: existing_kms_instance_crn, existing_kms_key_crn, or existing_backup_kms_key_crn. If set to false, IBM-owned encryption is used (i.e., encryption keys managed and held by IBM)."
+  default     = false
+
+  validation {
+    condition     = (!var.kms_encryption_enabled || var.existing_kms_instance_crn != null || var.existing_cos_kms_key_crn != null)
+    error_message = "When 'kms_encryption_enabled' is true, provide either 'existing_kms_instance_crn' or 'existing_cos_kms_key_crn'."
+  }
+
+  validation {
+    condition     = (var.existing_kms_instance_crn == null && var.existing_cos_kms_key_crn == null) || var.kms_encryption_enabled
+    error_message = "When either 'existing_kms_instance_crn' or 'existing_cos_kms_key_crn' is set, 'kms_encryption_enabled' must be true."
+  }
+}
+
 ##############################################################################################################
 # COS
 ##############################################################################################################

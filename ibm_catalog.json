@@ -358,6 +358,12 @@
               "key": "existing_kms_instance_crn"
             },
             {
+              "key": "kms_encryption_enabled"
+            },
+            {
+              "key": "ibmcloud_kms_api_key"
+            },
+            {
               "key": "kms_endpoint_type",
               "hidden": true,
               "options": [

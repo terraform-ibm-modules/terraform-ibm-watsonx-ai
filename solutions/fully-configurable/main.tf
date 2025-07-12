@@ -66,10 +66,19 @@ module "kms" {
 ########################################################################################################################
 
 locals {
-  cos_instance_crn = var.existing_cos_instance_crn
-  cos_kms_key_crn  = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
+  cos_instance_crn  = var.existing_cos_instance_crn
+  cos_kms_key_crn   = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
+  cos_instance_guid = local.cos_instance_crn != null ? module.existing_cos_crn_parser[0].service_instance : null
+  cos_account_id    = local.cos_instance_crn != null ? module.existing_cos_crn_parser[0].account_id : null
+  kms_guid          = var.kms_encryption_enabled ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].service_instance : module.existing_kms_instance_crn_parser[0].service_instance) : null
+  kms_account_id    = var.kms_encryption_enabled ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].account_id : module.existing_kms_instance_crn_parser[0].account_id) : null
+  kms_service_name  = var.kms_encryption_enabled ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].service_name : module.existing_kms_instance_crn_parser[0].service_name) : null
 }
 
+locals {
+  create_cos_kms_iam_auth_policy           = (var.kms_encryption_enabled && !var.skip_cos_kms_iam_auth_policy)
+  create_cross_account_cos_kms_auth_policy = (local.create_cos_kms_iam_auth_policy && (var.ibmcloud_kms_api_key != null || (local.kms_account_id != null && local.cos_account_id != null && local.kms_account_id != local.cos_account_id)))
+}
 
 data "ibm_iam_auth_token" "restapi" {
 }
@@ -99,4 +108,74 @@ module "watsonx_ai" {
   cos_instance_crn              = local.cos_instance_crn
   cos_kms_key_crn               = local.cos_kms_key_crn
   skip_iam_authorization_policy = var.skip_cos_kms_iam_auth_policy
+}
+
+##############################################################################
+# Cross-Account COS-KMS IAM Authorization Policy
+##############################################################################
+resource "ibm_iam_authorization_policy" "cos_kms_policy" {
+  count                       = local.create_cross_account_cos_kms_auth_policy ? 1 : 0
+  provider                    = ibm.kms
+  source_service_account      = local.cos_account_id
+  source_service_name         = "cloud-object-storage"
+  source_resource_instance_id = local.cos_instance_guid
+  roles                       = ["Reader"]
+  description                 = "Allow COS ${local.cos_instance_guid} to read KMS key ${local.cos_kms_key_crn}"
+
+  resource_attributes {
+    name     = "serviceName"
+    operator = "stringEquals"
+    value    = local.kms_service_name
+  }
+  resource_attributes {
+    name     = "accountId"
+    operator = "stringEquals"
+    value    = local.kms_account_id
+  }
+  resource_attributes {
+    name     = "serviceInstance"
+    operator = "stringEquals"
+    value    = local.kms_guid
+  }
+  resource_attributes {
+    name     = "resourceType"
+    operator = "stringEquals"
+    value    = "key"
+  }
+  resource_attributes {
+    name     = "resource"
+    operator = "stringEquals"
+    value    = local.cos_kms_key_crn
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "time_sleep" "wait_for_cross_account_authorization_policy" {
+  depends_on      = [ibm_iam_authorization_policy.cos_kms_policy]
+  count           = local.create_cross_account_cos_kms_auth_policy ? 1 : 0
+  create_duration = "30s"
+}
+
+module "existing_cos_crn_parser" {
+  count   = var.existing_cos_instance_crn != null ? 1 : 0
+  source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
+  version = "1.2.0"
+  crn     = var.existing_cos_instance_crn
+}
+
+module "existing_kms_key_crn_parser" {
+  count   = var.kms_encryption_enabled && var.existing_cos_kms_key_crn != null ? 1 : 0
+  source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
+  version = "1.2.0"
+  crn     = var.existing_cos_kms_key_crn
+}
+
+module "existing_kms_instance_crn_parser" {
+  count   = var.kms_encryption_enabled && var.existing_kms_instance_crn != null ? 1 : 0
+  source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
+  version = "1.2.0"
+  crn     = var.existing_kms_instance_crn
 }
