@@ -240,7 +240,7 @@ variable "kms_encryption_enabled" {
   default     = true
 
   validation {
-    condition     = var.kms_encryption_enabled ? ((var.existing_kms_instance_crn != null && trim(var.existing_kms_instance_crn, " ") != "") || (var.existing_cos_kms_key_crn != null && trim(var.existing_cos_kms_key_crn, " ") != "")) : true
+    condition     = var.kms_encryption_enabled ? ((var.existing_kms_instance_crn != null && trim(var.existing_kms_instance_crn != null ? var.existing_kms_instance_crn : "", " ") != "") || (var.existing_cos_kms_key_crn != null && trim(var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : "", " ") != "")) : true
     error_message = "To enable KMS encryption, provide either 'existing_kms_instance_crn' or 'existing_cos_kms_key_crn'."
   }
 
