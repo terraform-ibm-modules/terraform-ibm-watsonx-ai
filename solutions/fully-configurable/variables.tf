@@ -237,11 +237,11 @@ variable "ibmcloud_kms_api_key" {
 variable "kms_encryption_enabled" {
   type        = bool
   description = "Set to true to enable KMS encryption using customer-managed keys. When enabled, you must provide a value for at least one of the following: existing_kms_instance_crn, existing_kms_key_crn, or existing_backup_kms_key_crn. If set to false, IBM-owned encryption is used (i.e., encryption keys managed and held by IBM)."
-  default     = true
+  default     = false
 
   validation {
-    condition     = var.kms_encryption_enabled ? ((var.existing_kms_instance_crn != null && trim(var.existing_kms_instance_crn != null ? var.existing_kms_instance_crn : "", " ") != "") || (var.existing_cos_kms_key_crn != null && trim(var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : "", " ") != "")) : true
-    error_message = "To enable KMS encryption, provide either 'existing_kms_instance_crn' or 'existing_cos_kms_key_crn'."
+    condition     = !var.kms_encryption_enabled || ((var.existing_kms_instance_crn != null && var.existing_kms_instance_crn != "") || (var.existing_cos_kms_key_crn != null && var.existing_cos_kms_key_crn != ""))
+    error_message = "When 'kms_encryption_enabled' is true, provide either 'existing_kms_instance_crn' or 'existing_cos_kms_key_crn'."
   }
 
 }
