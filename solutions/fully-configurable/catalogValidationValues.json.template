@@ -5,6 +5,5 @@
   "resource_tags": $TAGS,
   "existing_resource_group_name": "geretain-test-resources",
   "existing_cos_instance_crn": $COS_INSTANCE_CRN,
-  "enable_cos_kms_encryption": false,
-  "existing_kms_instance_crn": $HPCS_US_SOUTH_CRN
+  "enable_cos_kms_encryption": false
 }
