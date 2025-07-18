@@ -107,7 +107,7 @@ module "watsonx_ai" {
   enable_cos_kms_encryption     = var.enable_cos_kms_encryption
   cos_instance_crn              = local.cos_instance_crn
   cos_kms_key_crn               = local.cos_kms_key_crn
-  skip_iam_authorization_policy = var.skip_cos_kms_iam_auth_policy
+  skip_iam_authorization_policy = local.create_cross_account_cos_kms_auth_policy || !local.create_cos_kms_iam_auth_policy
 }
 
 ##############################################################################
