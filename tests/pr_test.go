@@ -178,7 +178,6 @@ func TestRunStandardSolution(t *testing.T) {
 		"existing_resource_group_name": resourceGroup,
 		"provider_visibility":          "public",
 		"watsonx_ai_project_name":      "wxai-da-prj",
-		"enable_cos_kms_encryption":    true,
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
 		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
