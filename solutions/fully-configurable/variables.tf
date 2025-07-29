@@ -21,20 +21,20 @@ variable "provider_visibility" {
 
 variable "existing_resource_group_name" {
   type        = string
-  description = "The name of an existing resource group in which the watsonx.ai instance will be provisioned."
+  description = "The name of an existing resource group to provision the watsonx.ai in."
   default     = "Default"
 }
 
 variable "prefix" {
   type        = string
   nullable    = true
-  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits and hyphens ('-'). It should not exceed 16 characters, must not end with a hyphen ('-'), and can not contain consecutive hyphens ('--'). Example: wx-54-ai. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)"
+  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It should not exceed 16 characters, must not end with a hyphen('-'), and can not contain consecutive hyphens ('--'). Example: wx-0205-data. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)"
 
   validation {
     condition = var.prefix == null || var.prefix == "" ? true : alltrue([
       can(regex("^[a-z][-a-z0-9]*[a-z0-9]$", var.prefix)), length(regexall("--", var.prefix)) == 0
     ])
-    error_message = "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens ('-'). It must not end with a hyphen ('-'), and cannot contain consecutive hyphens ('--')."
+    error_message = "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It must not end with a hyphen('-'), and cannot contain consecutive hyphens ('--')."
   }
 
   validation {
@@ -44,14 +44,9 @@ variable "prefix" {
 }
 
 variable "region" {
-  default     = "us-south"
-  description = "Region where the watsonx.ai resources will be provisioned."
+  description = "The region to provision all resources in. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/region) about how to select different regions for different services."
   type        = string
-
-  validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
-    error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
-  }
+  default     = "us-south"
 
   validation {
     condition     = (var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn == null) ? local.kms_region == var.region : true
@@ -60,8 +55,8 @@ variable "region" {
 }
 
 variable "resource_tags" {
-  description = "Optional list of tags to describe the watsonx_ai runtime and studio instances created by the module."
   type        = list(string)
+  description = "Optional list of tags to describe the newly created watsonx.ai instance."
   default     = []
 }
 

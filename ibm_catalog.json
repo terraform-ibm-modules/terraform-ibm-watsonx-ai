@@ -23,42 +23,42 @@
         "solution",
         "ai"
       ],
-      "short_description": "Creates and configures watsonx.ai Studio, watsonx.ai Runtime and watsonx.ai Project.",
-      "long_description": "IBM watsonx.ai provides an enterprise-grade studio of integrated tools for developing AI services and deploying them into your applications of choice. This deployable architecture supports creating and configuring the instances of watsonx.ai Studio, watsonx.ai Runtime and creates a KMS encrypted watsonx.ai Project. It enables storage delegation for the Cloud Object Storage instance. For detailed information on IBM watsonx.ai, refer [here](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai).",
+      "short_description": "Creates and configures an instance of IBM watsonx.ai Studio, Runtime, and Project.",
+      "long_description": "With [IBM watsonx.ai](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai), you can build, train, and deploy AI models at scale in a secure, enterprise-grade environment. This deployable architecture provisions watsonx.ai Studio, Runtime, and a KMS-encrypted project with storage delegation for Object Storage. It also includes optional tools for key encryption and observability, giving you everything you need to manage your watsonx.ai deployment with confidence.",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
       "provider_name": "IBM",
       "features": [
         {
           "title": "watsonx.ai Studio",
-          "description": "Provisions an instance of IBM Cloud [watsonx.ai Studio](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas) that provides the environment and tools for you to collaboratively work on data to solve your business problems."
+          "description": "Get started with watsonx.ai by provisioning Studio—a collaborative environment for building, training, and evaluating AI models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "This solution creates and configures an IBM [watsonx.ai Runtime](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas) instance, enabling the execution of machine learning and foundation models."
+          "description": "Get started with watsonx.ai by deploying Runtime to efficiently serve and manage machine learning and foundation models in production. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
         },
         {
           "title": "watsonx.ai Project",
-          "description": "Creates a starter watsonx.ai Project where you can work with data and other assets to align with your goals. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
+          "description": "Get started with watsonx.ai by creating a Project to organize your datasets, notebooks, models, and other assets in one place. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
         },
         {
-          "title": "Sets up user profile",
-          "description": "Configures the watsonx.ai user profile with admin privileges for the created project. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en)."
+          "title": "Optional user profile setup",
+          "description": "Use watsonx.ai with a preconfigured [user profile](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en) that grants admin access to manage projects and associated resources efficiently."
         },
         {
-          "title": "Object Storage",
-          "description": "Supports the creation of an [Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) instance to link with your watsonx.ai project for assets storage."
+          "title": "Optional Object Storage integration",
+          "description": "Use watsonx.ai with [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data. You can provide an existing instance or use [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) to create a new one."
         },
         {
-          "title": "KMS Encryption",
-          "description": "Enables Key Management Service(KMS) encryption for the Object Storage used for watsonx.ai, enhancing data security. For more details on KMS encryption, refer [this](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about)."
+          "title": "Optional encryption with Key Protect",
+          "description": "Use watsonx.ai with [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) to enable encryption for Object Storage and secure your project data. You can bring your own KMS instance or create one using [Cloud automation for Key Protect](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
         },
         {
-          "title": "Optional Integrations",
-          "description": "This solution can be integrated with [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) that supports configuring resources for logging, monitoring and activity tracker event routing."
+          "title": "Optional observability tools",
+          "description": "Use watsonx.ai with observability integrations including [IBM Cloud Logs](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-logs-63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global) for analyzing logs, [IBM Cloud Monitoring](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cloud-monitoring-73debdbf-894f-4c14-81c7-5ece3a70b67d-global) for tracking performance metrics, and [IBM Activity Tracker](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-activity-tracker-918453c3-4f97-4583-8c4a-83ef12fc7916-global) for viewing activity events. These tools provide comprehensive visibility into your watsonx.ai deployment."
         }
       ],
-      "support_details": "This product is in the community registry, as such support is handled through the originated repo. If you experience issues, please open an issue in the repository [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note this product is not supported via the IBM Cloud Support Center.",
+      "support_details": "This product is in the community registry, support is handled through the [original repo](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai). If you experience issues kindly open an issue [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note that this product is not currently supported through the IBM Cloud Support Center.",
       "flavors": [
         {
           "label": "Fully configurable",
@@ -76,16 +76,27 @@
           },
           "iam_permissions": [
             {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Viewer"],
+              "service_name": "Resource group only",
+              "notes": "Viewer access is required in the resource group you want to provision in."
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"],
+              "service_name": "All Account Management services",
+              "notes": "[Optional] Required for consuming Account Configuration deployable architecture which creates resource group."
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Administrator"],
+              "service_name": "All Identity and Access enabled services",
+              "notes": "[Optional] Required for consuming Account Configuration deployable architecture which creates resource group with account setting."
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
               "service_name": "data-science-experience",
               "notes": "Required for creating a instance of watsonx.ai Studio."
             },
             {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
               "service_name": "pm-20",
               "notes": "Required for creating a instance of watsonx.ai Runtime."
             },
@@ -94,23 +105,24 @@
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "cloud-object-storage",
-              "notes": "Required for creating a Object Storage instance to store project's assets."
+              "service_name": "kms",
+              "notes": "[Optional] Required for enabling KMS encryption in Event Routing, Cloud Logs deployable architecture, and for encrypting the Watsonx AI instance using Key Protect."
             },
             {
+              "service_name": "hs-crypto",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "kms",
-              "notes": "[Optional] Required if KMS encryption is enabled and Key protect is used for encryption."
+              "notes": "[Optional] Required for enabling Hyper Protect Crypto Services in Event Routing, Cloud Logs deployable architecture, and for encrypting the Watsonx AI instance using Hyper Protect Crypto Services."
             },
             {
+              "service_name": "atracker",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
+                "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+                "crn:v1:bluemix:public:iam::::role:Editor"
               ],
-              "service_name": "All Account Management services",
-              "notes": "[Optional] Required when setting up foundational IBM Cloud account components such as IAM settings, resource groups and also for storage delegation if you are not the Cloud account owner."
+              "notes": "Required for configuring Activity Tracker event routing to cloud object storage bucket and cloud logs."
             },
             {
               "role_crns": [
@@ -118,30 +130,30 @@
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "sysdig-monitor",
-              "notes": "[Optional] Required if you are consuming the Observability deployable architecture which sets up Cloud Monitoring."
+              "notes": "[Optional] Required for creating a new instance of cloud monitoring."
             },
             {
+              "service_name": "logs",
+              "notes": "[Optional] Required for creating a new instance of cloud logs.",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "logs",
-              "notes": "[Optional] Required if you are consuming the Observability deployable architecture which sets up Cloud Logs."
+              ]
+            },
+            {
+              "service_name": "cloud-object-storage",
+              "notes": "Required for creating an Object Storage instance to store project assets and for enabling COS in Event Routing and Cloud Logs deployable architectures.",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ]
             }
           ],
           "architecture": {
             "features": [
               {
-                "title": "watsonx.ai Studio",
-                "description": "Creates an IBM watsonx.ai Studio instance."
-              },
-              {
-                "title": "watsonx.ai Runtime",
-                "description": "Provisions an IBM watsonx.ai Runtime instance."
-              },
-              {
-                "title": "watsonx.ai Project",
-                "description": "Creates and configures an IBM watsonx.ai Project."
+                "title": " ",
+                "description": "Configured to use IBM secure by default standards, but can be edited to fit your use case."
               }
             ],
             "diagrams": [
@@ -151,7 +163,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/watsonx-ai-da.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture <b>Cloud automation of watsonx.ai</b> provides a comprehensive suite of integrated tools for building generative AI and machine learning solutions. The architecture integrates multiple IBM Cloud services to ensure security, scalability, and ease of use. The key components of this solution are as follows.<br><br><b>watsonx.ai Studio & Runtime:</b><br>The solution configures both the watsonx.ai Studio for model development and the watsonx.ai Runtime for deployment, ensuring seamless integration across the lifecycle of AI applications.<br><br><b>Storage delegation:</b><br>This solution supports creating a Cloud Object Storage instance to store project's assets. You can provide an existing Object Storage instance details too. The architecture allows for storage delegation on the Cloud Object Storage instance. This feature enables non-administrative users to create and manage their own projects, platform assets, and corresponding storage buckets without requiring full administrative access.<br><br><b>KMS encryption:</b><br>To enhance the data security, this solution provisions the IBM Key Protect service and creates keys for a Key Management Service (KMS), for the Object Storage instance used by watsonx.ai. This setup ensures that all data within the watsonx.ai instance is encrypted. <br><br><b>User profile configuration:</b><br>The solution configures user profiles with specific roles and privileges. By setting up the watsonx.ai user profile with admin privileges for the created project, users are granted the necessary permissions to manage, monitor, and modify project settings as needed.<br><br><b>Observability:</b><br>It can be integrated with IBM Cloud Observability. [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) provides advanced monitoring, logging, and operational insights into the performance and health of your watsonx.ai deployment. <br><br>This deployable architecture is designed to streamline the process of creating, securing, and managing AI-driven projects in the cloud. Upon successful deployment, you will receive a URL for your pre-configured watsonx.ai project, allowing you to immediately begin working based on your business needs."
+                "description": "This deployable architecture provisions an instance of IBM watsonx.ai on IBM Cloud, with the option to integrate additional services to meet enterprise-grade requirements.<br><br>It includes watsonx.ai Studio for collaborative model development and watsonx.ai Runtime for deploying machine learning and foundation models, ensuring a seamless development-to-deployment workflow.<br><br>To support secure data handling, it provisions IBM Cloud Object Storage for storing project assets. You may also bring an existing instance. Storage delegation is enabled to allow non-admin users to manage their own assets and buckets within the project.<br><br>To enhance data security, the architecture provisions IBM Key Protect to manage encryption keys used by the Object Storage instance. You can also supply an existing KMS instance and keys.<br><br>User profiles are configured with administrative privileges to ensure proper access control and the ability to manage watsonx.ai resources effectively.<br><br>Optionally, you can configure observability services. IBM Cloud Activity Tracker with Event Routing helps monitor access and changes across the environment for audit readiness. IBM Cloud Logs enables collection and analysis of logs generated by watsonx.ai, while IBM Cloud Monitoring captures vital metrics such as CPU and memory usage to help track system performance and usage trends.<br><br>After deployment, you will receive a pre-configured watsonx.ai project URL, allowing you to immediately begin building AI solutions tailored to your business needs."
               }
             ]
           },
@@ -231,17 +243,7 @@
               "default_value": "true",
               "description": "When set to `true`, the IBM Cloud Monitoring instance will be configured to collect platform metrics from the provided region. You can configure 1 instance only of the IBM Cloud Monitoring service per region to collect platform metrics in that location. Check with the account or service administrator if another monitoring instance has already been configured. You may not have permissions to see all monitoring instances in the region. [Learn more](https://cloud.ibm.com/docs/monitoring?topic=monitoring-platform_metrics_enabling).",
               "required": true,
-              "virtual": true,
-              "options": [
-                {
-                  "displayname": "true",
-                  "value": "true"
-                },
-                {
-                  "displayname": "false",
-                  "value": "false"
-                }
-              ]
+              "virtual": true
             },
             {
               "key": "logs_routing_tenant_regions",
@@ -385,7 +387,7 @@
           "dependencies": [
             {
               "name": "deploy-arch-ibm-account-infra-base",
-              "description": "Cloud automation for Account Configuration organizes your IBM Cloud account with a ready-made set of resource groups by default and, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings.",
+              "description": "Cloud automation for account configuration organizes your IBM Cloud account with a ready-made set of resource groups by default. And, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings.",
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "flavors": [
                 "resource-group-only",
@@ -410,12 +412,10 @@
             },
             {
               "name": "deploy-arch-ibm-kms",
-              "description": "Enable Cloud Automation for Key Protect when you want services to use your own managed encryption keys. If disabled, it will fall back on IBM Cloud's default service-managed encryption.",
+              "description": "Enable Cloud automation for Key Protect to use your own managed encryption keys. If disabled, IBM Cloud's default service-managed encryption is used.",
               "id": "2cad4789-fa90-4886-9c9e-857081c273ee-global",
               "version": "v5.1.4",
-              "flavors": [
-                "fully-configurable"
-              ],
+              "flavors": ["fully-configurable"],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
               "on_by_default": true,
@@ -427,6 +427,11 @@
                 {
                   "version_input": "enable_cos_kms_encryption",
                   "value": true
+                },
+                {
+                  "dependency_input": "kms_endpoint_type",
+                  "version_input": "kms_endpoint_type",
+                  "reference_version": true
                 },
                 {
                   "dependency_input": "prefix",
@@ -442,12 +447,10 @@
             },
             {
               "name": "deploy-arch-ibm-cos",
-              "description": "Enable to create an IBM Cloud Object Storage(COS) instance to store files that are related to project's assets, including uploaded data files or notebook files.",
+              "description": "Enable to create an IBM Cloud Object Storage (COS) instance, where a bucket will be set up to store project assets as part of this deployment.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
               "version": "v9.0.2",
-              "flavors": [
-                "instance"
-              ],
+              "flavors": ["instance"],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
               "on_by_default": true,
@@ -469,16 +472,43 @@
               ]
             },
             {
-              "name": "deploy-arch-ibm-observability",
-              "description": "Configure IBM Cloud Logs, Cloud Monitoring and Activity Tracker event routing for analysing logs and metrics generated by the watsonx.ai instance.",
-              "id": "a3137d28-79e0-479d-8a24-758ebd5a0eab-global",
-              "version": "v3.0.3",
-              "flavors": [
-                "instances"
-              ],
+              "name": "deploy-arch-ibm-cloud-logs",
+              "description": "Provision and configure IBM Cloud Logs for analysing logs generated by the Watsonx AI instance.",
+              "flavors": ["fully-configurable"],
+              "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "input_mapping": [
+                {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_kms_instance_crn",
+                  "version_input": "existing_kms_instance_crn",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "region",
+                  "version_input": "region",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "logs_routing_tenant_regions",
+                  "version_input": "logs_routing_tenant_regions",
+                  "reference_version": true
+                }
+              ],
               "optional": true,
               "on_by_default": true,
+              "version": "v1.5.6"
+            },
+            {
+              "name": "deploy-arch-ibm-cloud-monitoring",
+              "description": "Provision and configure IBM Cloud Monitoring for metrics generated by the Watsonx AI instance.",
+              "flavors": ["fully-configurable"],
+              "id": "73debdbf-894f-4c14-81c7-5ece3a70b67d-global",
+              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "input_mapping": [
                 {
                   "dependency_input": "prefix",
@@ -494,13 +524,38 @@
                   "dependency_input": "enable_platform_metrics",
                   "version_input": "enable_platform_metrics",
                   "reference_version": true
+                }
+              ],
+              "optional": true,
+              "on_by_default": true,
+              "version": "v1.3.0"
+            },
+            {
+              "name": "deploy-arch-ibm-activity-tracker",
+              "description": "Configure a new IBM Cloud Logs instance for viewing activity tracking events generated by the Watsonx AI instance.",
+              "flavors": ["fully-configurable"],
+              "id": "918453c3-4f97-4583-8c4a-83ef12fc7916-global",
+              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
+              "input_mapping": [
+                {
+                  "dependency_input": "prefix",
+                  "version_input": "prefix",
+                  "reference_version": true
                 },
                 {
-                  "dependency_input": "logs_routing_tenant_regions",
-                  "version_input": "logs_routing_tenant_regions",
+                  "dependency_input": "existing_kms_instance_crn",
+                  "version_input": "existing_kms_instance_crn",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "region",
+                  "version_input": "region",
                   "reference_version": true
                 }
-              ]
+              ],
+              "optional": true,
+              "on_by_default": true,
+              "version": "v1.1.4"
             }
           ],
           "dependency_version_2": true,
