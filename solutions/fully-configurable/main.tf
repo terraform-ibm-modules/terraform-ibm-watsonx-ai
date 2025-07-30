@@ -27,13 +27,14 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region        = var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null ? module.existing_kms_crn_parser[0].region : null
-  kms_key_ring_name = var.cos_key_ring_name != null ? "${local.prefix}${var.cos_key_ring_name}" : null
-  kms_key_name      = var.cos_key_name != null ? "${local.prefix}${var.cos_key_name}" : null
+  kms_region        = var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null ? module.existing_kms_instance_crn_parser[0].region : null
+  kms_key_ring_name = "${local.prefix}${var.cos_key_ring_name}"
+  kms_key_name      = "${local.prefix}${var.cos_key_name}"
+  create_kms_key    = (var.enable_cos_kms_encryption) ? (var.existing_cos_kms_key_crn == null ? (var.existing_kms_instance_crn != null ? true : false) : false) : false
 }
 
 module "kms" {
-  count                       = (var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn == null && var.existing_kms_instance_crn != null) ? 1 : 0 # no need to create any KMS resources if passing an existing key
+  count                       = local.create_kms_key ? 1 : 0 # no need to create any KMS resources if not passing an existing KMS CRN or existing KMS key CRN is provided
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
   version                     = "5.1.11"
   create_key_protect_instance = false

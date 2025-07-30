@@ -181,6 +181,7 @@ func TestRunStandardSolution(t *testing.T) {
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
 		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
+		"enable_cos_kms_encryption":    true,
 	}
 
 	output, err := options.RunTestConsistency()
@@ -226,6 +227,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
 		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
+		"enable_cos_kms_encryption":    true,
 	}
 
 	output, err := options.RunTestUpgrade()

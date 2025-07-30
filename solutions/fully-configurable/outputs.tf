@@ -74,3 +74,8 @@ output "watsonx_ai_project_url" {
   value       = module.watsonx_ai.watsonx_ai_project_url
   description = "The URL of the watsonx.ai project that is created."
 }
+
+output "cos_kms_key_crn" {
+  description = "CRN of the KMS Key"
+  value       = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
+}
