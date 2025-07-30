@@ -15,3 +15,12 @@ module "kms" {
   resource_tags               = var.resource_tags
   key_protect_allowed_network = var.key_protect_allowed_network
 }
+
+module "cos" {
+  source            = "terraform-ibm-modules/cos/ibm//modules/fscloud"
+  version           = "10.1.9"
+  resource_group_id = module.resource_group.resource_group_id
+  cos_instance_name = "${var.prefix}-cos"
+  cos_plan          = "standard"
+  cos_tags          = var.resource_tags
+}
