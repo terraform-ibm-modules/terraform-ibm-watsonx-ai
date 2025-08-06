@@ -443,7 +443,7 @@
                   "version_input": "existing_kms_instance_crn"
                 },
                 {
-                  "version_input": "enable_kms_encryption",
+                  "version_input": "enable_cos_kms_encryption",
                   "value": true
                 },
                 {
