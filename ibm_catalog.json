@@ -75,7 +75,7 @@
             ]
           },
           "iam_permissions": [
-        {
+            {
               "role_crns": ["crn:v1:bluemix:public:iam::::role:Viewer"],
               "service_name": "Resource group only",
               "notes": "Viewer access is required in the resource group you want to provision in."
@@ -92,8 +92,13 @@
             },
             {
               "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
-              "service_name": "lakehouse",
-              "notes": "Required to create an instance of watsonx.ai"
+              "service_name": "data-science-experience",
+              "notes": "Required for creating a instance of watsonx.ai Studio."
+            },
+            {
+              "role_crns": ["crn:v1:bluemix:public:iam::::role:Editor"],
+              "service_name": "pm-20",
+              "notes": "Required for creating a instance of watsonx.ai Runtime."
             },
             {
               "role_crns": [
@@ -240,7 +245,7 @@
               "required": true,
               "virtual": true
             },
-              {
+            {
               "key": "enable_platform_metrics",
               "type": "string",
               "default_value": "false",
@@ -397,7 +402,7 @@
               "key": "cos_key_name"
             }
           ],
-           "dependencies": [
+          "dependencies": [
             {
               "name": "deploy-arch-ibm-account-infra-base",
               "description": "Cloud automation for account configuration organizes your IBM Cloud account with a ready-made set of resource groups by default. And, when you enable the \"with Account Settings\" option, it also applies baseline security and governance settings.",
