@@ -83,8 +83,8 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 }
 
 // Provision KMS - Key Protect to use in DA tests
-func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.Options {
-	realTerraformDir := "./resources/kp-instance"
+func setupKMSKeyProtectAndCOS(t *testing.T, region string, prefix string) *terraform.Options {
+	realTerraformDir := "./resources/kp-cos-instance"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
 	checkVariable := "TF_VAR_ibmcloud_api_key"
@@ -149,8 +149,8 @@ func TestRunStandardSolution(t *testing.T) {
 	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
-	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
-	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
+	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+	existingTerraformOptions := setupKMSKeyProtectAndCOS(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -188,15 +188,15 @@ func TestRunStandardSolution(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 
-	cleanupResources(t, existingTerraformOptions, prefixKMSKey)
+	cleanupResources(t, existingTerraformOptions, prefixExistingRes)
 }
 
 func TestRunStandardUpgradeSolution(t *testing.T) {
 	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
-	prefixKMSKey := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
-	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixKMSKey)
+	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+	existingTerraformOptions := setupKMSKeyProtectAndCOS(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -236,5 +236,5 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		assert.NotNil(t, output, "Expected some output")
 	}
 
-	cleanupResources(t, existingTerraformOptions, prefixKMSKey)
+	cleanupResources(t, existingTerraformOptions, prefixExistingRes)
 }
