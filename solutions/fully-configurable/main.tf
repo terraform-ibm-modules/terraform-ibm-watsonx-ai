@@ -30,7 +30,11 @@ locals {
   kms_region        = var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null ? module.existing_kms_instance_crn_parser[0].region : null
   kms_key_ring_name = "${local.prefix}${var.cos_key_ring_name}"
   kms_key_name      = "${local.prefix}${var.cos_key_name}"
-  create_kms_key    = (var.enable_cos_kms_encryption) ? (var.existing_cos_kms_key_crn == null ? (var.existing_kms_instance_crn != null ? true : false) : false) : false
+  create_kms_key = (
+    var.enable_cos_kms_encryption &&
+    var.existing_cos_kms_key_crn == null &&
+    var.existing_kms_instance_crn != null
+  )
 }
 
 module "kms" {
