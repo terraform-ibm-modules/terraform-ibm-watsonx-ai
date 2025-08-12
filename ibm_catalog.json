@@ -291,7 +291,7 @@
                 }
               }
             },
-           {
+            {
               "key": "provider_visibility",
               "hidden": true
             },
