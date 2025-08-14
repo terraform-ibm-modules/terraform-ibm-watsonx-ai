@@ -395,6 +395,9 @@
               ],
               "default_flavor": "resource-group-only",
               "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
+              "version": "v3.0.7",
+              "optional": true,
+              "on_by_default": false,
               "input_mapping": [
                 {
                   "dependency_output": "workload_resource_group_name",
@@ -405,16 +408,13 @@
                   "version_input": "prefix",
                   "reference_version": true
                 }
-              ],
-              "optional": true,
-              "on_by_default": false,
-              "version": "v3.0.7"
+              ]
             },
             {
               "name": "deploy-arch-ibm-kms",
               "description": "Enable Cloud automation for Key Protect to use your own managed encryption keys. If disabled, IBM Cloud's default service-managed encryption is used.",
               "id": "2cad4789-fa90-4886-9c9e-857081c273ee-global",
-              "version": "v5.1.4",
+              "version": "v5.1.19",
               "flavors": ["fully-configurable"],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
@@ -449,7 +449,7 @@
               "name": "deploy-arch-ibm-cos",
               "description": "Enable to create an IBM Cloud Object Storage (COS) instance, where a bucket will be set up to store project assets as part of this deployment.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": "v9.0.2",
+              "version": "v10.2.1",
               "flavors": ["instance"],
               "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
               "optional": true,
