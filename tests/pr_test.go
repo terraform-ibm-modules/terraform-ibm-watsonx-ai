@@ -83,7 +83,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 }
 
 // Provision KMS - Key Protect to use in DA tests
-func setupKMSKeyProtectAndCOS(t *testing.T, region string, prefix string) *terraform.Options {
+func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.Options {
 	realTerraformDir := "./resources/kp-cos-instance"
 	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
 
@@ -150,7 +150,7 @@ func TestRunStandardSolution(t *testing.T) {
 
 	var region = validRegions[rand.Intn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
-	existingTerraformOptions := setupKMSKeyProtectAndCOS(t, region, prefixExistingRes)
+	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -196,7 +196,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 
 	var region = validRegions[rand.Intn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
-	existingTerraformOptions := setupKMSKeyProtectAndCOS(t, region, prefixExistingRes)
+	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{

@@ -76,6 +76,6 @@ output "watsonx_ai_project_url" {
 }
 
 output "cos_kms_key_crn" {
-  description = "CRN of the KMS Key"
-  value       = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
+  description = "The CRN of the key management service (Key Protect) key used to encrypt the Cloud Object Storage bucket that the solution creates."
+  value       = local.cos_kms_key_crn
 }

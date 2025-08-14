@@ -8,7 +8,7 @@ locals {
 
 module "resource_group" {
   source                       = "terraform-ibm-modules/resource-group/ibm"
-  version                      = "1.2.1"
+  version                      = "1.3.0"
   existing_resource_group_name = var.existing_resource_group_name
 }
 
@@ -27,18 +27,18 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region        = (var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null ) ? module.existing_kms_instance_crn_parser[0].region : null
+  kms_region        = (var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null) ? module.existing_kms_instance_crn_parser[0].region : null
   kms_key_ring_name = "${local.prefix}${var.cos_key_ring_name}"
   kms_key_name      = "${local.prefix}${var.cos_key_name}"
-   create_kms_key = (
+  create_kms_key = (
     var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null && var.existing_cos_kms_key_crn == null
   )
 }
 
 module "kms" {
-  count                       = local.create_kms_key ? 1 : 0 # no need to create any KMS resources if not passing an existing KMS CRN or existing KMS key CRN is provided
+  count                       = local.create_kms_key ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.1.11"
+  version                     = "5.1.19"
   create_key_protect_instance = false
   region                      = local.kms_region
   existing_kms_instance_crn   = var.existing_kms_instance_crn

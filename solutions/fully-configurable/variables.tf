@@ -21,8 +21,8 @@ variable "provider_visibility" {
 
 variable "existing_resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision the watsonx.ai in."
-  default     = "Default"
+  description = "The name of an existing resource group to provision the resources. If not provided the default resource group will be used."
+  default     = null
 }
 
 variable "prefix" {
@@ -203,7 +203,7 @@ variable "kms_endpoint_type" {
   default     = "private"
   validation {
     condition     = can(regex("public|private", var.kms_endpoint_type))
-    error_message = "Valid values for the `kms_endpoint_type_value` are `public` or `private`."
+    error_message = "Valid values for the `kms_endpoint_type` are `public` or `private`."
   }
 }
 

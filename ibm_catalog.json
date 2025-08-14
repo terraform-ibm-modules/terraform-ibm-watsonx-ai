@@ -23,7 +23,7 @@
         "solution",
         "ai"
       ],
-      "short_description": "Creates and configures an instance of IBM watsonx.ai Studio, Runtime, and Project.",
+      "short_description": "Creates and configures an instance of IBM watsonx.ai Studio, Runtime, and Project",
       "long_description": "With [IBM watsonx.ai](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai), you can build, train, and deploy AI models at scale in a secure, enterprise-grade environment. This deployable architecture provisions watsonx.ai Studio, Runtime, and a KMS-encrypted project with storage delegation for Object Storage. It also includes optional tools for key encryption and observability, giving you everything you need to manage your watsonx.ai deployment with confidence.\n\nℹ️ This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) assets, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
@@ -237,14 +237,6 @@
             {
               "key": "existing_cos_instance_crn",
               "required": true
-            },
-            {
-              "key": "enable_platform_metrics",
-              "type": "string",
-              "default_value": "true",
-              "description": "When set to `true`, the IBM Cloud Monitoring instance will be configured to collect platform metrics from the provided region. You can configure 1 instance only of the IBM Cloud Monitoring service per region to collect platform metrics in that location. Check with the account or service administrator if another monitoring instance has already been configured. You may not have permissions to see all monitoring instances in the region. [Learn more](https://cloud.ibm.com/docs/monitoring?topic=monitoring-platform_metrics_enabling).",
-              "required": true,
-              "virtual": true
             },
             {
               "key": "enable_platform_metrics",
