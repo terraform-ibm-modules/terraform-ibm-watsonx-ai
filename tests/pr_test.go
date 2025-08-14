@@ -180,7 +180,7 @@ func TestRunStandardSolution(t *testing.T) {
 		"watsonx_ai_project_name":      "wxai-da-prj",
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
-		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
+		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
 	}
 
 	output, err := options.RunTestConsistency()
@@ -225,7 +225,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		"watsonx_ai_project_name":      "wxai-ug-prj",
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
-		"existing_cos_instance_crn":    permanentResources["general_test_storage_cos_instance_crn"],
+		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
 	}
 
 	output, err := options.RunTestUpgrade()
