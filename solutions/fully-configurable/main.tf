@@ -27,7 +27,7 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region        = var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null ? module.existing_kms_instance_crn_parser[0].region : null
+  kms_region        = (var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null ) ? module.existing_kms_instance_crn_parser[0].region : null
   kms_key_ring_name = "${local.prefix}${var.cos_key_ring_name}"
   kms_key_name      = "${local.prefix}${var.cos_key_name}"
   create_kms_key = (
