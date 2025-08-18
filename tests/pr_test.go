@@ -125,7 +125,6 @@ func cleanupResources(t *testing.T, terraformOptions *terraform.Options, prefix 
 }
 
 func TestRunBasicExample(t *testing.T) {
-	t.Parallel()
 
 	options := setupOptions(t, "wxai-basic", basicExampleDir)
 
@@ -135,7 +134,6 @@ func TestRunBasicExample(t *testing.T) {
 }
 
 func TestRunCompleteExample(t *testing.T) {
-	t.Parallel()
 
 	options := setupOptions(t, "wxai-complete", completeExampleDir)
 
@@ -146,7 +144,6 @@ func TestRunCompleteExample(t *testing.T) {
 
 // Test the DA
 func TestRunStandardSolution(t *testing.T) {
-	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
@@ -192,7 +189,6 @@ func TestRunStandardSolution(t *testing.T) {
 }
 
 func TestRunStandardUpgradeSolution(t *testing.T) {
-	t.Parallel()
 
 	var region = validRegions[rand.Intn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
