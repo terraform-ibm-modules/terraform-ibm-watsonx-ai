@@ -27,12 +27,11 @@ module "existing_kms_crn_parser" {
 
 locals {
   # fetch KMS region from existing_kms_instance_crn if KMS resources are required and existing_cos_kms_key_crn is not provided
-  kms_region        = (var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null) ? module.existing_kms_instance_crn_parser[0].region : null
+  kms_enabled_cos   = var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null
+  kms_region        = local.kms_enabled_cos ? module.existing_kms_instance_crn_parser[0].region : null
   kms_key_ring_name = "${local.prefix}${var.cos_key_ring_name}"
   kms_key_name      = "${local.prefix}${var.cos_key_name}"
-  create_kms_key = (
-    var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null && var.existing_cos_kms_key_crn == null
-  )
+  create_kms_key    = local.kms_enabled_cos && var.existing_cos_kms_key_crn == null
 }
 
 module "kms" {
@@ -69,10 +68,9 @@ module "kms" {
 ########################################################################################################################
 
 locals {
-  cos_instance_crn  = var.existing_cos_instance_crn
   cos_kms_key_crn   = var.enable_cos_kms_encryption ? (var.existing_cos_kms_key_crn != null ? var.existing_cos_kms_key_crn : module.kms[0].keys[format("%s.%s", local.kms_key_ring_name, local.kms_key_name)].crn) : null
-  cos_instance_guid = local.cos_instance_crn != null ? module.existing_cos_crn_parser[0].service_instance : null
-  cos_account_id    = local.cos_instance_crn != null ? module.existing_cos_crn_parser[0].account_id : null
+  cos_instance_guid = var.existing_cos_instance_crn != null ? module.existing_cos_crn_parser[0].service_instance : null
+  cos_account_id    = var.existing_cos_instance_crn != null ? module.existing_cos_crn_parser[0].account_id : null
   kms_guid          = var.enable_cos_kms_encryption ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].service_instance : module.existing_kms_instance_crn_parser[0].service_instance) : null
   kms_account_id    = var.enable_cos_kms_encryption ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].account_id : module.existing_kms_instance_crn_parser[0].account_id) : null
   kms_service_name  = var.enable_cos_kms_encryption ? (length(module.existing_kms_key_crn_parser) > 0 ? module.existing_kms_key_crn_parser[0].service_name : module.existing_kms_instance_crn_parser[0].service_name) : null
@@ -108,7 +106,7 @@ module "watsonx_ai" {
   project_tags                  = var.project_tags
   mark_as_sensitive             = var.mark_project_as_sensitive
   enable_cos_kms_encryption     = var.enable_cos_kms_encryption
-  cos_instance_crn              = local.cos_instance_crn
+  cos_instance_crn              = var.existing_cos_instance_crn
   cos_kms_key_crn               = local.cos_kms_key_crn
   skip_iam_authorization_policy = local.create_cross_account_cos_kms_auth_policy || !local.create_cos_kms_iam_auth_policy
 }
@@ -177,7 +175,7 @@ module "existing_kms_key_crn_parser" {
 }
 
 module "existing_kms_instance_crn_parser" {
-  count   = var.enable_cos_kms_encryption && var.existing_kms_instance_crn != null && var.existing_kms_instance_crn != "" ? 1 : 0
+  count   = local.kms_enabled_cos && var.existing_kms_instance_crn != "" ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
   version = "1.2.0"
   crn     = var.existing_kms_instance_crn
