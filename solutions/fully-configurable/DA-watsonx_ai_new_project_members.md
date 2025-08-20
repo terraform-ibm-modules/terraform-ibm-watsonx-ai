@@ -16,16 +16,18 @@ The `watsonx_ai_new_project_members` input variable allows you to specify additi
 This is an example of adding two new members, one as an admin and one as a viewer to the project:
 
 ```json
-    {
-        "email": "example@ibm.com",
-        "iam_id": "IBMid-1111111111",
-        "role": "admin"
-    },
-    {
-        "email": "IBMid-1111111110",
-        "iam_id": "IBMid-1111111110",
-        "role": "viewer",
-        "state": "ACTIVE",
-        "type": "service"
-    }
+[
+  {
+    "email": "example@ibm.com",
+    "iam_id": "IBMid-1111111111",
+    "role": "admin"
+  },
+  {
+    "email": "IBMid-1111111110",
+    "iam_id": "IBMid-1111111110",
+    "role": "viewer",
+    "state": "ACTIVE",
+    "type": "service"
+  }
+]
 ```
