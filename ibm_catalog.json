@@ -31,31 +31,31 @@
       "features": [
         {
           "title": "watsonx.ai Studio",
-          "description": "Get started with watsonx.ai by provisioning Studio—a collaborative environment for building, training, and evaluating AI models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
+          "description": "Creates and configures a Studio workspace where you can build, train, and evaluate AI models collaboratively. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "Get started with watsonx.ai by deploying Runtime to efficiently serve and manage machine learning and foundation models in production. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
+          "description": "Sets up and manages a Runtime to deploy, serve, and scale machine learning and foundation models in production. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
         },
         {
           "title": "watsonx.ai Project",
-          "description": "Get started with watsonx.ai by creating a Project to organize your datasets, notebooks, models, and other assets in one place. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
+          "description": "Creates and organizes a Project to manage datasets, notebooks, models, and related assets in one place. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
         },
         {
           "title": "Optional user profile setup",
-          "description": "Use watsonx.ai with a preconfigured [user profile](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en) that grants admin access to manage projects and associated resources efficiently."
+          "description": "Provides a preconfigured [user profile](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en) with admin access for efficient project and resource management."
         },
         {
-          "title": "Optional Object Storage integration",
-          "description": "Use watsonx.ai with [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data. You can provide an existing instance or use [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global) to create a new one."
+          "title": "Object Storage",
+          "description": "Optionally you can integrate with [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data. You can either provide an existing instance or create one using [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
         },
         {
-          "title": "Optional encryption with Key Protect",
-          "description": "Use watsonx.ai with [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) to enable encryption for Object Storage and secure your project data. You can bring your own KMS instance or create one using [Cloud automation for Key Protect](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
+          "title": "KMS Encryption",
+          "description": "Optionally you can enable [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data. You can use either an existing KMS instance or create one with [Cloud automation for Key Protect](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
         },
         {
-          "title": "Optional observability tools",
-          "description": "Use watsonx.ai with [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global), which provides monitoring and logging capabilities to deliver deep operational insights into your watsonx.ai deployment."
+          "title": "Observability",
+          "description": "This solution can leverage [Cloud automation for Observability](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-observability-a3137d28-79e0-479d-8a24-758ebd5a0eab-global) to configure optional resources for monitoring, logging, and activity tracker event routing."
         }
       ],
       "support_details": "This product is in the community registry, support is handled through the [original repo](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai). If you experience issues kindly open an issue [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note that this product is not currently supported through the IBM Cloud Support Center.",
