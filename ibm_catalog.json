@@ -24,18 +24,18 @@
         "ai"
       ],
       "short_description": "Creates and configures an instance of IBM watsonx.ai Project, watsonx.ai Studio and watsonx.ai Runtime",
-      "long_description": "With [IBM watsonx.ai](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai), you can build, train, and deploy AI models at scale in a secure, enterprise-grade environment. This deployable architecture provisions watsonx.ai Studio, Runtime, and a KMS-encrypted project with storage delegation for Object Storage. It also includes optional tools for key encryption and observability, giving you everything you need to manage your watsonx.ai deployment with confidence.\n\nℹ️ This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) assets, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
+      "long_description": "With [IBM watsonx.ai](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/overview-wx.html?context=wx&audience=wdp#watsonxai), you can build, train, and deploy AI models at scale in a secure, enterprise-grade environment. This deployable architecture provisions watsonx.ai Studio, Runtime, and a Key Management System-encrypted project with storage delegation for Object Storage. It also includes optional tools for key encryption and observability, giving you everything you need to manage your watsonx.ai deployment with confidence.\n\nℹ️ This Terraform-based automation is part of a broader suite of IBM-maintained Infrastructure as Code (IaC) assets, each following the naming pattern \"Cloud automation for *servicename*\" and focusing on single IBM Cloud service. These single-service deployable architectures can be used on their own to streamline and automate service deployments through an [IaC approach](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-understanding-projects), or assembled together into a broader [automated IaC stack](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-config-stack) to automate the deployment of an end-to-end solution architecture.",
       "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md",
       "offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/images/watsonx-ai.svg",
       "provider_name": "IBM",
       "features": [
         {
           "title": "watsonx.ai Studio",
-          "description": "Creates and configures a Studio workspace where you can build, train, and evaluate AI models collaboratively. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
+          "description": "Create and configure a workspace to build, tune, and evaluate generative AI and machine learning models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "Sets up and manages a Runtime to deploy, serve, and scale machine learning and foundation models in production. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
+          "description": "Create and configure the infrastructure to deploy, serve, and scale ML and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
         },
         {
           "title": "watsonx.ai Project",
@@ -47,11 +47,11 @@
         },
         {
           "title": "Object Storage",
-          "description": "Optionally you can integrate with [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data. You can either provide an existing instance or create one using [Cloud automation for Object Storage](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
+          "description": "You can integrate with [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data."
         },
         {
-          "title": "KMS Encryption",
-          "description": "Optionally you can enable [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data. You can use either an existing KMS instance or create one with [Cloud automation for Key Protect](https://cloud.ibm.com/catalog/7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3/architecture/deploy-arch-ibm-cos-68921490-2778-4930-ac6d-bae7be6cd958-global)."
+          "title": "Key Management System Encryption",
+          "description": "You can enable [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data."
         },
         {
           "title": "Observability",
@@ -164,7 +164,7 @@
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/main/reference-architecture/deployable-architecture-watsonx-ai.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This deployable architecture provisions an instance of IBM watsonx.ai on IBM Cloud, with the option to integrate additional services to meet enterprise-grade requirements.<br><br>It includes watsonx.ai Studio for collaborative model development and watsonx.ai Runtime for deploying machine learning and foundation models, ensuring a seamless development-to-deployment workflow.<br><br>To support secure data handling, it provisions IBM Cloud Object Storage for storing project assets. You may also bring an existing instance. Storage delegation is enabled to allow non-admin users to manage their own assets and buckets within the project.<br><br>To enhance data security, the architecture provisions IBM Key Protect to manage encryption keys used by the Object Storage instance. You can also supply an existing KMS instance and keys.<br><br>User profiles are configured with administrative privileges to ensure proper access control and the ability to manage watsonx.ai resources effectively.<br><br>Optionally, you can also configure observability services, which includes IBM Cloud Activity Tracker Event Routing to monitor how users and applications interact with watsonx ai, supporting compliance and auditability. Enable IBM Cloud Logs to collect, view, and analyze platform logs related to watsonx ai to gain visibility into usage patterns through active tasks and queries. While IBM Cloud Monitoring captures essential metrics such as CPU and memory usage, helping you proactively monitor system performance and resource consumption."
+                "description": "This deployable architecture provisions an instance of IBM watsonx.ai on IBM Cloud, with the option to integrate additional services to meet enterprise-grade requirements.<br><br>It includes watsonx.ai Studio for collaborative model development and watsonx.ai Runtime for deploying machine learning and foundation models, ensuring a seamless development-to-deployment workflow.<br><br>To support secure data handling, it provisions IBM Cloud Object Storage for storing project assets. You may also bring an existing instance. Storage delegation is enabled to allow non-admin users to manage their own assets and buckets within the project.<br><br>To enhance data security, the architecture provisions IBM Key Protect to manage encryption keys used by the Object Storage instance. You can also supply an existing Key Management System instance and keys.<br><br>User profiles are configured with administrative privileges to ensure proper access control and the ability to manage watsonx.ai resources effectively.<br><br>Optionally, you can also configure observability services, which includes IBM Cloud Activity Tracker event outing to monitor how users and applications interact with watsonx ai, supporting compliance and auditability. Enable IBM Cloud Logs to collect, view, and analyze platform logs related to watsonx ai to gain visibility into usage patterns through active tasks and queries. While IBM Cloud Monitoring captures essential metrics such as CPU and memory usage, helping you proactively monitor system performance and resource consumption."
               }
             ]
           },
@@ -447,7 +447,7 @@
             },
             {
               "name": "deploy-arch-ibm-cos",
-              "description": "Enable to create an IBM Cloud Object Storage (COS) instance, where a bucket will be set up to store project assets as part of this deployment.",
+              "description": "Enable to create an IBM Cloud Object Storage instance, where a bucket will be set up to store project assets as part of this deployment.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
               "version": "v9.0.2",
               "flavors": ["instance"],
