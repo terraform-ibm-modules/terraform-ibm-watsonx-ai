@@ -9,6 +9,6 @@ output "resource_group_name" {
 }
 
 output "cos_crn" {
-  value       = module.cos.cos_instance_crn
-  description = "The CRN of the COS instance."
+  value       = module.cos_module.cos_instance_crn
+  description = "CRN of Cloud Object Storage instance"
 }

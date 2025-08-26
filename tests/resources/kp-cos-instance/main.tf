@@ -16,11 +16,13 @@ module "kms" {
   key_protect_allowed_network = var.key_protect_allowed_network
 }
 
-module "cos" {
-  source            = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version           = "10.2.1"
-  resource_group_id = module.resource_group.resource_group_id
-  cos_instance_name = "${var.prefix}-cos"
-  cos_plan          = "standard"
-  cos_tags          = var.resource_tags
+# Temporary workaround for issue https://github.ibm.com/GoldenEye/issues/issues/15533
+module "cos_module" {
+  source                     = "terraform-ibm-modules/cos/ibm"
+  version                    = "10.2.1"
+  resource_group_id          = module.resource_group.resource_group_id
+  region                     = var.region
+  cos_instance_name          = "${var.prefix}-cos"
+  existing_kms_instance_guid = module.kms.kms_guid
+  create_cos_bucket          = false
 }
