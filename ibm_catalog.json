@@ -35,7 +35,7 @@
         },
         {
           "title": "watsonx.ai Runtime",
-          "description": "Create and configure the infrastructure to deploy, serve, and scale ML and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
+          "description": "Create and configure the infrastructure to deploy, serve, and scale Machine Learning and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
         },
         {
           "title": "watsonx.ai Project",
