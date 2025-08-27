@@ -8,7 +8,7 @@
 set -e
 
 DA_DIR="${1}"
-TERRAFORM_SOURCE_DIR="tests/new_cos_instance"
+TERRAFORM_SOURCE_DIR="tests/resources/kp-instance"
 JSON_FILE="${DA_DIR}/catalogValidationValues.json.template"
 TF_VARS_FILE="terraform.tfvars"
 
@@ -21,18 +21,24 @@ TF_VARS_FILE="terraform.tfvars"
   {
     echo "ibmcloud_api_key=\"${VALIDATION_APIKEY}\""
     echo "prefix=\"wxai-$(openssl rand -hex 2)\""
+    echo "region=\"us-south\""
   } >> ${TF_VARS_FILE}
   terraform apply -input=false -auto-approve -var-file=${TF_VARS_FILE} || exit 1
 
   cos_var_name="existing_cos_instance_crn"
   cos_value=$(terraform output -state=terraform.tfstate -raw cos_crn)
+  kms_var_name="existing_kms_instance_crn"
+  kms_value=$(terraform output -state=terraform.tfstate -raw key_protect_crn)
 
-  echo "Appending '${cos_var_name}', input variable value to ${JSON_FILE}.."
+  echo "Appending '${cos_var_name}' and '${kms_var_name}', input variables to ${JSON_FILE}.."
 
   cd "${cwd}"
   jq -r --arg cos_var_name "${cos_var_name}" \
         --arg cos_value "${cos_value}" \
         '. + {($cos_var_name): $cos_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+  jq -r --arg kms_var_name "${kms_var_name}" \
+        --arg kms_value "${kms_value}" \
+        '. + {($kms_var_name): $kms_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )

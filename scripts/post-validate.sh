@@ -7,7 +7,7 @@
 
 set -e
 
-TERRAFORM_SOURCE_DIR="tests/new_cos_instance"
+TERRAFORM_SOURCE_DIR="tests/resources/kp-instance"
 TF_VARS_FILE="terraform.tfvars"
 
 (
