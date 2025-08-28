@@ -203,7 +203,7 @@ variable "kms_endpoint_type" {
   default     = "private"
   validation {
     condition     = var.existing_cos_kms_key_crn != null || can(regex("^(public|private)$", var.kms_endpoint_type))
-    error_message = "Valid values for `kms_endpoint_type` are `public` or `private`, unless `existing_cos_kms_key_crn` is specified."
+    error_message = "Valid values for `kms_endpoint_type` are `public` or `private`. Applies only if `existing_cos_kms_key_crn` is not specified."
   }
 }
 
