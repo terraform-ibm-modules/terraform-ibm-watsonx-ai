@@ -42,7 +42,7 @@
           "description": "Creates and organizes a Project to manage datasets, notebooks, models, and related assets in one place. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
         },
         {
-          "title": "Optional user profile setup",
+          "title": "Sets up user profile",
           "description": "Provides a preconfigured [user profile](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en) with admin access for efficient project and resource management."
         },
         {
