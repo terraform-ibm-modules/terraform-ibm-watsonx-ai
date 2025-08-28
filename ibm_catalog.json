@@ -51,7 +51,7 @@
         },
         {
           "title": "KMS Encryption",
-          "description": "You can enable [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data."
+          "description": "You can enable key management services(KMS) [encryption](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data."
         },
         {
           "title": "Observability",
