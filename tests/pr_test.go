@@ -136,8 +136,6 @@ func TestRunBasicExample(t *testing.T) {
 
 func TestRunCompleteExample(t *testing.T) {
 	t.Parallel()
-	t.Skip("Skipping this test") // issue in storage delegation while enabling kms , tracked in https://github.ibm.com/GoldenEye/issues/issues/15336
-
 	options := setupOptions(t, "wxai-complete", completeExampleDir)
 
 	output, err := options.RunTestConsistency()
@@ -182,9 +180,7 @@ func TestRunStandardSolution(t *testing.T) {
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
 		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
-
-		// skipping this as there’s an issue in storage delegation while enabling KMS, tracked in https://github.ibm.com/GoldenEye/issues/issues/15336
-		// "enable_cos_kms_encryption":    true,
+		"enable_cos_kms_encryption":    true,
 	}
 
 	output, err := options.RunTestConsistency()
@@ -230,9 +226,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
 		"kms_endpoint_type":            "public",
 		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
-
-		// skipping this as there’s an issue in storage delegation while enabling KMS, tracked in https://github.ibm.com/GoldenEye/issues/issues/15336
-		//	"enable_cos_kms_encryption":    true,
+		"enable_cos_kms_encryption":    true,
 	}
 
 	output, err := options.RunTestUpgrade()
