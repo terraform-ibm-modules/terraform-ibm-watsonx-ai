@@ -50,7 +50,7 @@
           "description": "You can integrate with [Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage project data."
         },
         {
-          "title": "Key Management System Encryption",
+          "title": "KMS Encryption",
           "description": "You can enable [Key Protect](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure project data."
         },
         {
