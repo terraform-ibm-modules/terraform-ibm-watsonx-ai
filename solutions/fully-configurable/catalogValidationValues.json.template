@@ -3,6 +3,5 @@
   "prefix": $PREFIX,
   "region": "us-south",
   "resource_tags": $TAGS,
-  "existing_resource_group_name": "geretain-test-resources",
   "enable_cos_kms_encryption": true
 }

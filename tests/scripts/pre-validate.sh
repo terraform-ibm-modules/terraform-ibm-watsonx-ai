@@ -29,6 +29,8 @@ TF_VARS_FILE="terraform.tfvars"
   cos_value=$(terraform output -state=terraform.tfstate -raw cos_crn)
   kms_var_name="existing_kms_instance_crn"
   kms_value=$(terraform output -state=terraform.tfstate -raw key_protect_crn)
+  rg_var_name="existing_resource_group_name"
+  rg_value=$(terraform output -state=terraform.tfstate -raw resource_group_name)
 
   echo "Appending '${cos_var_name}' and '${kms_var_name}', input variables to ${JSON_FILE}.."
 
@@ -39,6 +41,9 @@ TF_VARS_FILE="terraform.tfvars"
   jq -r --arg kms_var_name "${kms_var_name}" \
         --arg kms_value "${kms_value}" \
         '. + {($kms_var_name): $kms_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
+  jq -r --arg rg_var_name "${rg_var_name}" \
+        --arg rg_value "${rg_value}" \
+        '. + {($rg_var_name): $rg_value}' "${JSON_FILE}" > tmpfile && mv tmpfile "${JSON_FILE}" || exit 1
 
   echo "Pre-validation complete successfully"
 )
