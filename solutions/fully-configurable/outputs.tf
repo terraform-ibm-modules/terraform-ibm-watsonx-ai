@@ -74,3 +74,8 @@ output "watsonx_ai_project_url" {
   value       = module.watsonx_ai.watsonx_ai_project_url
   description = "The URL of the watsonx.ai project that is created."
 }
+
+output "cos_kms_key_crn" {
+  description = "The CRN of the key management service (Key Protect) key used to encrypt the Cloud Object Storage bucket that the solution creates."
+  value       = local.cos_kms_key_crn
+}

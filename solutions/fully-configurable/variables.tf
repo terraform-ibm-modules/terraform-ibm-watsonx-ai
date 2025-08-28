@@ -27,31 +27,34 @@ variable "existing_resource_group_name" {
 
 variable "prefix" {
   type        = string
-  nullable    = true
-  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits and hyphens ('-'). It should not exceed 16 characters, must not end with a hyphen ('-'), and can not contain consecutive hyphens ('--'). Example: wx-54-ai. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)"
+  description = "The prefix to be added to all resources created by this solution. To skip using a prefix, set this value to null or an empty string. The prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It should not exceed 16 characters, must not end with a hyphen('-'), and can not contain consecutive hyphens ('--'). Example: wx-0205-ai. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)."
 
   validation {
-    condition = var.prefix == null || var.prefix == "" ? true : alltrue([
-      can(regex("^[a-z][-a-z0-9]*[a-z0-9]$", var.prefix)), length(regexall("--", var.prefix)) == 0
-    ])
-    error_message = "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens ('-'). It must not end with a hyphen ('-'), and cannot contain consecutive hyphens ('--')."
+    # - null and empty string is allowed
+    # - Must not contain consecutive hyphens (--): length(regexall("--", var.prefix)) == 0
+    # - Starts with a lowercase letter: [a-z]
+    # - Contains only lowercase letters (a–z), digits (0–9), and hyphens (-)
+    # - Must not end with a hyphen (-): [a-z0-9]
+    condition = (var.prefix == null || var.prefix == "" ? true :
+      alltrue([
+        can(regex("^[a-z][-a-z0-9]*[a-z0-9]$", var.prefix)),
+        length(regexall("--", var.prefix)) == 0
+      ])
+    )
+    error_message = "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It must not end with a hyphen('-'), and cannot contain consecutive hyphens ('--')."
   }
-
   validation {
+    # must not exceed 16 characters in length
     condition     = var.prefix == null || var.prefix == "" ? true : length(var.prefix) <= 16
     error_message = "Prefix must not exceed 16 characters."
   }
 }
 
-variable "region" {
-  default     = "us-south"
-  description = "Region where the watsonx.ai resources will be provisioned."
-  type        = string
 
-  validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
-    error_message = "You must specify `eu-de`, `eu-gb`, `jp-tok` or `us-south` as the IBM Cloud region."
-  }
+variable "region" {
+  description = "The region to provision all resources in. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/region) about how to select different regions for different services."
+  type        = string
+  default     = "us-south"
 
   validation {
     condition     = (var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn == null) ? local.kms_region == var.region : true
@@ -60,8 +63,8 @@ variable "region" {
 }
 
 variable "resource_tags" {
-  description = "Optional list of tags to describe the watsonx_ai runtime and studio instances created by the module."
   type        = list(string)
+  description = "Optional list of tags to describe the newly created watsonx.ai instance."
   default     = []
 }
 
@@ -130,7 +133,7 @@ variable "watsonx_ai_runtime_service_endpoints" {
 }
 
 variable "watsonx_ai_new_project_members" {
-  description = "The list of new members the owner of the Watsonx.ai project would like to add to the project. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions/standard/DA-watsonx_ai_new_project_members.md)"
+  description = "The list of new members the owner of the watsonx.ai project would like to add to the project. [Learn more](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions/standard/DA-watsonx_ai_new_project_members.md)"
   type = list(object({
     email  = string
     iam_id = string
@@ -199,8 +202,8 @@ variable "kms_endpoint_type" {
   description = "The type of endpoint to use for communicating with the Key Protect instance. Possible values: `public`, `private`. Applies only if `existing_cos_kms_key_crn` is not specified."
   default     = "private"
   validation {
-    condition     = can(regex("public|private", var.kms_endpoint_type))
-    error_message = "Valid values for the `kms_endpoint_type_value` are `public` or `private`."
+    condition     = var.existing_cos_kms_key_crn != null || can(regex("^(public|private)$", var.kms_endpoint_type))
+    error_message = "Valid values for `kms_endpoint_type` are `public` or `private`. Applies only if `existing_cos_kms_key_crn` is not specified."
   }
 }
 
