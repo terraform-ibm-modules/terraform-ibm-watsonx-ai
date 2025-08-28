@@ -7,7 +7,7 @@
 
 set -e
 
-DA_DIR="${1}"
+DA_DIR="solutions/fully-configurable"
 TERRAFORM_SOURCE_DIR="tests/resources/kp-cos-instance"
 JSON_FILE="${DA_DIR}/catalogValidationValues.json"
 TF_VARS_FILE="terraform.tfvars"
