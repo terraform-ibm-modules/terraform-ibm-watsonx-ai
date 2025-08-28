@@ -15,7 +15,7 @@ TF_VARS_FILE="terraform.tfvars"
 (
   cwd=$(pwd)
   cd ${TERRAFORM_SOURCE_DIR}
-  echo "Provisioning new resource group and cos instance .."
+  echo "Provisioning new resource group, kms instance and cos instance .."
   terraform init || exit 1
   # $VALIDATION_APIKEY is available in the catalog runtime
   {
