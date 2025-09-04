@@ -477,7 +477,7 @@
               "name": "deploy-arch-ibm-cos",
               "description": "Enable to create an IBM Cloud Object Storage instance, where a bucket will be set up to store project assets as part of this deployment.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": "v9.0.2",
+              "version": "v10.2.1",
               "flavors": [
                 "instance"
               ],
