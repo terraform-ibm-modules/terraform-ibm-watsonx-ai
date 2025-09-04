@@ -255,8 +255,8 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 		"deploy-arch-ibm-watsonx-ai",
 		"fully-configurable",
 		map[string]interface{}{
-			"prefix": options.Prefix,
-			"region": validRegions[rand.Intn(len(validRegions))],
+			"prefix":                       options.Prefix,
+			"existing_resource_group_name": resourceGroup,
 		},
 	)
 
@@ -265,8 +265,9 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 }
 
 func TestWatsonxaiDependencyPermutations(t *testing.T) {
-	t.Skip("Skipping dependency permutations until the test is fixed")
+	t.Skip("Skipping dependency permutations")
 	t.Parallel()
+
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
 		Testing: t,
 		Prefix:  "ai-perm",
@@ -275,7 +276,6 @@ func TestWatsonxaiDependencyPermutations(t *testing.T) {
 			OfferingFlavor: "fully-configurable",
 			Inputs: map[string]interface{}{
 				"prefix":                       "ai-perm",
-				"region":                       validRegions[rand.Intn(len(validRegions))],
 				"existing_resource_group_name": resourceGroup,
 			},
 		},
