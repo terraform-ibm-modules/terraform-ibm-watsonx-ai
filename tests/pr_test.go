@@ -15,7 +15,9 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testaddons"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -236,4 +238,49 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	}
 
 	cleanupResources(t, existingTerraformOptions, prefixExistingRes)
+}
+
+func TestWatsonxaiDefaultConfiguration(t *testing.T) {
+	t.Parallel()
+
+	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
+		Testing:       t,
+		Prefix:        "ai-def",
+		ResourceGroup: resourceGroup,
+		QuietMode:     true, // Suppress logs except on failure
+	})
+
+	options.AddonConfig = cloudinfo.NewAddonConfigTerraform(
+		options.Prefix,
+		"deploy-arch-ibm-watsonx-ai",
+		"fully-configurable",
+		map[string]interface{}{
+			"prefix": options.Prefix,
+			"region": validRegions[rand.Intn(len(validRegions))],
+		},
+	)
+
+	err := options.RunAddonTest()
+	require.NoError(t, err)
+}
+
+func TestWatsonxaiDependencyPermutations(t *testing.T) {
+	t.Skip("Skipping dependency permutations until the test is fixed")
+	t.Parallel()
+	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
+		Testing: t,
+		Prefix:  "ai-perm",
+		AddonConfig: cloudinfo.AddonConfig{
+			OfferingName:   "deploy-arch-ibm-watsonx-ai",
+			OfferingFlavor: "fully-configurable",
+			Inputs: map[string]interface{}{
+				"prefix":                       "ai-perm",
+				"region":                       validRegions[rand.Intn(len(validRegions))],
+				"existing_resource_group_name": resourceGroup,
+			},
+		},
+	})
+
+	err := options.RunAddonPermutationTest()
+	assert.NoError(t, err, "Dependency permutation test should not fail")
 }
