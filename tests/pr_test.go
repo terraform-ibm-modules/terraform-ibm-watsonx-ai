@@ -264,7 +264,7 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 	require.NoError(t, err)
 }
 
-func TestWatsonxaiDependencyPermutations(t *testing.T) {
+func TestDependencyPermutations(t *testing.T) {
 	t.Skip("Skipping dependency permutations")
 	t.Parallel()
 
