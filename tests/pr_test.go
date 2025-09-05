@@ -249,7 +249,6 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 		ResourceGroup: resourceGroup,
 		QuietMode:     true, // Suppress logs except on failure
 	})
-
 	options.AddonConfig = cloudinfo.NewAddonConfigTerraform(
 		options.Prefix,
 		"deploy-arch-ibm-watsonx-ai",
@@ -264,6 +263,7 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 	require.NoError(t, err)
 }
 
+// TestDependencyPermutations runs dependency permutations for watsonx.ai and all its dependencies
 func TestDependencyPermutations(t *testing.T) {
 	t.Skip("Skipping dependency permutations")
 	t.Parallel()
