@@ -103,7 +103,8 @@
                 "crn:v1:bluemix:public:iam::::role:Administrator"
               ],
               "service_name": "All Identity and Access enabled services",
-              "notes": "[Optional] Required to create new resource groups with account settings when enabling the Account Configuration integration."            },
+              "notes": "[Optional] Required to create new resource groups with account settings when enabling the Account Configuration integration."
+            },
             {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
@@ -174,7 +175,7 @@
               ],
               "notes": "[Optional] Required to create and manage an SCC Workload Protection instance."
             },
-             {
+            {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
