@@ -30,7 +30,7 @@ output "watsonx_ai_runtime_dashboard_url" {
 
 output "watsonx_ai_runtime_account_id" {
   value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_runtime_account_id : null
-  description = "The account id of the watsonx.ai Runtime instance."
+  description = "The account ID of the watsonx.ai Runtime instance."
 }
 
 # watsonx.ai Studio
@@ -67,7 +67,7 @@ output "watsonx_ai_project_id" {
 
 output "watsonx_ai_project_bucket_name" {
   value       = var.create_watsonx_ai_project ? module.configure_project[0].watsonx_ai_project_bucket_name : null
-  description = "The name of the COS bucket created for the watsonx.ai project."
+  description = "The name of the Object Storage bucket created for the watsonx.ai project."
 }
 
 output "watsonx_ai_project_url" {
