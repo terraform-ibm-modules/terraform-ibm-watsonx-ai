@@ -30,15 +30,15 @@
       "provider_name": "IBM",
       "features": [
         {
-          "title": "Creates and configures watsonx.ai Studio",
+          "title": "watsonx.ai Studio",
           "description": "Creates and configures a workspace to build, tune, and evaluate generative AI and machine learning models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wsl.html?context=cpdaas)."
         },
         {
-          "title": "Creates and configures watsonx.ai Runtime",
+          "title": "watsonx.ai Runtime",
           "description": "Creates and configures infrastructure to deploy, serve, and scale machine learning and foundation models. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/svc-welcome/wml.html?context=cpdaas&audience=wdp)."
         },
         {
-          "title": "Creates and configures watsonx.ai Project",
+          "title": "watsonx.ai Project",
           "description": "Creates and organizes a Project to manage datasets, notebooks, models, and related assets in one place. [Learn more](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/manage-projects.html?context=cpdaas)."
         },
         {
@@ -46,12 +46,12 @@
           "description": "Provides a preconfigured [user profile](https://dataplatform.cloud.ibm.com/docs/content/wsj/manage-data/admin-project.html?context=wx&audience=wdp&locale=en) with admin access for efficient project and resource management."
         },
         {
-          "title": "Create and configures Object Storage",
-          "description": "You can optionally deploy [Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage data."
+          "title": "Object Storage",
+          "description": "You can optionally deploy [Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage) to store and manage watsonx.ai project data."
         },
         {
           "title": "Key encryption",
-          "description": "You can enable [key encryption](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) encryption for Object Storage to secure data."
+          "description": "You can enable [key encryption](https://cloud.ibm.com/docs/key-protect?topic=key-protect-about) for Object Storage to secure watsonx.ai project data."
         },
         {
           "title": "Sets up logging for the watsonx.ai instance",
