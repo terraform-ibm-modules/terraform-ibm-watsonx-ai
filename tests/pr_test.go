@@ -9,6 +9,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/IBM/go-sdk-core/core"
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -19,6 +20,7 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testaddons"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 )
 
 // Use existing resource group
@@ -27,6 +29,7 @@ const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 const standardSolutionTerraformDir = "solutions/fully-configurable"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
+const terraformVersion = "terraform_v1.10" // This should match the version in the ibm_catalog.json
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
@@ -200,12 +203,12 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  standardSolutionTerraformDir,
-		Prefix:        "wxai-upg",
-		Region:        region,
-		ResourceGroup: resourceGroup,
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing:        t,
+		TemplateFolder: standardSolutionTerraformDir,
+		Prefix:         "wxai-upg",
+		Region:         region,
+		ResourceGroup:  resourceGroup,
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
 			List: []string{
 				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
@@ -218,26 +221,25 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
 			},
 		},
+		CheckApplyResultForUpgrade: true,
+		TerraformVersion:           terraformVersion,
 	})
-	options.TerraformVars = map[string]interface{}{
-		"prefix":                       options.Prefix,
-		"region":                       options.Region,
-		"existing_resource_group_name": resourceGroup,
-		"provider_visibility":          "public",
-		"watsonx_ai_project_name":      "wxai-ug-prj",
-		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
-		"kms_endpoint_type":            "public",
-		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
-		"enable_cos_kms_encryption":    true,
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "existing_resource_group_name", Value: resourceGroup, DataType: "string"},
+		{Name: "provider_visibility", Value: "private", DataType: "string"},
+		{Name: "watsonx_ai_project_name", Value: "wxai-ug-prj", DataType: "string"},
+		{Name: "existing_kms_instance_crn", Value: terraform.Output(t, existingTerraformOptions, "key_protect_crn"), DataType: "string"},
+		{Name: "kms_endpoint_type", Value: "private", DataType: "string"},
+		{Name: "existing_cos_instance_crn", Value: terraform.Output(t, existingTerraformOptions, "cos_crn"), DataType: "string"},
+		{Name: "enable_cos_kms_encryption", Value: true, DataType: "string"},
 	}
-
-	output, err := options.RunTestUpgrade()
+	err := options.RunSchematicUpgradeTest()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
 	}
-
-	cleanupResources(t, existingTerraformOptions, prefixExistingRes)
 }
 
 func TestWatsonxaiDefaultConfiguration(t *testing.T) {
@@ -259,28 +261,35 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 		},
 	)
 
-	err := options.RunAddonTest()
-	require.NoError(t, err)
-}
-
-// TestDependencyPermutations runs dependency permutations for watsonx.ai and all its dependencies
-func TestDependencyPermutations(t *testing.T) {
-	t.Skip("Skipping dependency permutations")
-	t.Parallel()
-
-	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
-		Testing: t,
-		Prefix:  "ai-perm",
-		AddonConfig: cloudinfo.AddonConfig{
-			OfferingName:   "deploy-arch-ibm-watsonx-ai",
+	// Disable target / route creation to prevent hitting quota in account
+	// Use existing SM instance to prevent hitting quota in account
+	options.AddonConfig.Dependencies = []cloudinfo.AddonConfig{
+		{
+			OfferingName:   "deploy-arch-ibm-cloud-monitoring",
 			OfferingFlavor: "fully-configurable",
 			Inputs: map[string]interface{}{
-				"prefix":                       "ai-perm",
-				"existing_resource_group_name": resourceGroup,
+				"enable_metrics_routing_to_cloud_monitoring": false,
 			},
+			Enabled: core.BoolPtr(true),
 		},
-	})
+		{
+			OfferingName:   "deploy-arch-ibm-activity-tracker",
+			OfferingFlavor: "fully-configurable",
+			Inputs: map[string]interface{}{
+				"enable_activity_tracker_event_routing_to_cloud_logs": false,
+			},
+			Enabled: core.BoolPtr(true),
+		},
+		{
+			OfferingName:   "deploy-arch-ibm-secrets-manager",
+			OfferingFlavor: "fully-configurable",
+			Inputs: map[string]interface{}{
+				"existing_secrets_manager_crn": permanentResources["secretsManagerCRN"],
+			},
+			Enabled: core.BoolPtr(true),
+		},
+	}
 
-	err := options.RunAddonPermutationTest()
-	assert.NoError(t, err, "Dependency permutation test should not fail")
+	err := options.RunAddonTest()
+	require.NoError(t, err)
 }
