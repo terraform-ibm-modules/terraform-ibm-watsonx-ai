@@ -27,7 +27,7 @@ import (
 const resourceGroup = "geretain-test-resources"
 const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
-const standardSolutionTerraformDir = "solutions/fully-configurable"
+const fullyConfigurableSolutionTerraformDir = "solutions/fully-configurable"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 const terraformVersion = "terraform_v1.10" // This should match the version in the ibm_catalog.json
 
@@ -114,21 +114,6 @@ func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.O
 	return existingTerraformOptions
 }
 
-// Cleanup the resources when KMS encryption key is created.
-func cleanupResources(t *testing.T, terraformOptions *terraform.Options, prefix string) {
-	// Check if "DO_NOT_DESTROY_ON_FAILURE" is set
-	envVal, _ := os.LookupEnv("DO_NOT_DESTROY_ON_FAILURE")
-	// Destroy the temporary existing resources if required
-	if t.Failed() && strings.ToLower(envVal) == "true" {
-		fmt.Println("Terratest failed. Debug the test and delete resources manually.")
-	} else {
-		logger.Log(t, "START: Destroy (existing resources)")
-		terraform.Destroy(t, terraformOptions)
-		terraform.WorkspaceDelete(t, terraformOptions, prefix)
-		logger.Log(t, "END: Destroy (existing resources)")
-	}
-}
-
 func TestRunBasicExample(t *testing.T) {
 	t.Parallel()
 
@@ -148,56 +133,7 @@ func TestRunCompleteExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// Test the DA
-func TestRunStandardSolution(t *testing.T) {
-	t.Parallel()
-
-	var region = validRegions[rand.Intn(len(validRegions))]
-	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
-	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
-
-	// Deploy watsonx.ai DA using existing KP details
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  standardSolutionTerraformDir,
-		Prefix:        "wxai",
-		Region:        region,
-		ResourceGroup: resourceGroup,
-		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
-		},
-		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
-		},
-	})
-	options.TerraformVars = map[string]interface{}{
-		"prefix":                       options.Prefix,
-		"region":                       options.Region,
-		"existing_resource_group_name": resourceGroup,
-		"provider_visibility":          "public",
-		"watsonx_ai_project_name":      "wxai-da-prj",
-		"existing_kms_instance_crn":    terraform.Output(t, existingTerraformOptions, "key_protect_crn"),
-		"kms_endpoint_type":            "public",
-		"existing_cos_instance_crn":    terraform.Output(t, existingTerraformOptions, "cos_crn"),
-		"enable_cos_kms_encryption":    true,
-	}
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-
-	cleanupResources(t, existingTerraformOptions, prefixExistingRes)
-}
-
-func TestRunStandardUpgradeSolution(t *testing.T) {
-	t.Parallel()
-
+func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.TestSchematicOptions {
 	var region = validRegions[rand.Intn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
@@ -205,7 +141,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 	// Deploy watsonx.ai DA using existing KP details
 	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
 		Testing:        t,
-		TemplateFolder: standardSolutionTerraformDir,
+		TemplateFolder: fullyConfigurableSolutionTerraformDir,
 		Prefix:         "wxai-upg",
 		Region:         region,
 		ResourceGroup:  resourceGroup,
@@ -221,8 +157,7 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
 			},
 		},
-		CheckApplyResultForUpgrade: true,
-		TerraformVersion:           terraformVersion,
+		TerraformVersion: terraformVersion,
 	})
 	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
 		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
@@ -236,6 +171,25 @@ func TestRunStandardUpgradeSolution(t *testing.T) {
 		{Name: "existing_cos_instance_crn", Value: terraform.Output(t, existingTerraformOptions, "cos_crn"), DataType: "string"},
 		{Name: "enable_cos_kms_encryption", Value: true, DataType: "string"},
 	}
+	return options
+}
+
+// Test the DA
+func TestRunFullyConfigurableSolutionSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupFullyConfigurableOptions(t, "wxai")
+
+	err := options.RunSchematicTest()
+	assert.Nil(t, err, "This should not have errored")
+}
+
+func TestRunFullyConfigurableUpgradeSolutionSchematics(t *testing.T) {
+	t.Parallel()
+
+	options := setupFullyConfigurableOptions(t, "wxai-up")
+	options.CheckApplyResultForUpgrade = true
+
 	err := options.RunSchematicUpgradeTest()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
