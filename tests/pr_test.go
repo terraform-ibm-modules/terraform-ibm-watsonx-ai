@@ -216,7 +216,6 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 	)
 
 	// Disable target / route creation to prevent hitting quota in account
-	// Use existing SM instance to prevent hitting quota in account
 	options.AddonConfig.Dependencies = []cloudinfo.AddonConfig{
 		{
 			OfferingName:   "deploy-arch-ibm-cloud-monitoring",
@@ -231,14 +230,6 @@ func TestWatsonxaiDefaultConfiguration(t *testing.T) {
 			OfferingFlavor: "fully-configurable",
 			Inputs: map[string]interface{}{
 				"enable_activity_tracker_event_routing_to_cloud_logs": false,
-			},
-			Enabled: core.BoolPtr(true),
-		},
-		{
-			OfferingName:   "deploy-arch-ibm-secrets-manager",
-			OfferingFlavor: "fully-configurable",
-			Inputs: map[string]interface{}{
-				"existing_secrets_manager_crn": permanentResources["secretsManagerCRN"],
 			},
 			Enabled: core.BoolPtr(true),
 		},
