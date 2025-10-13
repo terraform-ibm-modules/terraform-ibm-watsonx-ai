@@ -431,7 +431,7 @@
               ],
               "default_flavor": "resource-group-only",
               "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "version": "v3.0.7",
+              "version": "v3.0.23",
               "optional": true,
               "on_by_default": false,
               "input_mapping": [
@@ -450,7 +450,7 @@
               "name": "deploy-arch-ibm-kms",
               "description": "Enable encryption with your own keys by using IBM Cloud Key Protect. If disabled, services default to IBM-managed encryption.",
               "id": "2cad4789-fa90-4886-9c9e-857081c273ee-global",
-              "version": "v5.1.19",
+              "version": "v5.1.27",
               "flavors": [
                 "fully-configurable"
               ],
@@ -487,7 +487,7 @@
               "name": "deploy-arch-ibm-cos",
               "description": "Set up an Object Storage instance to store project assets.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": "v10.2.1",
+              "version": "v10.2.21",
               "flavors": [
                 "instance"
               ],
@@ -519,7 +519,7 @@
                 "fully-configurable"
               ],
               "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
-              "version": "v1.6.11",
+              "version": "v1.6.28",
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
@@ -554,7 +554,7 @@
               "name": "deploy-arch-ibm-cloud-monitoring",
               "description": "Set up a Cloud Monitoring instance to collect platform metrics.",
               "id": "73debdbf-894f-4c14-81c7-5ece3a70b67d-global",
-              "version": "v1.6.4",
+              "version": "v1.7.2",
               "flavors": [
                 "fully-configurable"
               ],
@@ -593,7 +593,7 @@
               "name": "deploy-arch-ibm-activity-tracker",
               "description": "Configure Activity Tracker Event Routing to route auditing events.",
               "id": "918453c3-4f97-4583-8c4a-83ef12fc7916-global",
-              "version": "v1.2.25",
+              "version": "v1.2.34",
               "flavors": [
                 "fully-configurable"
               ],
@@ -627,7 +627,7 @@
               "name": "deploy-arch-ibm-scc-workload-protection",
               "description": "Configure an IBM Cloud Security and Compliance Center Workload Protection instance to help you manage security and compliance for your organization.",
               "id": "4322cf44-2289-49aa-a719-dd79e39b14dc-global",
-              "version": "v1.11.4",
+              "version": "v1.12.3",
               "flavors": [
                 "fully-configurable"
               ],
