@@ -146,7 +146,6 @@ func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.T
 		Region:         region,
 		ResourceGroup:  resourceGroup,
 		TarIncludePatterns: []string{
-			"*.tf",
 			"modules/configure_project/*.tf",
 			"modules/configure_project/scripts/*.sh",
 			"modules/configure_user/*.tf",
