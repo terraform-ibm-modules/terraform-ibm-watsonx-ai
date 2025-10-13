@@ -142,9 +142,19 @@ func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.T
 	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
 		Testing:        t,
 		TemplateFolder: fullyConfigurableSolutionTerraformDir,
-		Prefix:         "wxai-upg",
+		Prefix:         "wxai-fc",
 		Region:         region,
 		ResourceGroup:  resourceGroup,
+		TarIncludePatterns: []string{
+			"*.tf",
+			"modules/configure_project/*.tf",
+			"modules/configure_project/scripts/*.sh",
+			"modules/configure_user/*.tf",
+			"modules/configure_user/scripts/*.sh",
+			"modules/storage_delegation/*.tf",
+			"*.tf",
+			fullyConfigurableSolutionTerraformDir + "/*.tf",
+		},
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
 			List: []string{
 				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
