@@ -93,20 +93,6 @@
             },
             {
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "All Account Management services",
-              "notes": "[Optional] Required to create new resource groups when enabling the Account Configuration integration."
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "All Identity and Access enabled services",
-              "notes": "[Optional] Required to create new resource groups with account settings when enabling the Account Configuration integration."
-            },
-            {
-              "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
               ],
               "service_name": "data-science-experience",
@@ -208,7 +194,18 @@
             },
             {
               "key": "prefix",
-              "required": true
+              "required": true,
+              "default_value": "dev",
+              "random_string": {
+                "length": 4
+              },
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must begin with a lowercase letter and may contain only lowercase letters, digits, and hyphens '-'. It must not end with a hyphen('-'), and cannot contain consecutive hyphens ('--'). It should not exceed 16 characters.",
+                  "value": "^$|^__NULL__$|^[a-z](?!.*--)(?:[a-z0-9-]{0,14}[a-z0-9])?$"
+                }
+              ]
             },
             {
               "key": "region",
@@ -318,7 +315,7 @@
                 }
               },
               "default_value": "Default",
-              "description": "The name of an existing resource group to provision the resources."
+              "description": "The name of an existing resource group to provision the resources. [Learn more](https://cloud.ibm.com/docs/account?topic=account-rgs&interface=ui#create_rgs) about how to create a resource group."
             },
             {
               "key": "provider_visibility",
@@ -422,35 +419,10 @@
           ],
           "dependencies": [
             {
-              "name": "deploy-arch-ibm-account-infra-base",
-              "description": "Organize your IBM Cloud account with preconfigured resource groups. If not selected, the default resource group is used. Optionally, expand to apply recommended security controls via \"with Account Settings\" variation.",
-              "catalog_id": "7a4d68b4-cf8b-40cd-a3d1-f49aff526eb3",
-              "flavors": [
-                "resource-group-only",
-                "resource-groups-with-account-settings"
-              ],
-              "default_flavor": "resource-group-only",
-              "id": "63641cec-6093-4b4f-b7b0-98d2f4185cd6-global",
-              "version": "v3.0.23",
-              "optional": true,
-              "on_by_default": false,
-              "input_mapping": [
-                {
-                  "dependency_output": "workload_resource_group_name",
-                  "version_input": "existing_resource_group_name"
-                },
-                {
-                  "dependency_input": "prefix",
-                  "version_input": "prefix",
-                  "reference_version": true
-                }
-              ]
-            },
-            {
               "name": "deploy-arch-ibm-kms",
               "description": "Enable encryption with your own keys by using IBM Cloud Key Protect. If disabled, services default to IBM-managed encryption.",
               "id": "2cad4789-fa90-4886-9c9e-857081c273ee-global",
-              "version": "v5.1.27",
+              "version": "v5.4.0",
               "flavors": [
                 "fully-configurable"
               ],
@@ -480,6 +452,11 @@
                   "dependency_input": "region",
                   "version_input": "region",
                   "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_resource_group_name",
+                  "version_input": "existing_resource_group_name",
+                  "reference_version": true
                 }
               ]
             },
@@ -487,7 +464,7 @@
               "name": "deploy-arch-ibm-cos",
               "description": "Set up an Object Storage instance to store project assets.",
               "id": "68921490-2778-4930-ac6d-bae7be6cd958-global",
-              "version": "v10.2.21",
+              "version": "v10.5.0",
               "flavors": [
                 "instance"
               ],
@@ -519,7 +496,7 @@
                 "fully-configurable"
               ],
               "id": "63d8ae58-fbf3-41ce-b844-0fb5b85882ab-global",
-              "version": "v1.6.28",
+              "version": "v1.9.0",
               "optional": true,
               "on_by_default": true,
               "input_mapping": [
@@ -547,6 +524,11 @@
                   "dependency_input": "logs_routing_tenant_regions",
                   "version_input": "logs_routing_tenant_regions",
                   "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_resource_group_name",
+                  "version_input": "existing_resource_group_name",
+                  "reference_version": true
                 }
               ]
             },
@@ -554,7 +536,7 @@
               "name": "deploy-arch-ibm-cloud-monitoring",
               "description": "Set up a Cloud Monitoring instance to collect platform metrics.",
               "id": "73debdbf-894f-4c14-81c7-5ece3a70b67d-global",
-              "version": "v1.7.2",
+              "version": "v1.9.0",
               "flavors": [
                 "fully-configurable"
               ],
@@ -586,6 +568,11 @@
                   "dependency_input": "existing_kms_instance_crn",
                   "version_input": "existing_kms_instance_crn",
                   "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_resource_group_name",
+                  "version_input": "existing_resource_group_name",
+                  "reference_version": true
                 }
               ]
             },
@@ -593,7 +580,7 @@
               "name": "deploy-arch-ibm-activity-tracker",
               "description": "Configure Activity Tracker Event Routing to route auditing events.",
               "id": "918453c3-4f97-4583-8c4a-83ef12fc7916-global",
-              "version": "v1.2.34",
+              "version": "v1.4.3",
               "flavors": [
                 "fully-configurable"
               ],
@@ -620,6 +607,11 @@
                   "dependency_input": "existing_kms_instance_crn",
                   "version_input": "existing_kms_instance_crn",
                   "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_resource_group_name",
+                  "version_input": "existing_resource_group_name",
+                  "reference_version": true
                 }
               ]
             },
@@ -627,7 +619,7 @@
               "name": "deploy-arch-ibm-scc-workload-protection",
               "description": "Configure an IBM Cloud Security and Compliance Center Workload Protection instance to help you manage security and compliance for your organization.",
               "id": "4322cf44-2289-49aa-a719-dd79e39b14dc-global",
-              "version": "v1.12.3",
+              "version": "v1.14.0",
               "flavors": [
                 "fully-configurable"
               ],
@@ -643,6 +635,11 @@
                 {
                   "dependency_input": "region",
                   "version_input": "region",
+                  "reference_version": true
+                },
+                {
+                  "dependency_input": "existing_resource_group_name",
+                  "version_input": "existing_resource_group_name",
                   "reference_version": true
                 }
               ]
