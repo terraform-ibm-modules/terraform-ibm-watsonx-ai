@@ -28,7 +28,7 @@ variable "existing_resource_group_name" {
 variable "prefix" {
   type        = string
   description = "The prefix to add to all resources that this solution creates (e.g `prod`, `test`, `dev`). To skip using a prefix, set this value to null or an empty string. [Learn more](https://terraform-ibm-modules.github.io/documentation/#/prefix.md)."
-  
+
   validation {
     # - null and empty string is allowed
     # - Must not contain consecutive hyphens (--): length(regexall("--", var.prefix)) == 0
