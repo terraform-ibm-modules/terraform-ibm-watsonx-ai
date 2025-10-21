@@ -8,7 +8,7 @@ locals {
 
 module "resource_group" {
   source                       = "terraform-ibm-modules/resource-group/ibm"
-  version                      = "1.3.0"
+  version                      = "1.4.0"
   existing_resource_group_name = var.existing_resource_group_name
 }
 
@@ -37,7 +37,7 @@ locals {
 module "kms" {
   count                       = local.create_kms_key ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.3.3"
+  version                     = "5.4.0"
   create_key_protect_instance = false
   region                      = local.kms_region
   existing_kms_instance_crn   = var.existing_kms_instance_crn
