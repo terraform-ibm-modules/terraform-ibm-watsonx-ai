@@ -77,7 +77,9 @@ locals {
     "us-south" = "//api.dataplatform.cloud.ibm.com",
     "eu-gb"    = "//api.eu-gb.dataplatform.cloud.ibm.com",
     "eu-de"    = "//api.eu-de.dataplatform.cloud.ibm.com",
-    "jp-tok"   = "//api.jp-tok.dataplatform.cloud.ibm.com"
+    "jp-tok"   = "//api.jp-tok.dataplatform.cloud.ibm.com",
+    "au-syd"   = "//au-syd.dai.cloud.ibm.com",
+    "ca-tor"   = "//ca-tor.dai.cloud.ibm.com"
   }
   dataplatform_api          = local.dataplatform_api_mapping[var.region]
   watsonx_project_id_object = restapi_object.configure_project.id
@@ -87,7 +89,9 @@ locals {
     "us-south" = "https://dataplatform.cloud.ibm.com",
     "eu-gb"    = "https://eu-gb.dataplatform.cloud.ibm.com",
     "eu-de"    = "https://eu-de.dataplatform.cloud.ibm.com",
-    "jp-tok"   = "https://jp-tok.dataplatform.cloud.ibm.com"
+    "jp-tok"   = "https://jp-tok.dataplatform.cloud.ibm.com",
+    "au-syd"   = "https://au-syd.dai.cloud.ibm.com",
+    "ca-tor"   = "https://ca-tor.dai.cloud.ibm.com"
   }
   dataplatform_ui = local.dataplatform_ui_mapping[var.region]
 
