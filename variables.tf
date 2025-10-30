@@ -23,8 +23,8 @@ variable "region" {
   type        = string
 
   validation {
-    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok"], var.region)
-    error_message = "Value is not valid. You must specify `eu-de`, `eu-gb`, `jp-tok`, or `us-south` as the IBM Cloud region."
+    condition     = contains(["eu-de", "us-south", "eu-gb", "jp-tok", "au-syd", "ca-tor"], var.region)
+    error_message = "Value is not valid. You must specify `eu-de`, `eu-gb`, `jp-tok`, `au-syd`, `ca-tor` or `us-south` as the IBM Cloud region."
   }
 
   validation {

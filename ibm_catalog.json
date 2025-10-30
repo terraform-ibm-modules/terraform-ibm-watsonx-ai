@@ -217,6 +217,14 @@
                 {
                   "displayname": "Tokyo (jp-tok)",
                   "value": "jp-tok"
+                },
+                {
+                  "displayname": "Sydney (au-syd)",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "Toronto (ca-tor)",
+                  "value": "ca-tor"
                 }
               ]
             },

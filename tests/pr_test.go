@@ -37,6 +37,8 @@ var validRegions = []string{
 	"eu-de",
 	"eu-gb",
 	"jp-tok",
+	"au-syd",
+	"ca-tor",
 }
 
 var permanentResources map[string]interface{}
