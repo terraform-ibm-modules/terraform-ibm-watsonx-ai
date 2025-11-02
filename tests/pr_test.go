@@ -29,7 +29,7 @@ const basicExampleDir = "examples/basic"
 const completeExampleDir = "examples/complete"
 const fullyConfigurableSolutionTerraformDir = "solutions/fully-configurable"
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
-const terraformVersion = "terraform_v1.10" // This should match the version in the ibm_catalog.json
+const terraformVersion = "terraform_v1.12.2" // This should match the version in the ibm_catalog.json
 
 // Current supported regions for watsonx.ai Studio, Runtime and IBM watsonx platform (dataplatform.ibm.com)
 var validRegions = []string{
