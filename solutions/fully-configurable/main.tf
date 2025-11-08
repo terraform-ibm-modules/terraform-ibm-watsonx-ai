@@ -21,7 +21,7 @@ module "resource_group" {
 module "existing_kms_crn_parser" {
   count   = var.existing_kms_instance_crn != null ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.2.0"
+  version = "1.3.0"
   crn     = var.existing_kms_instance_crn
 }
 
@@ -37,7 +37,7 @@ locals {
 module "kms" {
   count                       = local.create_kms_key ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.4.5"
+  version                     = "5.4.9"
   create_key_protect_instance = false
   region                      = local.kms_region
   existing_kms_instance_crn   = var.existing_kms_instance_crn
@@ -163,20 +163,20 @@ resource "time_sleep" "wait_for_cross_account_authorization_policy" {
 module "existing_cos_crn_parser" {
   count   = var.existing_cos_instance_crn != null ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.2.0"
+  version = "1.3.0"
   crn     = var.existing_cos_instance_crn
 }
 
 module "existing_kms_key_crn_parser" {
   count   = var.enable_cos_kms_encryption && var.existing_cos_kms_key_crn != null && var.existing_kms_instance_crn != "" ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.2.0"
+  version = "1.3.0"
   crn     = var.existing_cos_kms_key_crn
 }
 
 module "existing_kms_instance_crn_parser" {
   count   = local.kms_enabled_cos && var.existing_kms_instance_crn != "" ? 1 : 0
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.2.0"
+  version = "1.3.0"
   crn     = var.existing_kms_instance_crn
 }
