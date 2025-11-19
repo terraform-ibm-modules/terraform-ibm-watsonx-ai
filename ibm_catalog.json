@@ -67,7 +67,7 @@
         },
         {
           "title": "Composable and Extensible Architecture",
-          "description": "This architecture illustrates how Terraform IBM Modules can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated  component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai) to adapt, extend, or create entirely new solutions using these building blocks."
+          "description": "This architecture illustrates how Terraform IBM Modules(TIM) can be integrated to deliver a complete solution on IBM Cloud. Each module is a reusable, and validated  component for security, compliance, and operational IBM best practices. You can deploy this architecture as-is or configure it as code by leveraging the underlying modules to fit your specific requirements. Explore the [source code and documentation](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai) to adapt, extend, or create entirely new solutions using these building blocks."
         }
       ],
       "support_details": "This product is in the community registry, support is handled through the [original repo](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai). If you experience issues kindly open an issue [here](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/issues). Please note that this product is not currently supported through the IBM Cloud Support Center.",
