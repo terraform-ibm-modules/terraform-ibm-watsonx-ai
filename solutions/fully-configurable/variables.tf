@@ -77,6 +77,14 @@ variable "existing_watsonx_ai_studio_instance_crn" {
   default     = null
   description = "The CRN of an existing watsonx.ai Studio instance. If not provided, a new instance will be provisioned."
   type        = string
+
+  validation {
+    condition = anytrue([
+      var.existing_watsonx_ai_studio_instance_crn == null,
+      can(regex("^crn:v\\d:(.*:){2}data-science-experience:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.existing_watsonx_ai_studio_instance_crn))
+    ])
+    error_message = "The value provided for 'existing_watsonx_ai_studio_instance_crn' is not valid."
+  }
 }
 
 variable "watsonx_ai_studio_plan" {
@@ -103,6 +111,14 @@ variable "existing_watsonx_ai_runtime_instance_crn" {
   default     = null
   description = "The CRN of an existing watsonx.ai Runtime instance. If not provided, a new instance will be provisioned."
   type        = string
+
+  validation {
+    condition = anytrue([
+      var.existing_watsonx_ai_runtime_instance_crn == null,
+      can(regex("^crn:v\\d:(.*:){2}pm-20:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.existing_watsonx_ai_runtime_instance_crn))
+    ])
+    error_message = "The value provided for 'existing_watsonx_ai_runtime_instance_crn' is not valid."
+  }
 }
 
 variable "watsonx_ai_runtime_instance_name" {
@@ -185,10 +201,10 @@ variable "existing_kms_instance_crn" {
 
   validation {
     condition = anytrue([
-      can(regex("^crn:(.*:){3}kms:(.*:){2}[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.existing_kms_instance_crn)),
       var.existing_kms_instance_crn == null,
+      can(regex("^crn:v\\d:(.*:){2}(kms|hs-crypto):(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.existing_kms_instance_crn))
     ])
-    error_message = "The provided KMS (Key Protect) instance CRN in not valid."
+    error_message = "The value provided for 'existing_kms_instance_crn' is not valid."
   }
 }
 
@@ -196,6 +212,14 @@ variable "existing_cos_kms_key_crn" {
   type        = string
   default     = null
   description = "Optional. The CRN of an existing key management service (Key Protect) key to use to encrypt the Cloud Object Storage bucket that this solution creates. To create a key ring and key, pass a value for the `existing_kms_instance_crn` input variable."
+
+  validation {
+    condition = anytrue([
+      var.existing_cos_kms_key_crn == null,
+      can(regex("^crn:v\\d:(.*:){2}(kms|hs-crypto):(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}:key:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", var.existing_cos_kms_key_crn))
+    ])
+    error_message = "The value provided for 'existing_cos_kms_key_crn' is not valid."
+  }
 }
 
 variable "kms_endpoint_type" {
@@ -245,6 +269,14 @@ variable "ibmcloud_kms_api_key" {
 variable "existing_cos_instance_crn" {
   type        = string
   description = "The CRN of an existing Cloud Object Storage instance."
+
+  validation {
+    condition = anytrue([
+      var.existing_cos_instance_crn == null,
+      can(regex("^crn:v\\d:(.*:){2}cloud-object-storage:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$", var.existing_cos_instance_crn))
+    ])
+    error_message = "The value provided for 'existing_cos_instance_crn' is not valid."
+  }
 }
 
 variable "skip_cos_kms_iam_auth_policy" {
