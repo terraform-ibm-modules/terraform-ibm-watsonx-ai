@@ -1,6 +1,6 @@
 module "kms_key_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.2.0"
+  version = "1.3.0"
   crn     = var.cos_kms_key_crn
 }
 
@@ -10,7 +10,9 @@ locals {
     "us-south" = "dataplatform.cloud.ibm.com",
     "eu-gb"    = "eu-gb.dataplatform.cloud.ibm.com",
     "eu-de"    = "eu-de.dataplatform.cloud.ibm.com",
-    "jp-tok"   = "jp-tok.dataplatform.cloud.ibm.com"
+    "jp-tok"   = "jp-tok.dataplatform.cloud.ibm.com",
+    "au-syd"   = "au-syd.dai.cloud.ibm.com",
+    "ca-tor"   = "ca-tor.dai.cloud.ibm.com"
   }
   dataplatform_ui = local.dataplatform_ui_mapping[local.region]
 
