@@ -68,18 +68,18 @@ resource "time_sleep" "wait_for_authorization_policy" {
 }
 
 resource "restapi_object" "storage_delegation" {
-  depends_on     = [time_sleep.wait_for_authorization_policy]
-  path           = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
-  read_path      = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
-  read_method    = "GET"
-  create_path    = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
-  create_method  = "POST"
-  id_attribute   = var.cos_instance_guid
-  object_id      = var.cos_instance_guid
+  depends_on                = [time_sleep.wait_for_authorization_policy]
+  path                      = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
+  read_path                 = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
+  read_method               = "GET"
+  create_path               = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
+  create_method             = "POST"
+  id_attribute              = var.cos_instance_guid
+  object_id                 = var.cos_instance_guid
   ignore_all_server_changes = true
-  destroy_method = "DELETE"
-  destroy_path   = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
-  data           = <<-EOT
+  destroy_method            = "DELETE"
+  destroy_path              = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
+  data                      = <<-EOT
                   {
                     "cos_instance_id": "${var.cos_instance_guid}",
                     "kms_key_crn": "${var.cos_kms_key_crn}",
