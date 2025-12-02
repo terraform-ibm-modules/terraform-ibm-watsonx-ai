@@ -55,6 +55,7 @@ resource "restapi_object" "configure_project" {
                     ]
                   }
                   EOT
+  ignore_all_server_changes = true
 }
 
 resource "time_sleep" "wait_5_seconds" {

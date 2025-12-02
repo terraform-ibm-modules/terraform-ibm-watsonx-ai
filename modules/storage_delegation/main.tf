@@ -86,4 +86,5 @@ resource "restapi_object" "storage_delegation" {
                     "projects": true
                   }
                   EOT
+  ignore_all_server_changes = true
 }
