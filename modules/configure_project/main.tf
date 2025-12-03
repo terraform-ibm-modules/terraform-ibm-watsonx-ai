@@ -5,7 +5,7 @@ resource "restapi_object" "configure_project" {
   create_path               = "${local.dataplatform_api}/transactional/v2/projects?verify_unique_name=true"
   create_method             = "POST"
   id_attribute              = "location"
-  ignore_all_server_changes = false
+  ignore_all_server_changes = true
   destroy_method            = "DELETE"
   destroy_path              = "${local.dataplatform_api}/transactional{id}"
   data                      = <<-EOT

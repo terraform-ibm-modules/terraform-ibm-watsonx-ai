@@ -76,7 +76,7 @@ resource "restapi_object" "storage_delegation" {
   create_method             = "POST"
   id_attribute              = var.cos_instance_guid
   object_id                 = var.cos_instance_guid
-  ignore_all_server_changes = false
+  ignore_all_server_changes = true
   destroy_method            = "DELETE"
   destroy_path              = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
   data                      = <<-EOT
