@@ -1,13 +1,14 @@
 resource "restapi_object" "configure_project" {
-  path           = local.dataplatform_api
-  read_path      = "${local.dataplatform_api}{id}"
-  read_method    = "GET"
-  create_path    = "${local.dataplatform_api}/transactional/v2/projects?verify_unique_name=true"
-  create_method  = "POST"
-  id_attribute   = "location"
-  destroy_method = "DELETE"
-  destroy_path   = "${local.dataplatform_api}/transactional{id}"
-  data           = <<-EOT
+  path                      = local.dataplatform_api
+  read_path                 = "${local.dataplatform_api}{id}"
+  read_method               = "GET"
+  create_path               = "${local.dataplatform_api}/transactional/v2/projects?verify_unique_name=true"
+  create_method             = "POST"
+  id_attribute              = "location"
+  ignore_all_server_changes = true
+  destroy_method            = "DELETE"
+  destroy_path              = "${local.dataplatform_api}/transactional{id}"
+  data                      = <<-EOT
                   {
                     "name": "${var.project_name}",
                     "generator": "terraform-ibm-watsonx-ai",
@@ -36,9 +37,9 @@ resource "restapi_object" "configure_project" {
                     }
                   }
                   EOT
-  update_method  = "PATCH"
-  update_path    = "${local.dataplatform_api}{id}"
-  update_data    = <<-EOT
+  update_method             = "PATCH"
+  update_path               = "${local.dataplatform_api}{id}"
+  update_data               = <<-EOT
                   {
                     "name": "${var.project_name}",
                     "type": "wx",
