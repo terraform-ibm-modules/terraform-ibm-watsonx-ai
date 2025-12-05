@@ -4,12 +4,11 @@ package test
 import (
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/IBM/go-sdk-core/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -76,12 +75,12 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		},
 
 		TerraformVars: map[string]interface{}{
-			"region":         validRegions[rand.Intn(len(validRegions))],
+			"region":         validRegions[common.CryptoIntn(len(validRegions))],
 			"resource_group": resourceGroup,
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"region":         validRegions[rand.Intn(len(validRegions))],
+		"region":         validRegions[common.CryptoIntn(len(validRegions))],
 		"prefix":         options.Prefix,
 		"resource_group": resourceGroup,
 		"resource_tags":  options.Tags,
@@ -136,7 +135,7 @@ func TestRunCompleteExample(t *testing.T) {
 }
 
 func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.TestSchematicOptions {
-	var region = validRegions[rand.Intn(len(validRegions))]
+	var region = validRegions[common.CryptoIntn(len(validRegions))]
 	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
 

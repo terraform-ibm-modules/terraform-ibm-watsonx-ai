@@ -266,7 +266,14 @@
             },
             {
               "key": "existing_cos_instance_crn",
-              "required": true
+              "required": true,
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'existing_cos_instance_crn' is not valid.",
+                  "value": "^crn:v\\d:(.*:){2}cloud-object-storage:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
+                }
+              ]
             },
             {
               "key": "enable_platform_metrics",
@@ -324,7 +331,14 @@
               "key": "watsonx_ai_studio_instance_name"
             },
             {
-              "key": "existing_watsonx_ai_studio_instance_crn"
+              "key": "existing_watsonx_ai_studio_instance_crn",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'existing_watsonx_ai_studio_instance_crn' is not valid.",
+                  "value": "^__NULL__$|^crn:v\\d:(.*:){2}data-science-experience:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
+                }
+              ]
             },
             {
               "key": "watsonx_ai_runtime_instance_name"
@@ -350,7 +364,14 @@
               "key": "watsonx_ai_new_project_members"
             },
             {
-              "key": "existing_watsonx_ai_runtime_instance_crn"
+              "key": "existing_watsonx_ai_runtime_instance_crn",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'existing_watsonx_ai_runtime_instance_crn' is not valid.",
+                  "value": "^__NULL__$|^crn:v\\d:(.*:){2}pm-20:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
+                }
+              ]
             },
             {
               "key": "resource_tags",
@@ -387,10 +408,24 @@
               "key": "skip_cos_kms_iam_auth_policy"
             },
             {
-              "key": "existing_cos_kms_key_crn"
+              "key": "existing_cos_kms_key_crn",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'existing_cos_kms_key_crn' is not valid.",
+                  "value": "^__NULL__$|^crn:v\\d:(.*:){2}kms:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}:key:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                }
+              ]
             },
             {
-              "key": "existing_kms_instance_crn"
+              "key": "existing_kms_instance_crn",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "The value provided for 'existing_kms_instance_crn' is not valid.",
+                  "value": "^__NULL__$|^crn:v\\d:(.*:){2}kms:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
+                }
+              ]
             },
             {
               "key": "ibmcloud_kms_api_key"
