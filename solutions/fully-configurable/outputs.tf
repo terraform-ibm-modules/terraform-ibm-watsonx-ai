@@ -79,3 +79,28 @@ output "cos_kms_key_crn" {
   description = "The CRN of the key management service (Key Protect) key used to encrypt the Cloud Object Storage bucket that the solution creates."
   value       = local.cos_kms_key_crn
 }
+
+output "next_steps_text" {
+  value       = "The watsonx.ai project is ready to work with data and other assets to accomplish a particular goal."
+  description = "Next steps text"
+}
+
+output "next_step_primary_label" {
+  value       = "Go to the watsonx.ai project"
+  description = "Primary label"
+}
+
+output "next_step_primary_url" {
+  value       = module.watsonx_ai.watsonx_ai_project_url
+  description = "Primary URL"
+}
+
+output "next_step_secondary_label" {
+  value       = "Learn more about IBM watsonx.ai"
+  description = "Secondary label"
+}
+
+output "next_step_secondary_url" {
+  value       = "https://www.ibm.com/docs/en/software-hub/5.3.x?topic=services-watsonxai"
+  description = "Secondary URL"
+}
