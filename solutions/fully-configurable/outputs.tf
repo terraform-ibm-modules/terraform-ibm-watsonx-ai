@@ -81,7 +81,7 @@ output "cos_kms_key_crn" {
 }
 
 output "next_steps_text" {
-  value       = "You can now access the watsonx.ai project to manage data, collaborate, monitor resources and build prompts."
+  value       = "The watsonx.ai project is ready to work with data and other assets to accomplish a particular goal."
   description = "Next steps text"
 }
 
