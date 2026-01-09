@@ -184,6 +184,9 @@
               }
             ]
           },
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
           "configuration": [
             {
               "key": "ibmcloud_api_key"
