@@ -30,7 +30,7 @@ module "watsonx_ai" {
   region                    = var.region
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
-  project_name              = "project-basic"
+  project_name              = "${var.prefix}-project-basic"
   watsonx_ai_studio_plan    = "professional-v1"
   watsonx_ai_runtime_plan   = "v2-standard"
   enable_cos_kms_encryption = false
