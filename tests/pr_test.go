@@ -60,20 +60,6 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Testing:      t,
 		TerraformDir: dir,
 		Prefix:       prefix,
-
-		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
-		},
-		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
-		},
-
 		TerraformVars: map[string]interface{}{
 			"region":         validRegions[common.CryptoIntn(len(validRegions))],
 			"resource_group": resourceGroup,
@@ -154,18 +140,6 @@ func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.T
 			"modules/storage_delegation/*.tf",
 			"*.tf",
 			fullyConfigurableSolutionTerraformDir + "/*.tf",
-		},
-		IgnoreDestroys: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
-		},
-		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
-			List: []string{
-				"module.watsonx_ai.module.configure_user.null_resource.configure_user",
-				"module.watsonx_ai.module.configure_user.null_resource.restrict_access",
-			},
 		},
 		TerraformVersion: terraformVersion,
 	})
