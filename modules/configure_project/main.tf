@@ -119,7 +119,7 @@ resource "terraform_data" "install_required_binaries" {
     members = jsonencode(var.watsonx_ai_new_project_members)
   }
   provisioner "local-exec" {
-    command     = "${path.module}/modules/configure_user/scripts/install-binaries.sh ${local.binaries_path}"
+    command     = "${path.module}/../configure_user/scripts/install-binaries.sh ${local.binaries_path}"
     interpreter = ["/bin/bash", "-c"]
   }
 }
