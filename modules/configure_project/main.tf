@@ -110,17 +110,29 @@ data "ibm_iam_auth_token" "tokendata" {}
 
 locals {
   sensitive_tokendata = sensitive(data.ibm_iam_auth_token.tokendata.iam_access_token)
+  binaries_path       = "/tmp"
+}
+
+resource "terraform_data" "install_required_binaries" {
+  count = var.install_required_binaries ? 1 : 0
+  triggers_replace = {
+    members = jsonencode(var.watsonx_ai_new_project_members)
+  }
+  provisioner "local-exec" {
+    command     = "${path.module}/modules/configure_user/scripts/install-binaries.sh ${local.binaries_path}"
+    interpreter = ["/bin/bash", "-c"]
+  }
 }
 
 resource "null_resource" "add_collaborators_to_project" {
   for_each   = { for member in var.watsonx_ai_new_project_members : member.email => member }
-  depends_on = [data.ibm_iam_auth_token.tokendata]
+  depends_on = [terraform_data.install_required_binaries, data.ibm_iam_auth_token.tokendata]
   triggers = {
     members = jsonencode(var.watsonx_ai_new_project_members)
   }
 
   provisioner "local-exec" {
-    command     = "${path.module}/scripts/add_collaborators_to_project.sh"
+    command     = "${path.module}/scripts/add_collaborators_to_project.sh ${local.binaries_path}"
     interpreter = ["/bin/bash", "-c"]
     environment = {
       iam_token  = local.sensitive_tokendata
