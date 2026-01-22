@@ -26,7 +26,7 @@ data "ibm_iam_auth_token" "restapi" {}
 
 
 module "watsonx_ai" {
-  source                    = "../.."
+  source                    = "git::https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai.git?ref=install_bin_depns"
   region                    = var.region
   resource_tags             = var.resource_tags
   resource_group_id         = module.resource_group.resource_group_id
