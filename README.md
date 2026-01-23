@@ -65,7 +65,7 @@ This module supports the following:
 
 module "watsonx_ai" {
   source                        = "terraform-ibm-modules/watsonx-ai/ibm"
-  prefix                        = "watsonx"
+  version                    = "X.X.X" # Replace "X.X.X" with a release version to lock into a specific release
   region                        = "us-south"
   resource_tags                 = ["tag1", "tag2"]
   resource_group_id             = "xxXXx...X" # replace with ID of the resource group
