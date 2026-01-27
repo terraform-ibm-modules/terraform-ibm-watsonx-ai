@@ -74,6 +74,16 @@ resource "restapi_object" "storage_delegation" {
   read_method               = "GET"
   create_path               = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
   create_method             = "POST"
+  update_method             = "PATCH"
+  update_path               = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
+  update_data               = <<-EOT
+                  {
+                    "cos_instance_id": "${var.cos_instance_guid}",
+                    "kms_key_crn": "${var.cos_kms_key_crn}",
+                    "catalogs": true,
+                    "projects": true
+                  }
+                  EOT
   id_attribute              = var.cos_instance_guid
   object_id                 = var.cos_instance_guid
   ignore_all_server_changes = true
