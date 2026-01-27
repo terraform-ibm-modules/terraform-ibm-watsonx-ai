@@ -102,7 +102,7 @@ locals {
 
 module "watsonx_ai_runtime_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.3.7"
+  version = "1.4.1"
   crn     = var.watsonx_ai_runtime_crn
 }
 
@@ -116,7 +116,7 @@ resource "null_resource" "add_collaborators_to_project" {
   for_each   = { for member in var.watsonx_ai_new_project_members : member.email => member }
   depends_on = [data.ibm_iam_auth_token.tokendata]
   triggers = {
-    members = jsonencode(var.watsonx_ai_new_project_members)
+    always_run = timestamp()
   }
 
   provisioner "local-exec" {
