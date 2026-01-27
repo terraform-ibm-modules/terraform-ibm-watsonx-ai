@@ -71,7 +71,7 @@ module "watsonx_ai" {
   resource_group_id             = "xxXXx...X" # replace with ID of the resource group
   watsonx_ai_studio_plan        = "free-v1"
   watsonx_ai_runtime_plan       = "lite"
-  project_name          = "my-project"
+  project_name                  = "my-project"
   enable_cos_kms_encryption     = true
   cos_instance_crn              = "xxXXx...X" # replace with CRN of the COS instance
   cos_kms_key_crn               = "xxXXx...X" # replace with CRN of KMS key
