@@ -102,7 +102,7 @@ locals {
 
 module "watsonx_ai_runtime_crn_parser" {
   source  = "terraform-ibm-modules/common-utilities/ibm//modules/crn-parser"
-  version = "1.3.7"
+  version = "1.4.1"
   crn     = var.watsonx_ai_runtime_crn
 }
 
