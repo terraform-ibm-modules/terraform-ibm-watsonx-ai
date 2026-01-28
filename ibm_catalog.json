@@ -275,14 +275,25 @@
             },
             {
               "key": "existing_cos_instance_crn",
+              "display_name": "existing_cos_instance",
               "required": true,
               "value_constraints": [
                 {
                   "type": "regex",
-                  "description": "The value provided for 'existing_cos_instance_crn' is not valid.",
+                  "description": "The value provided for 'existing_cos_instance' is not valid.",
                   "value": "^crn:v\\d:(.*:){2}cloud-object-storage:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
                 }
-              ]
+              ],
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "cloud-object-storage",
+                  "selection": "single_select",
+                  "valueType": "crn"
+                }
+              }
             },
             {
               "key": "enable_platform_metrics",
@@ -341,13 +352,24 @@
             },
             {
               "key": "existing_watsonx_ai_studio_instance_crn",
+              "display_name": "existing_watsonx_ai_studio_instance",
               "value_constraints": [
                 {
                   "type": "regex",
-                  "description": "The value provided for 'existing_watsonx_ai_studio_instance_crn' is not valid.",
+                  "description": "The value provided for 'existing_watsonx_ai_studio_instance' is not valid.",
                   "value": "^__NULL__$|^crn:v\\d:(.*:){2}data-science-experience:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
                 }
-              ]
+              ],
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "data-science-experience",
+                  "selection": "single_select",
+                  "valueType": "crn"
+                }
+              }
             },
             {
               "key": "watsonx_ai_runtime_instance_name"
@@ -385,13 +407,24 @@
             },
             {
               "key": "existing_watsonx_ai_runtime_instance_crn",
+              "display_name": "existing_watsonx_ai_runtime_instance",
               "value_constraints": [
                 {
                   "type": "regex",
-                  "description": "The value provided for 'existing_watsonx_ai_runtime_instance_crn' is not valid.",
+                  "description": "The value provided for 'existing_watsonx_ai_runtime_instance' is not valid.",
                   "value": "^__NULL__$|^crn:v\\d:(.*:){2}pm-20:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
                 }
-              ]
+              ],
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "pm-20",
+                  "selection": "single_select",
+                  "valueType": "crn"
+                }
+              }
             },
             {
               "key": "resource_tags",
@@ -439,13 +472,24 @@
             },
             {
               "key": "existing_kms_instance_crn",
+              "display_name": "existing_kms_instance",
               "value_constraints": [
                 {
                   "type": "regex",
-                  "description": "The value provided for 'existing_kms_instance_crn' is not valid.",
+                  "description": "The value provided for 'existing_kms_instance' is not valid.",
                   "value": "^__NULL__$|^crn:v\\d:(.*:){2}kms:(.*:)([aos]\\/[\\w_\\-]+):[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}::$"
                 }
-              ]
+              ],
+              "custom_config": {
+                "type": "platform_resource",
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "config_constraints": {
+                  "resourceType": "kms",
+                  "selection": "single_select",
+                  "valueType": "crn"
+                }
+              }
             },
             {
               "key": "ibmcloud_kms_api_key"
