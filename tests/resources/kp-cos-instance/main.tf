@@ -7,7 +7,7 @@ module "resource_group" {
 
 module "kms" {
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.5.25"
+  version                     = "5.5.26"
   create_key_protect_instance = true
   key_protect_instance_name   = "${var.prefix}-kp"
   resource_group_id           = module.resource_group.resource_group_id
@@ -19,7 +19,7 @@ module "kms" {
 # Temporary workaround for issue https://github.ibm.com/GoldenEye/issues/issues/15533
 module "cos_module" {
   source                     = "terraform-ibm-modules/cos/ibm"
-  version                    = "10.9.5"
+  version                    = "10.9.8"
   resource_group_id          = module.resource_group.resource_group_id
   region                     = var.region
   cos_instance_name          = "${var.prefix}-cos"
