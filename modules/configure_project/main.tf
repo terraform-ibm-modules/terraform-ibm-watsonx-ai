@@ -130,7 +130,6 @@ resource "null_resource" "add_collaborators_to_project" {
   triggers = {
     always_run = timestamp()
   }
-
   provisioner "local-exec" {
     command     = "${path.module}/scripts/add_collaborators_to_project.sh ${local.binaries_path}"
     interpreter = ["/bin/bash", "-c"]
