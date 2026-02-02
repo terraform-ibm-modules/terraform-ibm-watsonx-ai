@@ -116,7 +116,7 @@ locals {
 resource "terraform_data" "install_required_binaries" {
   count = var.install_required_binaries ? 1 : 0
   triggers_replace = {
-    members = jsonencode(var.watsonx_ai_new_project_members)
+    always_run = timestamp()
   }
   provisioner "local-exec" {
     command     = "${path.module}/../configure_user/scripts/install-binaries.sh ${local.binaries_path}"

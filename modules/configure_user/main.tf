@@ -10,7 +10,9 @@ resource "terraform_data" "install_required_binaries" {
   count = var.install_required_binaries ? 1 : 0
   triggers_replace = {
     region            = var.region
-    script_hash = filesha256("${path.module}/scripts/install-binaries.sh")
+    resource_group_id = var.resource_group_id
+    script_hash_1     = filesha256("${path.module}/scripts/add_user.sh")
+    script_hash_2     = filesha256("${path.module}/scripts/enforce_account_restriction.sh")
   }
   provisioner "local-exec" {
     command     = "${path.module}/scripts/install-binaries.sh ${local.binaries_path}"
@@ -19,6 +21,7 @@ resource "terraform_data" "install_required_binaries" {
 }
 
 resource "terraform_data" "configure_user" {
+  depends_on = [terraform_data.install_required_binaries]
   triggers_replace = {
     resource_group_id = var.resource_group_id
     region            = var.region
@@ -37,11 +40,11 @@ resource "terraform_data" "configure_user" {
 }
 
 resource "terraform_data" "restrict_access" {
+  depends_on = [terraform_data.install_required_binaries]
   triggers_replace = {
     region      = var.region
     script_hash = filesha256("${path.module}/scripts/enforce_account_restriction.sh")
   }
-
   provisioner "local-exec" {
     command     = "${path.module}/scripts/enforce_account_restriction.sh ${local.binaries_path}"
     interpreter = ["/bin/bash", "-c"]
