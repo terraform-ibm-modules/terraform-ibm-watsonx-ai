@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+
 # shellcheck disable=SC2154
 token="$(echo "$iam_token" | awk '{print $2}')"
 
