@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 set -e
-export PATH=$PATH:${1:-"/tmp"}
-
 # shellcheck disable=SC2154
 token="$(echo "$iam_token" | awk '{print $2}')"
 
