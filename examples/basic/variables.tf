@@ -32,7 +32,7 @@ variable "resource_group" {
 }
 
 variable "resource_tags" {
-  description = "Add user resource tags to the Watsonx Ai instance to organize, track, and manage costs. [Learn more](https://cloud.ibm.com/docs/account?topic=account-tag&interface=ui#tag-types)."
+  description = "Optional list of tags to describe the service instances created by the module."
   type        = list(string)
   default     = []
 }
