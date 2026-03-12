@@ -86,7 +86,7 @@ resource "restapi_object" "storage_delegation" {
                   EOT
   id_attribute              = var.cos_instance_guid
   object_id                 = var.cos_instance_guid
-  ignore_all_server_changes = true
+  # ignore_all_server_changes = true  # Commented out for v3.0.0 upgrade testing
   destroy_method            = "DELETE"
   destroy_path              = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
   data                      = <<-EOT
