@@ -5,6 +5,11 @@ module "resource_group" {
   existing_resource_group_name = var.resource_group
 }
 
+locals {
+  key_ring_name = "cos-key-ring"
+  key_name      = "cos-key"
+}
+
 module "kms" {
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
   version                     = "5.5.36"
@@ -14,15 +19,25 @@ module "kms" {
   region                      = var.region
   resource_tags               = var.resource_tags
   key_protect_allowed_network = var.key_protect_allowed_network
+  keys = [
+    {
+      key_ring_name = (local.key_ring_name)
+      keys = [
+        {
+          key_name = (local.key_name)
+        }
+      ]
+    }
+  ]
 }
 
 # Temporary workaround for issue https://github.ibm.com/GoldenEye/issues/issues/15533
 module "cos_module" {
-  source                     = "terraform-ibm-modules/cos/ibm"
-  version                    = "10.14.8"
-  resource_group_id          = module.resource_group.resource_group_id
-  region                     = var.region
-  cos_instance_name          = "${var.prefix}-cos"
-  existing_kms_instance_guid = module.kms.kms_guid
-  create_cos_bucket          = false
+  source            = "terraform-ibm-modules/cos/ibm"
+  version           = "10.14.8"
+  resource_group_id = module.resource_group.resource_group_id
+  region            = var.region
+  cos_instance_name = "${var.prefix}-cos"
+  kms_key_crn       = module.kms.keys["${local.key_ring_name}.${local.key_name}"].crn
+  create_cos_bucket = false
 }
