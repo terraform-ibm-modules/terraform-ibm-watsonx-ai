@@ -14,9 +14,9 @@ elif [ "$region" == "eu-de" ]; then
     dataplatform_api="https://api.eu-de.dataplatform.cloud.ibm.com"
 elif [ "$region" == "jp-tok" ]; then
     dataplatform_api="https://api.jp-tok.dataplatform.cloud.ibm.com"
-elif [ "$location" == "au-syd" ]; then
+elif [ "$region" == "au-syd" ]; then
     dataplatform_api="https://api.au-syd.dai.cloud.ibm.com"
-elif [ "$location" == "ca-tor" ]; then
+elif [ "$region" == "ca-tor" ]; then
     dataplatform_api="https://api.ca-tor.dai.cloud.ibm.com"
 else
     echo "Unknown region" && exit 1
