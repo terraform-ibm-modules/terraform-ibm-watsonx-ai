@@ -2,6 +2,7 @@
 package test
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -77,7 +78,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 // Provision KMS - Key Protect to use in DA tests
 func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.Options {
 	realTerraformDir := "./resources/kp-cos-instance"
-	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueId())))
+	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(realTerraformDir, fmt.Sprintf(prefix+"-%s", strings.ToLower(random.UniqueID())))
 
 	checkVariable := "TF_VAR_ibmcloud_api_key"
 	val, present := os.LookupEnv(checkVariable)
@@ -94,8 +95,8 @@ func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.O
 		Upgrade: true,
 	})
 
-	terraform.WorkspaceSelectOrNew(t, existingTerraformOptions, prefix)
-	_, existErr := terraform.InitAndApplyE(t, existingTerraformOptions)
+	terraform.WorkspaceSelectOrNewContext(t, context.Background(), existingTerraformOptions, prefix)
+	_, existErr := terraform.InitAndApplyContextE(t, context.Background(), existingTerraformOptions)
 	require.NoError(t, existErr, "Init and Apply of temp resources (KP Instance and Key creation) failed")
 
 	return existingTerraformOptions
@@ -122,7 +123,7 @@ func TestRunCompleteExample(t *testing.T) {
 
 func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.TestSchematicOptions {
 	var region = validRegions[common.CryptoIntn(len(validRegions))]
-	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueId()))
+	prefixExistingRes := fmt.Sprintf("wxai-da-%s", strings.ToLower(random.UniqueID()))
 	existingTerraformOptions := setupKMSKeyProtect(t, region, prefixExistingRes)
 
 	// Deploy watsonx.ai DA using existing KP details
@@ -150,9 +151,9 @@ func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.T
 		{Name: "existing_resource_group_name", Value: resourceGroup, DataType: "string"},
 		{Name: "provider_visibility", Value: "private", DataType: "string"},
 		{Name: "watsonx_ai_project_name", Value: "wxai-ug-prj", DataType: "string"},
-		{Name: "existing_kms_instance_crn", Value: terraform.Output(t, existingTerraformOptions, "key_protect_crn"), DataType: "string"},
+		{Name: "existing_kms_instance_crn", Value: terraform.OutputContext(t, context.Background(), existingTerraformOptions, "key_protect_crn"), DataType: "string"},
 		{Name: "kms_endpoint_type", Value: "private", DataType: "string"},
-		{Name: "existing_cos_instance_crn", Value: terraform.Output(t, existingTerraformOptions, "cos_crn"), DataType: "string"},
+		{Name: "existing_cos_instance_crn", Value: terraform.OutputContext(t, context.Background(), existingTerraformOptions, "cos_crn"), DataType: "string"},
 		{Name: "enable_cos_kms_encryption", Value: true, DataType: "string"},
 	}
 	return options
