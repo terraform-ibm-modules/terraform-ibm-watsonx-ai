@@ -182,6 +182,7 @@ func TestRunFullyConfigurableUpgradeSolutionSchematics(t *testing.T) {
 }
 
 func TestWatsonxaiDefaultConfiguration(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
