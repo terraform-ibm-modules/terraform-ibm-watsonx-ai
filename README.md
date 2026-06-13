@@ -28,29 +28,29 @@ IBM `watsonx.ai` provides an enterprise-grade studio of integrated tools for dev
 ## Overview
 <ul>
   <li><a href="#terraform-ibm-watsonx-ai">terraform-ibm-watsonx-ai</a></li>
-  <li><a href="./modules">Submodules</a>
+  <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/modules">Submodules</a>
     <ul>
-      <li><a href="./modules/configure_project">configure_project</a></li>
-      <li><a href="./modules/configure_user">configure_user</a></li>
-      <li><a href="./modules/storage_delegation">storage_delegation</a></li>
+      <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/modules/configure_project">configure_project</a></li>
+      <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/modules/configure_user">configure_user</a></li>
+      <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/modules/storage_delegation">storage_delegation</a></li>
     </ul>
   </li>
-  <li><a href="./examples">Examples</a>
+  <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/examples">Examples</a>
     <ul>
       <li>
-        <a href="./examples/basic">Basic example</a>
+        <a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/examples/basic">Basic example</a>
         <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=watsonx-ai-basic-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/examples/basic"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
       </li>
       <li>
-        <a href="./examples/complete">Complete example</a>
+        <a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/examples/complete">Complete example</a>
         <a href="https://cloud.ibm.com/schematics/workspaces/create?workspace_name=watsonx-ai-complete-example&repository=https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/examples/complete"><img src="https://img.shields.io/badge/Deploy%20with%20IBM%20Cloud%20Schematics-0f62fe?style=flat&logo=ibm&logoColor=white&labelColor=0f62fe" alt="Deploy with IBM Cloud Schematics" style="height: 16px; vertical-align: text-bottom; margin-left: 5px;"></a>
       </li>
     </ul>
     ℹ️ Ctrl/Cmd+Click or right-click on the Schematics deploy button to open in a new tab.
   </li>
-  <li><a href="./solutions">Deployable Architectures</a>
+  <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions">Deployable Architectures</a>
     <ul>
-      <li><a href="./solutions/fully-configurable">Cloud automation for watsonx.ai (Fully configurable)</a></li>
+      <li><a href="https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/tree/main/solutions/fully-configurable">Cloud automation for watsonx.ai (Fully configurable)</a></li>
     </ul>
   </li>
   <li><a href="#contributing">Contributing</a></li>
