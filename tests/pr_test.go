@@ -103,8 +103,6 @@ func setupKMSKeyProtect(t *testing.T, region string, prefix string) *terraform.O
 }
 
 func TestRunBasicExample(t *testing.T) {
-	t.Parallel()
-
 	options := setupOptions(t, "wxai-basic", basicExampleDir)
 
 	output, err := options.RunTestConsistency()
@@ -113,7 +111,6 @@ func TestRunBasicExample(t *testing.T) {
 }
 
 func TestRunCompleteExample(t *testing.T) {
-	t.Parallel()
 	options := setupOptions(t, "wxai-complete", completeExampleDir)
 
 	output, err := options.RunTestConsistency()
@@ -161,8 +158,6 @@ func setupFullyConfigurableOptions(t *testing.T, prefix string) *testschematic.T
 
 // Test the DA
 func TestRunFullyConfigurableSolutionSchematics(t *testing.T) {
-	t.Parallel()
-
 	options := setupFullyConfigurableOptions(t, "wxai")
 
 	err := options.RunSchematicTest()
@@ -170,8 +165,6 @@ func TestRunFullyConfigurableSolutionSchematics(t *testing.T) {
 }
 
 func TestRunFullyConfigurableUpgradeSolutionSchematics(t *testing.T) {
-	t.Parallel()
-
 	options := setupFullyConfigurableOptions(t, "wxai-up")
 	options.CheckApplyResultForUpgrade = true
 
@@ -182,8 +175,6 @@ func TestRunFullyConfigurableUpgradeSolutionSchematics(t *testing.T) {
 }
 
 func TestWatsonxaiDefaultConfiguration(t *testing.T) {
-	t.Parallel()
-
 	options := testaddons.TestAddonsOptionsDefault(&testaddons.TestAddonOptions{
 		Testing:       t,
 		Prefix:        "ai-def",
