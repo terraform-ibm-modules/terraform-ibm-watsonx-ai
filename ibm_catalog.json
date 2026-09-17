@@ -261,11 +261,11 @@
                 },
                 {
                   "displayname": "Essentials",
-                  "value": "v2-professional"
+                  "value": "v2-standard"
                 },
                 {
                   "displayname": "Standard",
-                  "value": "v2-standard"
+                  "value": "v2-professional"
                 }
               ]
             },
