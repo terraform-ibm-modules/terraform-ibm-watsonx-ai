@@ -99,6 +99,22 @@ module "watsonx_ai" {
 
 ```
 
+### Upgrading from versions that used the restapi provider
+
+The project and the COS storage delegation are now managed with the IBM provider (`>= 2.9.0`) resources `ibm_watsonx_project` and `ibm_watsonx_storage_delegation`. The project details come from the `ibm_watsonx_project` data source. You no longer need to configure a `restapi` provider or an IAM token data source.
+
+The module drops the old `restapi_object` entries from state without deleting anything. The project and the delegation already exist, so import them into the new resources before the first apply. Otherwise the create is rejected, because project names must be unique. Run these from your root module, and adjust the module address to match your configuration:
+
+```sh
+# Project ID: the last part of the old restapi_object.configure_project ID (/v2/projects/<project_id>)
+terraform import 'module.watsonx_ai.module.configure_project[0].ibm_watsonx_project.this' '<region>/<project_id>'
+
+# Only when enable_cos_kms_encryption = true. The ID is the COS instance GUID.
+terraform import 'module.watsonx_ai.module.storage_delegation[0].ibm_watsonx_storage_delegation.this' '<kms_region>/<cos_instance_guid>'
+```
+
+Or, with Terraform 1.5 or later, add `import` blocks with the same `to` and `id` values in your root module.
+
 ### Required access policies
 
 You need the following permissions to run this module:

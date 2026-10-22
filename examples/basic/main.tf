@@ -22,9 +22,6 @@ module "cos" {
 # Create watsonx.ai project without KMS encryption
 ############################################################################################
 
-data "ibm_iam_auth_token" "restapi" {}
-
-
 module "watsonx_ai" {
   source                    = "../.."
   region                    = var.region

@@ -56,10 +56,6 @@ module "key_protect_all_inclusive" {
 # Create watsonx.ai project with KMS encryption
 ########################################################################################################################
 
-data "ibm_iam_auth_token" "restapi" {
-}
-
-
 module "watsonx_ai" {
   source                    = "../.."
   region                    = var.region
