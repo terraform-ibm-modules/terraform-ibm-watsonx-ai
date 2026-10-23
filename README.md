@@ -99,6 +99,17 @@ module "watsonx_ai" {
 
 ```
 
+### Upgrading from versions that used the restapi provider
+
+The watsonx.ai project and the COS storage delegation are now managed with plain HTTP calls to the IBM watsonx platform API. Create, update and delete run as `curl` scripts from `terraform_data` resources, and the project is read back with the `hashicorp/http` data source. You no longer need to configure a `restapi` provider or an IAM token data source in your root module.
+
+`removed` blocks drop the old `restapi_object` entries from state without deleting anything. The scripts look the project up by name and the delegation up by COS instance ID, so existing deployments are picked up on the next apply with no import step.
+
+Two things to note:
+
+- The scripts need `curl` and `jq` on the machine that runs Terraform. The `configure_user` module installs `jq` under `/tmp` when `install_required_binaries` is enabled.
+- Destroy time provisioners cannot read provider data sources, so the delete scripts authenticate with an API key from the environment. Set `IBMCLOUD_API_KEY`, `IC_API_KEY` or `TF_VAR_ibmcloud_api_key` before running `terraform destroy`.
+
 ### Required access policies
 
 You need the following permissions to run this module:

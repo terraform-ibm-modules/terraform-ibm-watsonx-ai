@@ -1,91 +1,168 @@
-resource "restapi_object" "configure_project" {
-  path                      = local.dataplatform_api
-  read_path                 = "${local.dataplatform_api}{id}"
-  read_method               = "GET"
-  create_path               = "${local.dataplatform_api}/transactional/v2/projects?verify_unique_name=true"
-  create_method             = "POST"
-  id_attribute              = "location"
-  ignore_all_server_changes = true
-  destroy_method            = "DELETE"
-  destroy_path              = "${local.dataplatform_api}/transactional{id}"
-  data                      = <<-EOT
-                  {
-                    "name": "${var.project_name}",
-                    "generator": "terraform-ibm-watsonx-ai",
-                    "type": "wx",
-                    "storage": {
-                      "type": "bmcos_object_storage",
-                      "guid": "${var.cos_guid}",
-                      "resource_crn": "${var.cos_crn}",
-                      "delegated": ${var.watsonx_project_delegated}
-                    },
-                    "description": "${var.project_description}",
-                    "public": true,
-                    "tags": ${jsonencode(var.project_tags)},
-                    "compute": [
-                      {
-                        "name": "${var.watsonx_ai_runtime_name}",
-                        "guid": "${var.watsonx_ai_runtime_guid}",
-                        "type": "machine_learning",
-                        "crn": "${var.watsonx_ai_runtime_crn}"
-                      }
-                    ],
-                    "settings": {
-                      "access_restrictions": {
-                        "data": ${var.mark_as_sensitive}
-                      }
-                    }
-                  }
-                  EOT
-  update_method             = "PATCH"
-  update_path               = "${local.dataplatform_api}{id}"
-  update_data               = <<-EOT
-                  {
-                    "name": "${var.project_name}",
-                    "type": "wx",
-                    "description": "${var.project_description}",
-                    "public": true,
-                    "compute": [
-                      {
-                        "name": "${var.watsonx_ai_runtime_name}",
-                        "guid": "${var.watsonx_ai_runtime_guid}",
-                        "type": "machine_learning",
-                        "crn": "${var.watsonx_ai_runtime_crn}",
-                        "credentials": {}
-                      }
-                    ]
-                  }
-                  EOT
+locals {
+  binaries_path = "/tmp"
+
+  # Body sent on POST /transactional/v2/projects
+  project_payload = jsonencode({
+    name      = var.project_name
+    generator = "terraform-ibm-watsonx-ai"
+    type      = "wx"
+    storage = {
+      type         = "bmcos_object_storage"
+      guid         = var.cos_guid
+      resource_crn = var.cos_crn
+      delegated    = var.watsonx_project_delegated
+    }
+    description = var.project_description
+    public      = true
+    tags        = var.project_tags
+    compute = [
+      {
+        name = var.watsonx_ai_runtime_name
+        guid = var.watsonx_ai_runtime_guid
+        type = "machine_learning"
+        crn  = var.watsonx_ai_runtime_crn
+      }
+    ]
+    settings = {
+      access_restrictions = {
+        data = var.mark_as_sensitive
+      }
+    }
+  })
+
+  # Body sent on PATCH /v2/projects/{id}
+  project_patch = jsonencode({
+    name        = var.project_name
+    type        = "wx"
+    description = var.project_description
+    public      = true
+    compute = [
+      {
+        name        = var.watsonx_ai_runtime_name
+        guid        = var.watsonx_ai_runtime_guid
+        type        = "machine_learning"
+        crn         = var.watsonx_ai_runtime_crn
+        credentials = {}
+      }
+    ]
+  })
+}
+
+# Creates the project over HTTP (POST) and deletes it on destroy (DELETE).
+# The project is looked up by name, so renaming the project replaces it.
+# The destroy provisioner cannot read provider data sources, so delete_project.sh
+# authenticates with IBMCLOUD_API_KEY, IC_API_KEY or TF_VAR_ibmcloud_api_key.
+resource "terraform_data" "project" {
+  triggers_replace = {
+    project_name = var.project_name
+    region       = var.region
+    script_hash  = filesha256("${path.module}/scripts/create_project.sh")
+  }
+
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/create_project.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH   = local.binaries_path
+      iam_token       = local.sensitive_tokendata
+      region          = var.region
+      project_name    = var.project_name
+      project_payload = local.project_payload
+    }
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    command     = "${path.module}/scripts/delete_project.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH = "/tmp"
+      region        = self.triggers_replace.region
+      project_name  = self.triggers_replace.project_name
+    }
+  }
+}
+
+# Applies the mutable settings over HTTP (PATCH) whenever they change, without
+# replacing the project.
+resource "terraform_data" "project_update" {
+  depends_on = [terraform_data.project]
+  triggers_replace = {
+    project_name            = var.project_name
+    region                  = var.region
+    project_description     = var.project_description
+    watsonx_ai_runtime_name = var.watsonx_ai_runtime_name
+    watsonx_ai_runtime_guid = var.watsonx_ai_runtime_guid
+    watsonx_ai_runtime_crn  = var.watsonx_ai_runtime_crn
+    script_hash             = filesha256("${path.module}/scripts/update_project.sh")
+  }
+
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/update_project.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH = local.binaries_path
+      iam_token     = local.sensitive_tokendata
+      region        = var.region
+      project_name  = var.project_name
+      project_patch = local.project_patch
+    }
+  }
+}
+
+# Drop the old restapi object from state without calling its destroy, so the
+# project is not deleted. create_project.sh finds the existing project by name.
+removed {
+  from = restapi_object.configure_project
+  lifecycle {
+    destroy = false
+  }
 }
 
 resource "time_sleep" "wait_5_seconds" {
-  depends_on      = [restapi_object.configure_project]
+  depends_on      = [terraform_data.project, terraform_data.project_update]
   create_duration = "5s"
 }
 
-data "restapi_object" "get_project" {
-  depends_on   = [resource.restapi_object.configure_project, resource.time_sleep.wait_5_seconds]
-  path         = "${local.dataplatform_api}/v2/projects"
-  query_string = "project_ids=${local.watsonx_project_id}"
-  results_key  = "resources"
-  search_key   = "metadata/guid"
-  search_value = local.watsonx_project_id
-  id_attribute = "metadata/guid"
+# Reads the project back over HTTP (GET /v2/projects?name=...).
+data "http" "project" {
+  depends_on = [time_sleep.wait_5_seconds]
+  url        = "${local.dataplatform_api}/v2/projects?name=${urlencode(var.project_name)}&limit=100"
+  method     = "GET"
+  request_headers = {
+    Accept        = "application/json"
+    Authorization = local.sensitive_tokendata
+  }
+
+  retry {
+    attempts     = 3
+    min_delay_ms = 2000
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = self.status_code == 200
+      error_message = "Reading the watsonx.ai project '${var.project_name}' returned HTTP ${self.status_code}."
+    }
+    postcondition {
+      condition     = length([for p in try(jsondecode(self.response_body).resources, []) : p if p.entity.name == var.project_name]) == 1
+      error_message = "Expected exactly one watsonx.ai project named '${var.project_name}'."
+    }
+  }
 }
 
 locals {
   dataplatform_api_mapping = {
-    "us-south" = "//api.dataplatform.cloud.ibm.com",
-    "eu-gb"    = "//api.eu-gb.dataplatform.cloud.ibm.com",
-    "eu-de"    = "//api.eu-de.dataplatform.cloud.ibm.com",
-    "jp-tok"   = "//api.jp-tok.dataplatform.cloud.ibm.com",
-    "au-syd"   = "//api.au-syd.dai.cloud.ibm.com",
-    "ca-tor"   = "//api.ca-tor.dai.cloud.ibm.com"
+    "us-south" = "https://api.dataplatform.cloud.ibm.com",
+    "eu-gb"    = "https://api.eu-gb.dataplatform.cloud.ibm.com",
+    "eu-de"    = "https://api.eu-de.dataplatform.cloud.ibm.com",
+    "jp-tok"   = "https://api.jp-tok.dataplatform.cloud.ibm.com",
+    "au-syd"   = "https://api.au-syd.dai.cloud.ibm.com",
+    "ca-tor"   = "https://api.ca-tor.dai.cloud.ibm.com"
   }
-  dataplatform_api          = local.dataplatform_api_mapping[var.region]
-  watsonx_project_id_object = restapi_object.configure_project.id
-  watsonx_project_id        = regex("^.+/([a-f0-9\\-]+)$", local.watsonx_project_id_object)[0]
-  watsonx_project_data      = jsondecode(data.restapi_object.get_project.api_response)
+  dataplatform_api     = local.dataplatform_api_mapping[var.region]
+  watsonx_project_data = [for p in jsondecode(data.http.project.response_body).resources : p if p.entity.name == var.project_name][0]
+  watsonx_project_id   = local.watsonx_project_data.metadata.guid
   dataplatform_ui_mapping = {
     "us-south" = "https://dataplatform.cloud.ibm.com",
     "eu-gb"    = "https://eu-gb.dataplatform.cloud.ibm.com",

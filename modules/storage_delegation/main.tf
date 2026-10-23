@@ -6,15 +6,6 @@ module "kms_key_crn_parser" {
 
 locals {
   region = module.kms_key_crn_parser.region
-  dataplatform_ui_mapping = {
-    "us-south" = "dataplatform.cloud.ibm.com",
-    "eu-gb"    = "eu-gb.dataplatform.cloud.ibm.com",
-    "eu-de"    = "eu-de.dataplatform.cloud.ibm.com",
-    "jp-tok"   = "jp-tok.dataplatform.cloud.ibm.com",
-    "au-syd"   = "au-syd.dai.cloud.ibm.com",
-    "ca-tor"   = "ca-tor.dai.cloud.ibm.com"
-  }
-  dataplatform_ui = local.dataplatform_ui_mapping[local.region]
 
   kms_service                 = module.kms_key_crn_parser.service_name
   kms_account_id              = module.kms_key_crn_parser.account_id
@@ -67,34 +58,85 @@ resource "time_sleep" "wait_for_authorization_policy" {
   destroy_duration = "30s"
 }
 
-resource "restapi_object" "storage_delegation" {
-  depends_on                = [time_sleep.wait_for_authorization_policy]
-  path                      = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
-  read_path                 = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
-  read_method               = "GET"
-  create_path               = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations"
-  create_method             = "POST"
-  update_method             = "PATCH"
-  update_path               = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
-  update_data               = <<-EOT
-                  {
-                    "cos_instance_id": "${var.cos_instance_guid}",
-                    "kms_key_crn": "${var.cos_kms_key_crn}",
-                    "catalogs": true,
-                    "projects": true
-                  }
-                  EOT
-  id_attribute              = var.cos_instance_guid
-  object_id                 = var.cos_instance_guid
-  ignore_all_server_changes = true
-  destroy_method            = "DELETE"
-  destroy_path              = "//${local.dataplatform_ui}/api/rest/v1/storage-delegations/{id}"
-  data                      = <<-EOT
-                  {
-                    "cos_instance_id": "${var.cos_instance_guid}",
-                    "kms_key_crn": "${var.cos_kms_key_crn}",
-                    "catalogs": true,
-                    "projects": true
-                  }
-                  EOT
+data "ibm_iam_auth_token" "tokendata" {}
+
+locals {
+  sensitive_tokendata = sensitive(data.ibm_iam_auth_token.tokendata.iam_access_token)
+  binaries_path       = "/tmp"
+
+  delegation_payload = jsonencode({
+    cos_instance_id = var.cos_instance_guid
+    kms_key_crn     = var.cos_kms_key_crn
+    catalogs        = true
+    projects        = true
+  })
+}
+
+# Creates the storage delegation over HTTP (POST) and removes it on destroy (DELETE).
+# The destroy provisioner cannot read provider data sources, so
+# delete_storage_delegation.sh authenticates with IBMCLOUD_API_KEY, IC_API_KEY or
+# TF_VAR_ibmcloud_api_key.
+resource "terraform_data" "storage_delegation" {
+  depends_on = [time_sleep.wait_for_authorization_policy]
+  triggers_replace = {
+    cos_instance_id = var.cos_instance_guid
+    region          = local.region
+    script_hash     = filesha256("${path.module}/scripts/create_storage_delegation.sh")
+  }
+
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/create_storage_delegation.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH      = local.binaries_path
+      iam_token          = local.sensitive_tokendata
+      region             = local.region
+      cos_instance_id    = var.cos_instance_guid
+      delegation_payload = local.delegation_payload
+    }
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    command     = "${path.module}/scripts/delete_storage_delegation.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH   = "/tmp"
+      region          = self.triggers_replace.region
+      cos_instance_id = self.triggers_replace.cos_instance_id
+    }
+  }
+}
+
+# Drop the old restapi object from state without calling its destroy, so the
+# delegation is not removed. create_storage_delegation.sh finds the existing
+# delegation by COS instance ID and patches it.
+removed {
+  from = restapi_object.storage_delegation
+  lifecycle {
+    destroy = false
+  }
+}
+
+# Applies a changed KMS key over HTTP (PATCH) without removing the delegation.
+resource "terraform_data" "storage_delegation_update" {
+  depends_on = [terraform_data.storage_delegation]
+  triggers_replace = {
+    cos_instance_id = var.cos_instance_guid
+    region          = local.region
+    kms_key_crn     = var.cos_kms_key_crn
+    script_hash     = filesha256("${path.module}/scripts/update_storage_delegation.sh")
+  }
+
+  provisioner "local-exec" {
+    command     = "${path.module}/scripts/update_storage_delegation.sh"
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      BINARIES_PATH      = local.binaries_path
+      iam_token          = local.sensitive_tokendata
+      region             = local.region
+      cos_instance_id    = var.cos_instance_guid
+      delegation_payload = local.delegation_payload
+    }
+  }
 }

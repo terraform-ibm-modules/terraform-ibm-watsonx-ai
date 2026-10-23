@@ -81,9 +81,6 @@ locals {
   create_cross_account_cos_kms_auth_policy = (local.create_cos_kms_iam_auth_policy && (var.ibmcloud_kms_api_key != null || (local.kms_account_id != null && local.cos_account_id != null && local.kms_account_id != local.cos_account_id)))
 }
 
-data "ibm_iam_auth_token" "restapi" {
-}
-
 module "watsonx_ai" {
   source            = "../.."
   region            = var.region

@@ -1,9 +1,9 @@
 terraform {
   required_version = ">= 1.9.0"
   required_providers {
-    restapi = {
-      source  = "Mastercard/restapi"
-      version = ">= 2.0.1, < 3.0.0"
+    http = {
+      source  = "hashicorp/http"
+      version = ">= 3.4.0, < 4.0.0"
     }
     time = {
       source  = "hashicorp/time"
