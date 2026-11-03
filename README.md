@@ -124,14 +124,14 @@ You need the following permissions to run this module:
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.70.1, < 3.0.0 |
 
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_configure_project"></a> [configure\_project](#module\_configure\_project) | ./modules/configure_project | n/a |
 | <a name="module_configure_user"></a> [configure\_user](#module\_configure\_user) | ./modules/configure_user | n/a |
 | <a name="module_cos_crn_parser"></a> [cos\_crn\_parser](#module\_cos\_crn\_parser) | terraform-ibm-modules/common-utilities/ibm//modules/crn-parser | 1.9.0 |
@@ -141,7 +141,7 @@ You need the following permissions to run this module:
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_resource_instance.watsonx_ai_runtime_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
 | [ibm_resource_instance.watsonx_ai_studio_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
 | [ibm_resource_instance.existing_watsonx_ai_runtime_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
@@ -150,7 +150,7 @@ You need the following permissions to run this module:
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cos_instance_crn"></a> [cos\_instance\_crn](#input\_cos\_instance\_crn) | The CRN of the Object Storage instance. | `string` | n/a | yes |
 | <a name="input_cos_kms_key_crn"></a> [cos\_kms\_key\_crn](#input\_cos\_kms\_key\_crn) | The CRN of a Key Protect key. This key is used to encrypt the Object Storage buckets used by watsonx.ai. | `string` | `null` | no |
 | <a name="input_create_watsonx_ai_project"></a> [create\_watsonx\_ai\_project](#input\_create\_watsonx\_ai\_project) | Whether to create and configure a starter watsonx.ai project. | `bool` | `true` | no |
@@ -175,7 +175,7 @@ You need the following permissions to run this module:
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_watsonx_ai_project_bucket_name"></a> [watsonx\_ai\_project\_bucket\_name](#output\_watsonx\_ai\_project\_bucket\_name) | The name of the Object Storage bucket created for the watsonx.ai project. |
 | <a name="output_watsonx_ai_project_id"></a> [watsonx\_ai\_project\_id](#output\_watsonx\_ai\_project\_id) | The ID of the watsonx.ai project that is created. |
 | <a name="output_watsonx_ai_project_url"></a> [watsonx\_ai\_project\_url](#output\_watsonx\_ai\_project\_url) | The URL of the watsonx.ai project that is created. |
