@@ -7,7 +7,7 @@ This submodule is used to create and configure the IBM watsonx.ai Project. For m
 If you set `watsonx_ai_new_project_members`, Terraform shows one `null_resource.add_collaborators_to_project` entry per collaborator as "must be replaced" (`-/+`) on every `terraform plan` and `terraform apply`, even when you haven't changed any input. For example:
 
 ```text
-# module.watsonx_ai.module.configure_project[0].null_resource.add_collaborators_to_project["user@example.com"] must be replaced
+# null_resource.add_collaborators_to_project["user@example.com"] must be replaced
 -/+ resource "null_resource" "add_collaborators_to_project" {
       ~ id       = "6290518102018860361" -> (known after apply)
       ~ triggers = { # forces replacement
