@@ -31,3 +31,7 @@ This is an example of adding two new members, one as an admin and one as a viewe
   }
 ]
 ```
+
+**Note:** The `null_resource.add_collaborators_to_project` resource in the `configure_project` submodule is replaced (`-/+`) on every `terraform plan` and `terraform apply` when `watsonx_ai_new_project_members` is set. This is expected behavior. The `null_resource` doesn't represent an IBM Cloud resource, but each replacement runs a script that calls the watsonx.ai API to add the collaborators.
+
+A `timestamp()` trigger forces the script to run on every apply, so any collaborator (user, service ID, access group, or trusted profile) removed directly from the watsonx.ai project outside of Terraform is added again on the next apply. For details, see [Resources updated on every apply](../../modules/configure_project/README.md#resources-updated-on-every-apply).

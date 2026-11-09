@@ -22,6 +22,6 @@ Collaborators are added to the project through a script that calls the watsonx.a
 
 ### What it means for you
 
-* **Your infrastructure is not affected.** A `null_resource` doesn't represent anything in IBM Cloud, so replacing it only updates the Terraform state. No IBM Cloud resource is created, changed, or deleted.
+* **The `null_resource` itself doesn't change your infrastructure.** A `null_resource` doesn't represent an IBM Cloud resource, so replacing it doesn't create or delete anything in IBM Cloud by itself. However, each replacement runs the script again, which calls the watsonx.ai API to add the collaborators.
 * **Collaborators are re-added on every apply.** The script re-submits every entry in `watsonx_ai_new_project_members` to the project. If a user, service ID, access group, or trusted profile was removed from the project's **Access control** > **Collaborators** list in the watsonx.ai UI, the next apply attempts to add it again.
 * **You can safely ignore these entries in the plan.** They don't indicate drift or an error.
