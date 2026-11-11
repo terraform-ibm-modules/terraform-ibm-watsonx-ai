@@ -122,14 +122,15 @@ resource "null_resource" "add_collaborators_to_project" {
     command     = "${path.module}/scripts/add_collaborators_to_project.sh"
     interpreter = ["/bin/bash", "-c"]
     environment = {
-      iam_token  = local.sensitive_tokendata
-      region     = var.region
-      project_id = local.watsonx_project_id
-      user_name  = each.value.email
-      iam_id     = each.value.iam_id
-      role       = each.value.role
-      state      = each.value.state
-      type       = each.value.type
+      iam_token          = local.sensitive_tokendata
+      region             = var.region
+      project_id         = local.watsonx_project_id
+      user_name          = each.value.email
+      iam_id             = each.value.iam_id
+      role               = each.value.role
+      state              = each.value.state
+      type               = each.value.type
+      configured_members = join(",", distinct(concat([for member in var.watsonx_ai_new_project_members : member.email], [for member in var.watsonx_ai_new_project_members : member.iam_id])))
     }
   }
 }
